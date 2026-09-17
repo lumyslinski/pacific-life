@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1220" viewBox="0 0 1600 1220" role="img">
+<title>03 Silver to Gold</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<rect width="1600" height="1220" fill="#FFFFFF"/>
+<rect x="40" y="24" width="1520" height="46" fill="#FFFFFF"/>
+<text x="40" y="56.86" text-anchor="start" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#172B46">Custom runs · override input parameters from Silver</text>
+<rect x="40" y="78" width="1520" height="34" fill="#FFFFFF"/>
+<text x="40" y="100.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#738096">Revision 3 target · POST /runs returns 202; Vue polls saved status; fenced commits protect immutable results.</text>
+<rect x="580" y="150" width="430" height="135" rx="3" fill="#FFFFFF" stroke="#738096" stroke-width="1.7"/>
+<rect x="592" y="160" width="406" height="115" fill="#FFFFFF"/>
+<text x="795.0" y="195.9" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172B46">SILVER · Immutable core model</text>
+<text x="795.0" y="224.3" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172B46">Completed Core Calculation output</text>
+<text x="795.0" y="252.7" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#172B46">{ DeathPenatly: 800 }</text>
+<rect x="580" y="375" width="430" height="190" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="592" y="385" width="406" height="170" fill="#FFFFFF"/>
+<text x="795.0" y="435.98999999999995" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172B46">Editable custom scenario</text>
+<text x="795.0" y="462.96999999999997" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172B46">Source: the immutable core model</text>
+<text x="795.0" y="489.94999999999993" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172B46">User changes DeathPenatly to 700</text>
+<text x="795.0" y="516.93" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172B46">Each edit saves a new scenario revision</text>
+<rect x="80" y="375" width="330" height="190" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="92" y="385" width="306" height="170" fill="#FFFFFF"/>
+<text x="245.0" y="437.78000000000003" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Vue workspace</text>
+<text x="245.0" y="463.34000000000003" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Edit model values / settings</text>
+<text x="245.0" y="488.90000000000003" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Save next draft revision</text>
+<text x="245.0" y="514.46" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Run or retry anytime</text>
+<rect x="1160" y="375" width="360" height="190" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="1172" y="385" width="336" height="170" fill="#FFFFFF"/>
+<text x="1340.0" y="437.78000000000003" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Pinned Data Contract</text>
+<text x="1340.0" y="463.34000000000003" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Schema + custom process rules</text>
+<text x="1340.0" y="488.90000000000003" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Reused or custom SQL releases</text>
+<text x="1340.0" y="514.46" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Allowed override rules</text>
+<polyline points="795,285 795,375" fill="none" stroke="#24795C" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="617" y="311" width="356" height="33" fill="#FFFFFF"/>
+<text x="795.0" y="333.28" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#24795C">Reference; never modify Silver</text>
+<polyline points="410,470 580,470" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="420" y="430" width="150" height="32" fill="#FFFFFF"/>
+<text x="495.0" y="451.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#356CC9">Edit / run</text>
+<polyline points="1160,470 1010,470" fill="none" stroke="#356CC9" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="1018" y="430" width="134" height="32" fill="#FFFFFF"/>
+<text x="1085.0" y="451.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#356CC9">Resolve spec</text>
+<rect x="580" y="660" width="430" height="140" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="592" y="670" width="406" height="120" fill="#FFFFFF"/>
+<text x="795.0" y="709.48" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172B46">Queued custom run · Regional</text>
+<text x="795.0" y="736.46" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172B46">Fresh Silver + draft overrides</text>
+<text x="795.0" y="763.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172B46">Fenced worker → DB function calls</text>
+<polyline points="795,565 795,660" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="617" y="600" width="356" height="30" fill="#FFFFFF"/>
+<text x="795.0" y="620.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">New run for a new draft</text>
+<rect x="580" y="920" width="430" height="150" rx="3" fill="#FFFFFF" stroke="#A96915" stroke-width="1.7"/>
+<rect x="592" y="930" width="406" height="130" fill="#FFFFFF"/>
+<text x="795.0" y="962.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">GOLD · Completed regional models</text>
+<text x="795.0" y="988.3399999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">First calculation: { DeathPenatly: 630 }</text>
+<text x="795.0" y="1013.9" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Next calculation: { DeathPenatly: 540 }</text>
+<text x="795.0" y="1039.46" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Prior results remain readable</text>
+<polyline points="795,800 795,920" fill="none" stroke="#24795C" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="617" y="850" width="356" height="31" fill="#FFFFFF"/>
+<text x="795.0" y="871.28" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#24795C">Commit result + lineage + audit</text>
+<rect x="1160" y="660" width="360" height="195" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="1172" y="670" width="336" height="175" fill="#FFFFFF"/>
+<text x="1340.0" y="715.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Retry the same pinned run</text>
+<text x="1340.0" y="739.14" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Same input + function versions</text>
+<text x="1340.0" y="763.28" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Succeeded → return saved result</text>
+<text x="1340.0" y="787.42" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Failed → retry frozen input</text>
+<text x="1340.0" y="811.56" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Never use partial output</text>
+<polyline points="1010,708 1160,708" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1020" y="670" width="130" height="32" fill="#FFFFFF"/>
+<text x="1085.0" y="691.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#356CC9">Retry</text>
+<polyline points="1160,810 1090,810 1090,777 1010,777" fill="none" stroke="#356CC9" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="80" y="665" width="330" height="210" rx="3" fill="#FFFFFF" stroke="#24795C" stroke-width="1.7"/>
+<rect x="92" y="675" width="306" height="190" fill="#FFFFFF"/>
+<text x="245.0" y="730.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">DeathPenatly example</text>
+<text x="245.0" y="752.72" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Immutable core amount: 800</text>
+<text x="245.0" y="775.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">First user edit: 700 → result 630</text>
+<text x="245.0" y="798.16" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Next user edit: 600 → result 540</text>
+<text x="245.0" y="820.88" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Regional rule: reduce by 10%</text>
+<rect x="75" y="890" width="345" height="75" fill="#FFFFFF"/>
+<text x="247.5" y="920.84" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#24795C">Recalculation does not</text>
+<text x="247.5" y="946.4" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#24795C">compound previous Gold values.</text>
+<polyline points="580,995 45,995 45,470 80,470" fill="none" stroke="#24795C" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="85" y="1007" width="425" height="44" fill="#FFFFFF"/>
+<text x="297.5" y="1034.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#24795C">Review Gold; finish or edit the next draft</text>
+<rect x="1135" y="921" width="410" height="118" fill="#FFFFFF"/>
+<text x="1340.0" y="947.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Failure publishes no Gold result.</text>
+<text x="1340.0" y="973.3399999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Persist attempt errors; retain history.</text>
+<text x="1340.0" y="998.9" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Guard result pointer by draft + run.</text>
+<text x="1340.0" y="1024.46" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">New settings need a new draft/run.</text>
+<rect x="55" y="1110" width="1490" height="34" fill="#FFFFFF"/>
+<text x="800.0" y="1133.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#172B46">After every delivered Gold model the user decides: finish the pipeline, edit the draft and rerun from Silver, or chain a new scenario from this Gold.</text>
+<rect x="55" y="1155" width="1490" height="34" fill="#FFFFFF"/>
+<text x="800.0" y="1178.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Default source = Silver. Chaining must explicitly pin the parent Gold ID/revision/hash; it never replaces Silver or rewrites history.</text>
+</svg>

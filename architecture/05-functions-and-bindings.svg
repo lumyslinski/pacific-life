@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1370" viewBox="0 0 1440 1370" role="img">
+<title>05 Functions and bindings</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<rect width="1440" height="1370" fill="#FFFFFF"/>
+<rect x="40" y="24" width="1360" height="46" fill="#FFFFFF"/>
+<text x="40" y="56.86" text-anchor="start" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#172B46">Editable SQL functions and runtime binding selection</text>
+<rect x="40" y="78" width="1360" height="34" fill="#FFFFFF"/>
+<text x="40" y="100.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#738096">Implemented version 2 · SQL releases stay in the database. The target contract publisher validates these same releases.</text>
+<rect x="50" y="160" width="600" height="110" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="62" y="170" width="576" height="90" fill="#FFFFFF"/>
+<text x="350.0" y="194.48000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172B46">PUT /functions/CUSTOM_CI</text>
+<text x="350.0" y="221.46" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172B46">FunctionCatalog.edit(expectedRevision, definition)</text>
+<text x="350.0" y="248.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172B46">FUNCTION_DRAFTS: mutable draft r1</text>
+<rect x="815" y="160" width="570" height="135" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="827" y="170" width="546" height="115" fill="#FFFFFF"/>
+<text x="1100.0" y="195.28" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Draft SQL definition</text>
+<text x="1100.0" y="220.84" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">AMOUNT NUMBER(18,2), FACTOR NUMBER(18,8)</text>
+<text x="1100.0" y="246.4" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">RETURNS NUMBER(18,2)</text>
+<text x="1100.0" y="271.96" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">ROUND(AMOUNT * FACTOR, 2)</text>
+<polyline points="650,215 815,215" fill="none" stroke="#738096" stroke-width="1.7"/>
+<rect x="50" y="370" width="600" height="100" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="62" y="380" width="576" height="80" fill="#FFFFFF"/>
+<text x="350.0" y="400.56" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">POST /functions/CUSTOM_CI/preview</text>
+<text x="350.0" y="426.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Create unique preview UDF → SELECT → DROP</text>
+<text x="350.0" y="451.68" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Preview(125000.00, 0.90) = 112500.00</text>
+<polyline points="350,270 350,370" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="77" y="300" width="550" height="32" fill="#FFFFFF"/>
+<text x="352.0" y="321.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#738096">optional preview in the SQL engine</text>
+<rect x="50" y="570" width="600" height="150" rx="3" fill="#FFFFFF" stroke="#24795C" stroke-width="1.7"/>
+<rect x="62" y="580" width="576" height="130" fill="#FFFFFF"/>
+<text x="350.0" y="614.5699999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">POST /functions/CUSTOM_CI/publish</text>
+<text x="350.0" y="638.7099999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">FunctionCatalog.publish(expectedRevision: 1)</text>
+<text x="350.0" y="662.8499999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">CREATE FUNCTION INSURANCE.RELEASES.CUSTOM_CI_R1</text>
+<text x="350.0" y="686.9899999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">then INSERT FUNCTION_RELEASES metadata</text>
+<polyline points="350,470 350,570" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="77" y="500" width="550" height="32" fill="#FFFFFF"/>
+<text x="352.0" y="521.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#356CC9">publish exact draft revision</text>
+<rect x="815" y="540" width="570" height="180" rx="3" fill="#FFFFFF" stroke="#24795C" stroke-width="1.7"/>
+<rect x="827" y="550" width="546" height="160" fill="#FFFFFF"/>
+<text x="1100.0" y="572.22" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Published release is immutable</text>
+<text x="1100.0" y="597.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">SQL name + signature + body + definitionHash</text>
+<text x="1100.0" y="623.34" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46"></text>
+<text x="1100.0" y="648.9" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Editing draft r2 can publish CUSTOM_CI_R2.</text>
+<text x="1100.0" y="674.46" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Existing bindings still use CUSTOM_CI_R1.</text>
+<text x="1100.0" y="700.02" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">DDL publication precedes registry insertion.</text>
+<polyline points="650,645 815,645" fill="none" stroke="#24795C" stroke-width="1.7"/>
+<rect x="50" y="815" width="600" height="180" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="62" y="825" width="576" height="160" fill="#FFFFFF"/>
+<text x="350.0" y="860.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Select the release for CriticalIllness</text>
+<text x="350.0" y="885.56" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">functionId: CUSTOM_CI · functionRevision: 1</text>
+<text x="350.0" y="911.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">arguments: param CriticalIllness, constant factor</text>
+<text x="350.0" y="936.68" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">constants.factor: &quot;0.90&quot; · dependsOn: []</text>
+<text x="350.0" y="962.24" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">ConfigCatalog.resolve_bindings() embeds the release</text>
+<polyline points="350,720 350,815" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="77" y="750" width="550" height="32" fill="#FFFFFF"/>
+<text x="352.0" y="771.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#356CC9">published release lookup</text>
+<rect x="815" y="815" width="570" height="180" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="827" y="825" width="546" height="160" fill="#FFFFFF"/>
+<text x="1100.0" y="847.22" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Persist the binding in one of two places</text>
+<text x="1100.0" y="872.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">CONFIG_REVISIONS for a reusable regional profile</text>
+<text x="1100.0" y="898.34" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">or settings.bindings in a variation snapshot</text>
+<text x="1100.0" y="923.9" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46"></text>
+<text x="1100.0" y="949.46" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">A binding override affects only selected parameters.</text>
+<text x="1100.0" y="975.02" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">A missing variation binding preserves the value.</text>
+<polyline points="650,905 815,905" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="50" y="1120" width="600" height="145" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="62" y="1130" width="576" height="125" fill="#FFFFFF"/>
+<text x="350.0" y="1160.28" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Calculate using pinned settings</text>
+<text x="350.0" y="1185.84" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">ConfigCatalog.get() for a new core</text>
+<text x="350.0" y="1211.3999999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Saved variation settings for a later calculation</text>
+<text x="350.0" y="1236.96" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">worker_bindings(settings) → CalculationWorker.run()</text>
+<polyline points="350,995 350,1120" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="52" y="1035" width="595" height="32" fill="#FFFFFF"/>
+<text x="349.5" y="1056.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#356CC9">read the saved effective configuration</text>
+<rect x="815" y="1120" width="570" height="145" rx="3" fill="#FFFFFF" stroke="#24795C" stroke-width="1.7"/>
+<rect x="827" y="1130" width="546" height="125" fill="#FFFFFF"/>
+<text x="1100.0" y="1160.28" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">SnowflakeGateway.execute_batch()</text>
+<text x="1100.0" y="1185.84" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">SELECT CALL_ID, CUSTOM_CI_R1(AMOUNT, FACTOR)</text>
+<text x="1100.0" y="1211.3999999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Connector → emulator → DuckDB SQL macro</text>
+<text x="1100.0" y="1236.96" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">125000.00 × 0.90 = 112500.00</text>
+<polyline points="650,1192 815,1192" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="40" y="1310" width="1360" height="38" fill="#FFFFFF"/>
+<text x="720.0" y="1334.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">All names above are actual classes/tables or concrete example releases. Function formulas execute inside the database engine.</text>
+</svg>

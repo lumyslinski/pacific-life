@@ -1,0 +1,838 @@
+openapi: 3.1.0
+info:
+  title: Insurance Calculation API
+  version: 2.0.0
+  description: |
+    Versioned insurance calculation API.
+
+    Core Calculation is an immutable calculation. A user-triggered Regional
+    Calculation or another named process creates an independent mutable
+    variation. Function drafts are editable, while published SQL function
+    releases and model configuration revisions are immutable. Formulas execute
+    in the database function layer through the Snowflake connector; the Python
+    worker only orchestrates dependency order, batching and persistence.
+
+    This served specification remains version 2 and synchronous. The proposed
+    revision 3 contract publication and asynchronous run API is documented
+    separately in openapi-v3-draft.yaml and is not implemented by this server.
+servers:
+  - url: http://localhost:8000
+    description: Local Litestar API
+  - url: https://{apiHost}
+    description: Production API gateway
+    variables:
+      apiHost:
+        default: api.example.com
+tags:
+  - name: Health
+  - name: Functions
+  - name: Configurations
+  - name: Core Calculation
+  - name: Variations
+  - name: Audit
+paths:
+  /health:
+    get:
+      tags: [Health]
+      operationId: getHealth
+      responses:
+        '200':
+          description: Service is available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+  /functions:
+    get:
+      tags: [Functions]
+      operationId: listFunctions
+      responses:
+        '200':
+          description: Editable function drafts.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [functions]
+                properties:
+                  functions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FunctionSummary'
+  /functions/{functionId}:
+    parameters:
+      - $ref: '#/components/parameters/FunctionId'
+    get:
+      tags: [Functions]
+      operationId: getFunctionDraft
+      responses:
+        '200':
+          description: Current editable draft.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FunctionDraft'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      tags: [Functions]
+      operationId: editFunctionDraft
+      summary: Optimistically edit a SQL function draft
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditFunctionRequest'
+            example:
+              expectedRevision: 1
+              definition:
+                arguments:
+                  - {name: AMOUNT, type: NUMBER(18,2)}
+                  - {name: FACTOR, type: NUMBER(18,8)}
+                returns: NUMBER(18,2)
+                body: ROUND(AMOUNT * FACTOR, 2)
+      responses:
+        '200':
+          description: New editable draft revision.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FunctionDraft'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /functions/{functionId}/preview:
+    parameters:
+      - $ref: '#/components/parameters/FunctionId'
+    post:
+      tags: [Functions]
+      operationId: previewFunctionDraft
+      summary: Evaluate a draft without publishing it
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PreviewFunctionRequest'
+      responses:
+        '200':
+          description: Database preview result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FunctionPreview'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /functions/{functionId}/publish:
+    parameters:
+      - $ref: '#/components/parameters/FunctionId'
+    post:
+      tags: [Functions]
+      operationId: publishFunctionDraft
+      summary: Publish an immutable SQL function release
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishFunctionRequest'
+      responses:
+        '200':
+          description: Immutable published release.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FunctionRelease'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /functions/{functionId}/releases/{version}:
+    parameters:
+      - $ref: '#/components/parameters/FunctionId'
+      - $ref: '#/components/parameters/Version'
+    get:
+      tags: [Functions]
+      operationId: getFunctionRelease
+      responses:
+        '200':
+          description: Exact immutable function release.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FunctionRelease'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /configs:
+    get:
+      tags: [Configurations]
+      operationId: listConfigurationRevisions
+      responses:
+        '200':
+          description: Published configuration revision identifiers.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [configs]
+                properties:
+                  configs:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ConfigurationSummary'
+  /configs/{configId}/revisions:
+    parameters:
+      - $ref: '#/components/parameters/ConfigId'
+    post:
+      tags: [Configurations]
+      operationId: publishConfigurationRevision
+      summary: Publish immutable parameter-to-function bindings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishConfigurationRequest'
+      responses:
+        '201':
+          description: Immutable configuration revision.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigurationRevision'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /configs/{configId}/revisions/{version}:
+    parameters:
+      - $ref: '#/components/parameters/ConfigId'
+      - $ref: '#/components/parameters/Version'
+    get:
+      tags: [Configurations]
+      operationId: getConfigurationRevision
+      responses:
+        '200':
+          description: Exact configuration revision.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfigurationRevision'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /core-models:
+    post:
+      tags: [Core Calculation]
+      operationId: createCoreModel
+      summary: Run Core Calculation and freeze the resulting model
+      description: |
+        Every supplied parameter must have a Core Calculation binding. Model,
+        audit event, outbox record and command receipt commit atomically. A
+        retry with the same requestId returns the same response. A new request
+        creates a new immutable model ID; it never updates an existing core.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCoreRequest'
+            example:
+              requestId: frontend-core-example-001
+              configId: CORE_INSURANCE
+              configRevision: 1
+              policies:
+                - policyId: P-1001
+                  parameters:
+                    Death: '250000.00'
+                    AccidentalDeath: '300000.00'
+                    TotalPermanentDisability: '200000.00'
+                    CriticalIllness: '150000.00'
+      responses:
+        '201':
+          description: Immutable Core Calculation result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CoreModel'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /core-models/{modelId}:
+    parameters:
+      - $ref: '#/components/parameters/ModelId'
+    get:
+      tags: [Core Calculation]
+      operationId: getCoreModel
+      responses:
+        '200':
+          description: Immutable Core Calculation snapshot.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CoreModel'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /variations:
+    post:
+      tags: [Variations]
+      operationId: createVariation
+      summary: Fork an editable Regional Calculation or named process
+      description: |
+        The source is an immutable core or an explicitly pinned variation
+        revision. Omit configId to reuse the source bindings; otherwise select
+        an immutable variation configuration. bindingOverrides can replace a
+        database function release for selected parameters.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVariationRequest'
+      responses:
+        '201':
+          description: Mutable variation head at revision 1.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VariationModel'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /variations/{modelId}:
+    parameters:
+      - $ref: '#/components/parameters/ModelId'
+    get:
+      tags: [Variations]
+      operationId: getVariation
+      summary: Get the current mutable variation head
+      responses:
+        '200':
+          description: Current variation snapshot.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VariationModel'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      tags: [Variations]
+      operationId: editVariation
+      summary: Create the next mutable variation revision
+      description: Uses optimistic concurrency. The current revision is never overwritten in history.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditVariationRequest'
+      responses:
+        '200':
+          description: New draft variation revision.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VariationModel'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /variations/{modelId}/revisions/{version}:
+    parameters:
+      - $ref: '#/components/parameters/ModelId'
+      - $ref: '#/components/parameters/Version'
+    get:
+      tags: [Variations]
+      operationId: getVariationRevision
+      summary: Read an immutable historical variation revision
+      responses:
+        '200':
+          description: Historical variation snapshot.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VariationModel'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /variations/{modelId}/calculate:
+    parameters:
+      - $ref: '#/components/parameters/ModelId'
+    post:
+      tags: [Variations]
+      operationId: calculateVariation
+      summary: Calculate the current variation into a new revision
+      description: Calculation uses the current variation values and the immutable Core Calculation output as its objective baseline.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CalculateVariationRequest'
+      responses:
+        '200':
+          description: Calculated variation revision.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VariationModel'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /audit/{aggregateId}:
+    parameters:
+      - $ref: '#/components/parameters/AggregateId'
+    get:
+      tags: [Audit]
+      operationId: getAudit
+      parameters:
+        - name: after_revision
+          in: query
+          required: false
+          schema: {type: integer, minimum: 0, default: 0}
+        - name: limit
+          in: query
+          required: false
+          schema: {type: integer, minimum: 1, maximum: 100, default: 100}
+      responses:
+        '200':
+          description: Ordered audit events from the authoritative database.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditPage'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /simulations:
+    post:
+      deprecated: true
+      tags: [Core Calculation]
+      operationId: legacySimulation
+      summary: Retired endpoint
+      responses:
+        '410':
+          description: Use the immutable core plus variation lifecycle.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+components:
+  parameters:
+    FunctionId:
+      name: functionId
+      in: path
+      required: true
+      schema: {type: string, pattern: '^[A-Z_][A-Z0-9_]{0,63}$'}
+    ConfigId:
+      name: configId
+      in: path
+      required: true
+      schema: {type: string, pattern: '^[A-Z_][A-Z0-9_]{0,63}$'}
+    ModelId:
+      name: modelId
+      in: path
+      required: true
+      schema: {type: string, minLength: 1, maxLength: 128}
+    AggregateId:
+      name: aggregateId
+      in: path
+      required: true
+      schema: {type: string, minLength: 1, maxLength: 128}
+    Version:
+      name: version
+      in: path
+      required: true
+      schema: {type: integer, minimum: 1}
+  responses:
+    Conflict:
+      description: Optimistic-concurrency or idempotency conflict.
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/ApiError'}
+    NotFound:
+      description: Requested resource or pinned revision does not exist.
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/ApiError'}
+    ValidationError:
+      description: Invalid request or unsupported SQL expression.
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/ApiError'}
+  schemas:
+    HealthResponse:
+      type: object
+      required: [status, mode, lifecycleVersion]
+      properties:
+        status: {type: string, const: ok}
+        mode: {type: string}
+        lifecycleVersion: {type: integer, const: 2}
+    ApiError:
+      type: object
+      required: [detail]
+      properties:
+        detail: {type: string}
+        code: {type: string}
+        requestId: {type: string}
+    Revision:
+      type: integer
+      minimum: 1
+    RequestId:
+      type: string
+      minLength: 1
+      maxLength: 100
+    Money:
+      type: string
+      pattern: '^[0-9]{1,16}(\.[0-9]{1,2})?$'
+      description: Non-negative decimal amount. The backend normalizes outputs to two decimal places.
+      examples: ['250000.00']
+    Parameters:
+      type: object
+      minProperties: 1
+      additionalProperties:
+        $ref: '#/components/schemas/Money'
+      examples:
+        - Death: '250000.00'
+          AccidentalDeath: '300000.00'
+          TotalPermanentDisability: '200000.00'
+          CriticalIllness: '150000.00'
+    PolicyInput:
+      type: object
+      required: [policyId, parameters]
+      properties:
+        policyId: {type: string, minLength: 1, maxLength: 128}
+        parameters: {$ref: '#/components/schemas/Parameters'}
+    PolicyResult:
+      type: object
+      required: [policyId, parameters]
+      properties:
+        policyId: {type: string}
+        parameters: {$ref: '#/components/schemas/Parameters'}
+    SqlType:
+      type: string
+      pattern: '^(NUMBER\([0-9]{1,2},[0-9]{1,2}\)|VARCHAR|BOOLEAN|INTEGER)$'
+    FunctionArgument:
+      type: object
+      required: [name, type]
+      properties:
+        name: {type: string, pattern: '^[A-Z_][A-Z0-9_]{0,63}$'}
+        type: {$ref: '#/components/schemas/SqlType'}
+    FunctionDefinition:
+      type: object
+      required: [arguments, returns, body]
+      properties:
+        arguments:
+          type: array
+          maxItems: 64
+          items: {$ref: '#/components/schemas/FunctionArgument'}
+        returns: {$ref: '#/components/schemas/SqlType'}
+        body:
+          type: string
+          minLength: 1
+          maxLength: 20000
+          description: Deterministic scalar Snowflake SQL expression. DDL, DML, SELECT and mutable table reads are rejected.
+        dependencies:
+          type: array
+          readOnly: true
+          items: {$ref: '#/components/schemas/FunctionRelease'}
+    FunctionSummary:
+      type: object
+      required: [functionId, draftRevision]
+      properties:
+        functionId: {type: string}
+        draftRevision: {type: integer, minimum: 1}
+    FunctionDraft:
+      type: object
+      required: [functionId, revision, definition]
+      properties:
+        functionId: {type: string}
+        revision: {$ref: '#/components/schemas/Revision'}
+        definition: {$ref: '#/components/schemas/FunctionDefinition'}
+    FunctionRelease:
+      type: object
+      required: [functionId, revision, definition, sqlName, definitionHash]
+      properties:
+        functionId: {type: string}
+        revision: {$ref: '#/components/schemas/Revision'}
+        definition: {$ref: '#/components/schemas/FunctionDefinition'}
+        sqlName: {type: string, pattern: '^INSURANCE\.RELEASES\.[A-Z_][A-Z0-9_]*_R[1-9][0-9]*$'}
+        definitionHash: {type: string, pattern: '^[a-f0-9]{64}$'}
+    EditFunctionRequest:
+      type: object
+      required: [expectedRevision, definition]
+      properties:
+        expectedRevision: {type: integer, minimum: 0}
+        definition: {$ref: '#/components/schemas/FunctionDefinition'}
+    PreviewFunctionRequest:
+      type: object
+      required: [expectedRevision, arguments]
+      properties:
+        expectedRevision: {$ref: '#/components/schemas/Revision'}
+        arguments:
+          type: array
+          maxItems: 64
+          items: {}
+    PublishFunctionRequest:
+      type: object
+      required: [expectedRevision]
+      properties:
+        expectedRevision: {$ref: '#/components/schemas/Revision'}
+    FunctionPreview:
+      type: object
+      required: [value, queryId, draftRevision]
+      properties:
+        value: {type: [string, 'null']}
+        queryId: {type: string}
+        draftRevision: {$ref: '#/components/schemas/Revision'}
+    BindingArgument:
+      oneOf:
+        - type: object
+          required: [param]
+          properties: {param: {type: string}}
+          additionalProperties: false
+        - type: object
+          required: [constant]
+          properties: {constant: {type: string}, type: {type: string}}
+          additionalProperties: false
+        - type: object
+          required: [literal]
+          properties: {literal: {}}
+          additionalProperties: false
+    FunctionBinding:
+      type: object
+      required: [parameter, functionId, functionRevision, arguments, constants, dependsOn, function]
+      properties:
+        parameter: {type: string}
+        functionId: {type: string}
+        functionRevision: {$ref: '#/components/schemas/Revision'}
+        arguments:
+          type: array
+          items: {$ref: '#/components/schemas/BindingArgument'}
+        constants: {type: object, additionalProperties: true}
+        dependsOn: {type: array, items: {type: string}}
+        function: {$ref: '#/components/schemas/FunctionRelease'}
+    BindingOverride:
+      oneOf:
+        - type: object
+          required: [parameter, remove]
+          properties:
+            parameter: {type: string}
+            remove: {type: boolean, const: true}
+          additionalProperties: false
+        - type: object
+          required: [parameter, functionId, functionRevision, arguments]
+          properties:
+            parameter: {type: string}
+            functionId: {type: string}
+            functionRevision: {$ref: '#/components/schemas/Revision'}
+            arguments: {type: array, items: {$ref: '#/components/schemas/BindingArgument'}}
+            constants: {type: object, additionalProperties: true}
+            dependsOn: {type: array, items: {type: string}}
+          additionalProperties: false
+    BindingInput:
+      type: object
+      required: [parameter, functionId, functionRevision, arguments]
+      properties:
+        parameter: {type: string}
+        functionId: {type: string}
+        functionRevision: {$ref: '#/components/schemas/Revision'}
+        arguments: {type: array, items: {$ref: '#/components/schemas/BindingArgument'}}
+        constants: {type: object, additionalProperties: true}
+        dependsOn: {type: array, items: {type: string}}
+        function:
+          readOnly: true
+          $ref: '#/components/schemas/FunctionRelease'
+      additionalProperties: false
+    ObjectiveReference:
+      type: object
+      required: [functionId, functionRevision]
+      properties:
+        functionId: {type: string}
+        functionRevision: {$ref: '#/components/schemas/Revision'}
+    ConfigurationRevision:
+      type: object
+      required: [configId, revision, kind, processName, region, bindings, objective, contentHash]
+      properties:
+        configId: {type: string}
+        revision: {$ref: '#/components/schemas/Revision'}
+        kind: {type: string, enum: [core, variation]}
+        processName: {type: string}
+        region: {type: string}
+        bindings: {type: array, items: {$ref: '#/components/schemas/FunctionBinding'}}
+        objective: {$ref: '#/components/schemas/FunctionRelease'}
+        contentHash: {type: string, pattern: '^[a-f0-9]{64}$'}
+    ConfigurationSummary:
+      type: object
+      required: [configId, revision]
+      properties:
+        configId: {type: string}
+        revision: {$ref: '#/components/schemas/Revision'}
+    PublishConfigurationRequest:
+      type: object
+      required: [expectedRevision, kind, bindings, objective]
+      properties:
+        expectedRevision: {type: integer, minimum: 0}
+        kind: {type: string, enum: [core, variation]}
+        processName: {type: string, maxLength: 100}
+        region: {type: string, maxLength: 100}
+        bindings: {type: array, items: {$ref: '#/components/schemas/BindingInput'}}
+        objective: {$ref: '#/components/schemas/ObjectiveReference'}
+    CreateCoreRequest:
+      type: object
+      required: [requestId, configId, configRevision, policies]
+      properties:
+        requestId: {$ref: '#/components/schemas/RequestId'}
+        configId: {type: string}
+        configRevision: {$ref: '#/components/schemas/Revision'}
+        policies: {type: array, minItems: 1, items: {$ref: '#/components/schemas/PolicyInput'}}
+    ModelSettings:
+      type: object
+      required: [configId, revision, kind, processName, region, bindings, objective]
+      properties:
+        configId: {type: string}
+        revision: {$ref: '#/components/schemas/Revision'}
+        kind: {type: string, enum: [core, variation]}
+        processName: {type: string}
+        region: {type: string}
+        bindings: {type: array, items: {$ref: '#/components/schemas/FunctionBinding'}}
+        objective: {$ref: '#/components/schemas/FunctionRelease'}
+    QueryTrace:
+      type: object
+      required: [queryId, function, invocations]
+      properties:
+        queryId: {type: string}
+        function: {type: string}
+        invocations: {type: integer, minimum: 1}
+    CalculationIteration:
+      type: object
+      required: [runId, modelVersion, policyId, iteration, calculation, region, before, values, changedParameters, functionCalls, objective]
+      properties:
+        runId: {type: string}
+        modelVersion: {type: string}
+        policyId: {type: string}
+        iteration: {type: integer, minimum: 1}
+        calculation: {type: string}
+        region: {type: string}
+        before: {$ref: '#/components/schemas/Parameters'}
+        values: {$ref: '#/components/schemas/Parameters'}
+        changedParameters: {type: array, items: {type: string}}
+        functionCalls: {type: array, items: {type: object, additionalProperties: true}}
+        objective: {type: string}
+    CalculationMetadata:
+      type: object
+      required: [results, iterations, databaseFunctionQueries, databaseFunctionQueryCount]
+      properties:
+        results: {type: array, items: {$ref: '#/components/schemas/PolicyResult'}}
+        iterations: {type: array, items: {$ref: '#/components/schemas/CalculationIteration'}}
+        databaseFunctionQueries: {type: array, items: {$ref: '#/components/schemas/QueryTrace'}}
+        databaseFunctionQueryCount: {type: integer, minimum: 0}
+    CoreModel:
+      allOf:
+        - $ref: '#/components/schemas/CalculationMetadata'
+        - type: object
+          required: [modelId, kind, immutable, revision, createdAt, settings, input, calculationStatus, objectiveBaseline, contentHash]
+          properties:
+            modelId: {type: string}
+            kind: {type: string, const: core}
+            immutable: {type: boolean, const: true}
+            revision: {type: integer, const: 1}
+            createdAt: {type: string, format: date-time}
+            settings: {$ref: '#/components/schemas/ModelSettings'}
+            input: {type: array, items: {$ref: '#/components/schemas/PolicyInput'}}
+            calculationStatus: {type: string, const: calculated}
+            objectiveBaseline: {type: string, const: input}
+            contentHash: {type: string, pattern: '^[a-f0-9]{64}$'}
+    VariationModel:
+      allOf:
+        - $ref: '#/components/schemas/CalculationMetadata'
+        - type: object
+          required: [modelId, kind, immutable, revision, createdAt, coreModelId, coreContentHash, source, settings, calculationStatus, objectiveBaseline, contentHash]
+          properties:
+            modelId: {type: string}
+            kind: {type: string, const: variation}
+            immutable: {type: boolean, const: false}
+            revision: {$ref: '#/components/schemas/Revision'}
+            createdAt: {type: string, format: date-time}
+            updatedAt: {type: string, format: date-time}
+            coreModelId: {type: string}
+            coreContentHash: {type: string, pattern: '^[a-f0-9]{64}$'}
+            source:
+              type: object
+              required: [modelId, revision, contentHash]
+              properties:
+                modelId: {type: string}
+                revision: {$ref: '#/components/schemas/Revision'}
+                contentHash: {type: string, pattern: '^[a-f0-9]{64}$'}
+            settings: {$ref: '#/components/schemas/ModelSettings'}
+            calculationStatus: {type: string, enum: [draft, calculated]}
+            objectiveBaseline: {type: string, const: core}
+            previousContentHash: {type: string, pattern: '^[a-f0-9]{64}$'}
+            contentHash: {type: string, pattern: '^[a-f0-9]{64}$'}
+    CreateVariationRequest:
+      type: object
+      required: [requestId, coreModelId]
+      properties:
+        requestId: {$ref: '#/components/schemas/RequestId'}
+        coreModelId: {type: string}
+        parentVariationId: {type: string}
+        parentRevision: {$ref: '#/components/schemas/Revision'}
+        configId: {type: string}
+        configRevision: {$ref: '#/components/schemas/Revision'}
+        processName: {type: string, maxLength: 100, default: Regional Calculation}
+        region: {type: string, maxLength: 100, default: '*'}
+        bindingOverrides: {type: array, items: {$ref: '#/components/schemas/BindingOverride'}}
+        parameterEdits:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Parameters'
+    EditVariationRequest:
+      type: object
+      required: [requestId, expectedRevision]
+      properties:
+        requestId: {$ref: '#/components/schemas/RequestId'}
+        expectedRevision: {$ref: '#/components/schemas/Revision'}
+        configId: {type: string}
+        configRevision: {$ref: '#/components/schemas/Revision'}
+        processName: {type: string, maxLength: 100}
+        region: {type: string, maxLength: 100}
+        bindingOverrides: {type: array, items: {$ref: '#/components/schemas/BindingOverride'}}
+        parameterEdits:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Parameters'
+    CalculateVariationRequest:
+      type: object
+      required: [requestId, expectedRevision]
+      additionalProperties: false
+      properties:
+        requestId: {$ref: '#/components/schemas/RequestId'}
+        expectedRevision: {$ref: '#/components/schemas/Revision'}
+    AuditEvent:
+      type: object
+      required: [eventId, aggregateId, revision, type, recordedAt, payload, contentHash]
+      properties:
+        eventId: {type: string, format: uuid}
+        aggregateId: {type: string}
+        revision: {$ref: '#/components/schemas/Revision'}
+        type: {type: string, enum: [CoreCalculated, VariationCreated, VariationEdited, VariationCalculated]}
+        recordedAt: {type: string, format: date-time}
+        payload: {type: object, additionalProperties: true}
+        contentHash: {type: string, pattern: '^[a-f0-9]{64}$'}
+    AuditPage:
+      type: object
+      required: [aggregateId, events, nextAfterRevision]
+      properties:
+        aggregateId: {type: string}
+        events: {type: array, items: {$ref: '#/components/schemas/AuditEvent'}}
+        nextAfterRevision: {type: [integer, 'null'], minimum: 1}

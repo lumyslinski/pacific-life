@@ -1,0 +1,14 @@
+{
+  "requestId": "frontend-core-example-001",
+  "configId": "CORE_INSURANCE",
+  "configRevision": 1,
+  "policies": [{
+    "policyId": "P-1001",
+    "parameters": {
+      "Death": "250000.00",
+      "AccidentalDeath": "300000.00",
+      "TotalPermanentDisability": "200000.00",
+      "CriticalIllness": "150000.00"
+    }
+  }]
+}

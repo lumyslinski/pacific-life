@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1160" viewBox="0 0 1440 1160" role="img">
+<title>04 Components</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<rect width="1440" height="1160" fill="#FFFFFF"/>
+<rect x="40" y="24" width="1360" height="46" fill="#FFFFFF"/>
+<text x="40" y="56.86" text-anchor="start" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#172B46">Runtime components · local integration environment</text>
+<rect x="40" y="78" width="1360" height="34" fill="#FFFFFF"/>
+<text x="40" y="100.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#738096">Implemented version 2 · synchronous local API. Proposed AWS process split is on page 8; dashed = optional / generation.</text>
+<rect x="40" y="140" width="395" height="925" rx="3" fill="none" stroke="#738096" stroke-width="1.7"/>
+<rect x="52" y="123" width="303" height="34" fill="#FFFFFF"/>
+<text x="52" y="145.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#738096">CLIENT EXAMPLE / CONTRACT</text>
+<rect x="475" y="140" width="465" height="925" rx="3" fill="none" stroke="#738096" stroke-width="1.7"/>
+<rect x="487" y="123" width="325" height="34" fill="#FFFFFF"/>
+<text x="487" y="145.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#738096">LITESTAR API PROCESS · 8000</text>
+<rect x="980" y="140" width="420" height="520" rx="3" fill="none" stroke="#738096" stroke-width="1.7"/>
+<rect x="992" y="123" width="303" height="34" fill="#FFFFFF"/>
+<text x="992" y="145.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#738096">SNOWFLAKE EMULATOR · 8084</text>
+<rect x="980" y="735" width="420" height="330" rx="3" fill="none" stroke="#A96915" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="992" y="718" width="336" height="34" fill="#FFFFFF"/>
+<text x="992" y="740.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#A96915">OPTIONAL · aws-audit PROFILE</text>
+<rect x="65" y="190" width="345" height="105" rx="3" fill="#FFFFFF" stroke="#738096" stroke-width="1.7"/>
+<rect x="77" y="200" width="321" height="85" fill="#FFFFFF"/>
+<text x="237.5" y="223.06" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">api/openapi.yaml</text>
+<text x="237.5" y="248.62" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Maintained API contract</text>
+<text x="237.5" y="274.18" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">GET /openapi.yaml</text>
+<rect x="65" y="370" width="345" height="90" rx="3" fill="#FFFFFF" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="77" y="380" width="321" height="70" fill="#FFFFFF"/>
+<text x="237.5" y="408.71" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">openapi-typescript</text>
+<text x="237.5" y="432.84999999999997" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Generate src/api/generated.ts</text>
+<rect x="65" y="540" width="345" height="110" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="77" y="550" width="321" height="90" fill="#FFFFFF"/>
+<text x="237.5" y="576.64" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Vue client example</text>
+<text x="237.5" y="600.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">useInsuranceCalculation</text>
+<text x="237.5" y="624.92" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">openapi-fetch + decimal strings</text>
+<rect x="65" y="770" width="345" height="195" rx="3" fill="#FFFFFF" stroke="#738096" stroke-width="1.7"/>
+<rect x="77" y="780" width="321" height="175" fill="#FFFFFF"/>
+<text x="237.5" y="825.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Current frontend status</text>
+<text x="237.5" y="849.14" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Client + composable supplied</text>
+<text x="237.5" y="873.28" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Generated types are not bundled</text>
+<text x="237.5" y="897.42" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">No runnable Vue app or proxy</text>
+<text x="237.5" y="921.56" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">is included in this package</text>
+<polyline points="238,295 238,370" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="88" y="320" width="300" height="32" fill="#FFFFFF"/>
+<text x="238.0" y="341.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#738096">generation command</text>
+<polyline points="238,460 238,540" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="73" y="483" width="330" height="32" fill="#FFFFFF"/>
+<text x="238.0" y="504.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#738096">generated paths / DTO types</text>
+<rect x="500" y="190" width="415" height="100" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="512" y="200" width="391" height="80" fill="#FFFFFF"/>
+<text x="707.5" y="220.56" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Litestar routes · app.py</text>
+<text x="707.5" y="246.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">requestId / expectedRevision</text>
+<text x="707.5" y="271.68" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Synchronous HTTP operations</text>
+<rect x="500" y="335" width="195" height="125" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="512" y="345" width="171" height="105" fill="#FFFFFF"/>
+<text x="597.5" y="368.86" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">FunctionCatalog</text>
+<text x="597.5" y="391.58000000000004" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">ConfigCatalog</text>
+<text x="597.5" y="414.3" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Drafts and releases</text>
+<text x="597.5" y="437.02" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Pinned bindings</text>
+<rect x="720" y="335" width="195" height="125" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="732" y="345" width="171" height="105" fill="#FFFFFF"/>
+<text x="817.5" y="379.14" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">ModelLifecycle</text>
+<text x="817.5" y="403.28" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">core / fork / change</text>
+<text x="817.5" y="427.41999999999996" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">calculate</text>
+<rect x="500" y="520" width="195" height="110" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="512" y="530" width="171" height="90" fill="#FFFFFF"/>
+<text x="597.5" y="556.64" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Repository</text>
+<text x="597.5" y="580.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Models + revisions</text>
+<text x="597.5" y="604.92" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Audit + outbox</text>
+<rect x="720" y="520" width="195" height="110" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="732" y="530" width="171" height="90" fill="#FFFFFF"/>
+<text x="817.5" y="557.72" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">CalculationWorker</text>
+<text x="817.5" y="580.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">run()</text>
+<text x="817.5" y="603.1600000000001" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Dependency waves</text>
+<rect x="500" y="710" width="415" height="90" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="512" y="720" width="391" height="70" fill="#FFFFFF"/>
+<text x="707.5" y="748.7099999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">SnowflakeGateway</text>
+<text x="707.5" y="772.8499999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">rows / execute_batch / objective / audit</text>
+<rect x="500" y="855" width="415" height="80" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="512" y="865" width="391" height="60" fill="#FFFFFF"/>
+<text x="707.5" y="888.7099999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Snowflake Python connector</text>
+<text x="707.5" y="912.8499999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Session, cursor.execute(), commit()</text>
+<rect x="497" y="970" width="420" height="62" fill="#FFFFFF"/>
+<text x="707.0" y="994.7099999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">One API process, one request lock.</text>
+<text x="707.0" y="1018.8499999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">The worker runs inside this process.</text>
+<polyline points="410,595 453,595 453,240 500,240" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="298" y="662" width="130" height="28" fill="#FFFFFF"/>
+<text x="363.0" y="681.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#172B46">HTTP / JSON</text>
+<polyline points="600,290 600,335" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="817,290 817,335" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="817,460 817,520" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="720,397 710,397 710,575 695,575" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="500,397 490,397 490,755 500,755" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="597,630 597,710" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="817,630 817,710" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="708,800 708,855" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="548" y="811" width="320" height="32" fill="#FFFFFF"/>
+<text x="708.0" y="832.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#356CC9">same DB session</text>
+<rect x="1005" y="190" width="370" height="95" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="1017" y="200" width="346" height="75" fill="#FFFFFF"/>
+<text x="1190.0" y="218.06" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Snowflake HTTP endpoints</text>
+<text x="1190.0" y="243.62" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Login / query / session</text>
+<text x="1190.0" y="269.18" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Starlette + Uvicorn</text>
+<rect x="1005" y="350" width="370" height="95" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="1017" y="360" width="346" height="75" fill="#FFFFFF"/>
+<text x="1190.0" y="379.14" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Engine.compile() · SQLGlot</text>
+<text x="1190.0" y="403.28" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Snowflake SQL to DuckDB SQL</text>
+<text x="1190.0" y="427.41999999999996" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Typed SQL UDFs to SQL macros</text>
+<rect x="1005" y="505" width="370" height="115" rx="3" fill="#FFFFFF" stroke="#24795C" stroke-width="1.7"/>
+<rect x="1017" y="515" width="346" height="95" fill="#FFFFFF"/>
+<text x="1190.0" y="544.14" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">DuckDB: /data/emulator.duckdb</text>
+<text x="1190.0" y="568.28" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">SQL macros + catalogue</text>
+<text x="1190.0" y="592.42" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Models + revisions + audit/outbox</text>
+<polyline points="1190,285 1190,350" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="1190,445 1190,505" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="915,895 958,895 958,237 1005,237" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="992" y="672" width="396" height="38" fill="#FFFFFF"/>
+<text x="1190.0" y="696.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Query history: query IDs + JSONL log</text>
+<rect x="1005" y="780" width="370" height="85" rx="3" fill="#FFFFFF" stroke="#A96915" stroke-width="1.7"/>
+<rect x="1017" y="790" width="346" height="65" fill="#FFFFFF"/>
+<text x="1190.0" y="815.84" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">audit-export process</text>
+<text x="1190.0" y="841.4" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">SQL outbox polling + boto3</text>
+<rect x="1005" y="960" width="370" height="75" rx="3" fill="#FFFFFF" stroke="#A96915" stroke-width="1.7"/>
+<rect x="1017" y="970" width="346" height="55" fill="#FFFFFF"/>
+<text x="1190.0" y="990.84" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">DynamoDB Local · 8001</text>
+<text x="1190.0" y="1016.4" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">CalculationAudit projection</text>
+<polyline points="1190,865 1190,960" fill="none" stroke="#A96915" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1000" y="895" width="380" height="32" fill="#FFFFFF"/>
+<text x="1190.0" y="916.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#A96915">conditional PutItem; chunks + manifest</text>
+<polyline points="1375,822 1420,822 1420,237 1375,237" fill="none" stroke="#A96915" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="40" y="1090" width="1350" height="42" fill="#FFFFFF"/>
+<text x="715.0" y="1116.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Exporter DB access also uses the Snowflake connector. Cloud Snowflake, cloud AWS and a distributed queue are not deployed here.</text>
+</svg>

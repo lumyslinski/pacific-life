@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1750" viewBox="0 0 1800 1750" role="img">
+<title>08 Contract storage and AWS orchestration</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<rect width="1800" height="1750" fill="#FFFFFF"/>
+<rect x="40" y="24" width="1720" height="46" fill="#FFFFFF"/>
+<text x="40" y="56.86" text-anchor="start" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#172B46">Contract storage and run orchestration in AWS</text>
+<rect x="40" y="78" width="1720" height="34" fill="#FFFFFF"/>
+<text x="40" y="100.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#738096">Revision 3 target · not deployed locally. Python interprets contracts; Snowflake stores state and executes SQL formulas.</text>
+<rect x="35" y="145" width="1730" height="265" rx="3" fill="none" stroke="#738096" stroke-width="1.7"/>
+<rect x="47" y="128" width="347" height="34" fill="#FFFFFF"/>
+<text x="47" y="150.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#738096">PUBLISH BEFORE RUN ACCEPTANCE</text>
+<rect x="60" y="180" width="420" height="190" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="72" y="190" width="396" height="170" fill="#FFFFFF"/>
+<text x="270.0" y="232.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Authoring: Vue admin or optional Git CI</text>
+<text x="270.0" y="256.64" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">PUT /contracts/{id}</text>
+<text x="270.0" y="280.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">POST /contracts/{id}/publish</text>
+<text x="270.0" y="304.92" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">CONTRACT_DRAFTS + expectedRevision</text>
+<text x="270.0" y="329.06" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Mutable authoring; exact revision to publish</text>
+<rect x="620" y="180" width="520" height="190" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="632" y="190" width="496" height="170" fill="#FFFFFF"/>
+<text x="880.0" y="230.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Python publication validation</text>
+<text x="880.0" y="255.56" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Schema + dependencies + argument types</text>
+<text x="880.0" y="281.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Exact FUNCTION_RELEASES and signatures</text>
+<text x="880.0" y="306.68" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Objective + allowed input overrides</text>
+<text x="880.0" y="332.24" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">No function DDL in publication transaction</text>
+<rect x="1280" y="180" width="460" height="190" rx="3" fill="#FFFFFF" stroke="#24795C" stroke-width="1.7"/>
+<rect x="1292" y="190" width="436" height="170" fill="#FFFFFF"/>
+<text x="1510.0" y="232.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Snowflake CONTRACT_REVISIONS</text>
+<text x="1510.0" y="256.64" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Immutable ID / revision / hash / DOCUMENT</text>
+<text x="1510.0" y="280.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Publisher identity + publication time</text>
+<text x="1510.0" y="304.92" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Deprecation stored separately</text>
+<text x="1510.0" y="329.06" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Runtime source of truth</text>
+<polyline points="480,275 620,275" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="485" y="230" width="130" height="32" fill="#FFFFFF"/>
+<text x="550.0" y="251.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#356CC9">Validate</text>
+<polyline points="1140,275 1280,275" fill="none" stroke="#24795C" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1145" y="230" width="130" height="32" fill="#FFFFFF"/>
+<text x="1210.0" y="251.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#24795C">Publish</text>
+<polyline points="1510,370 1510,445 880,445 880,525" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="922" y="421" width="450" height="30" fill="#FFFFFF"/>
+<text x="1147.0" y="441.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#24795C">Read exact revision; verify canonical hash</text>
+<rect x="60" y="525" width="420" height="210" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="72" y="535" width="396" height="190" fill="#FFFFFF"/>
+<text x="270.0" y="572.22" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">1 · Vue → Litestar command API</text>
+<text x="270.0" y="597.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">POST /runs with requestId</text>
+<text x="270.0" y="623.34" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Core: retained Bronze reference</text>
+<text x="270.0" y="648.9" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Regional: scenario + expectedRevision</text>
+<text x="270.0" y="674.46" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Receipt check before selecting latest</text>
+<text x="270.0" y="700.02" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">202 + runId + Location after commit</text>
+<rect x="620" y="525" width="520" height="210" rx="3" fill="#FFFFFF" stroke="#24795C" stroke-width="1.7"/>
+<rect x="632" y="535" width="496" height="190" fill="#FFFFFF"/>
+<text x="880.0" y="572.22" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">2 · Accept atomically in Snowflake</text>
+<text x="880.0" y="597.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Python freezes input + plan + planHash</text>
+<text x="880.0" y="623.34" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">RUNS = QUEUED + command receipt</text>
+<text x="880.0" y="648.9" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">RUN_OUTBOX = pending dispatch</text>
+<text x="880.0" y="674.46" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Contract/source/scenario revisions pinned</text>
+<text x="880.0" y="700.02" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">No direct API-to-queue dual write</text>
+<rect x="1280" y="525" width="460" height="210" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="1292" y="535" width="436" height="190" fill="#FFFFFF"/>
+<text x="1510.0" y="575.43" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">3 · Run relay → SQS FIFO</text>
+<text x="1510.0" y="599.5699999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Read pending RUN_OUTBOX</text>
+<text x="1510.0" y="623.7099999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Send runId + dispatchId + generation</text>
+<text x="1510.0" y="647.8499999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Group = scenarioId (core: bronzeId)</text>
+<text x="1510.0" y="671.99" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Deduplication ID = dispatchId</text>
+<text x="1510.0" y="696.13" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Mark delivered only after send ACK</text>
+<polyline points="480,625 620,625" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="485" y="580" width="130" height="32" fill="#FFFFFF"/>
+<text x="550.0" y="601.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#356CC9">Accept</text>
+<polyline points="1140,625 1280,625" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1145" y="580" width="130" height="32" fill="#FFFFFF"/>
+<text x="1210.0" y="601.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#356CC9">Relay polls</text>
+<rect x="1280" y="890" width="460" height="225" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="1292" y="900" width="436" height="205" fill="#FFFFFF"/>
+<text x="1510.0" y="935.86" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">4 · Separate ECS Fargate worker</text>
+<text x="1510.0" y="960.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Conditional claim + fenced lease</text>
+<text x="1510.0" y="984.14" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Commit RUN_ATTEMPTS start record</text>
+<text x="1510.0" y="1008.28" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Load frozen plan; verify planHash</text>
+<text x="1510.0" y="1032.42" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Heartbeat lease + extend SQS visibility</text>
+<text x="1510.0" y="1056.56" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Synchronous batched SQL functions</text>
+<text x="1510.0" y="1080.7" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Delete queue message after result commit</text>
+<polyline points="1510,735 1510,890" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1315" y="797" width="390" height="32" fill="#FFFFFF"/>
+<text x="1510.0" y="818.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#356CC9">Receive dispatch</text>
+<rect x="620" y="890" width="520" height="225" rx="3" fill="#FFFFFF" stroke="#24795C" stroke-width="1.7"/>
+<rect x="632" y="900" width="496" height="205" fill="#FFFFFF"/>
+<text x="880.0" y="935.86" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">5 · Atomic result transaction in Snowflake</text>
+<text x="880.0" y="960.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Recheck run owner / fencing token / lease</text>
+<text x="880.0" y="984.14" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Complete Silver or Gold + lineage + traces</text>
+<text x="880.0" y="1008.28" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">AUDIT_EVENTS + AUDIT_OUTBOX</text>
+<text x="880.0" y="1032.42" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">RUN_EVENT_OUTBOX + attempt success</text>
+<text x="880.0" y="1056.56" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">RUNS = SUCCEEDED + result reference</text>
+<text x="880.0" y="1080.7" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Guard scenario pointer by draft + selected run</text>
+<polyline points="1280,1000 1140,1000" fill="none" stroke="#24795C" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1145" y="955" width="130" height="32" fill="#FFFFFF"/>
+<text x="1210.0" y="976.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#24795C">Commit</text>
+<rect x="60" y="890" width="420" height="225" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="72" y="900" width="396" height="205" fill="#FFFFFF"/>
+<text x="270.0" y="935.86" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">6 · Vue listens through persisted state</text>
+<text x="270.0" y="960.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">GET /runs/{runId}</text>
+<text x="270.0" y="984.14" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">ETag / If-None-Match polling</text>
+<text x="270.0" y="1008.28" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">SSE can be added later</text>
+<text x="270.0" y="1032.42" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Success → immutable result reference</text>
+<text x="270.0" y="1056.56" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Failure → diagnostics + retry eligibility</text>
+<text x="270.0" y="1080.7" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Review Gold; finish, edit or chain</text>
+<polyline points="620,1000 480,1000" fill="none" stroke="#24795C" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="485" y="955" width="130" height="32" fill="#FFFFFF"/>
+<text x="550.0" y="976.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#24795C">Via API</text>
+<polyline points="270,890 270,735" fill="none" stroke="#356CC9" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="75" y="791" width="390" height="35" fill="#FFFFFF"/>
+<text x="270.0" y="813.94" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">New draft → new run; retry → same plan</text>
+<rect x="60" y="1280" width="420" height="240" rx="3" fill="#FFFFFF" stroke="#A96915" stroke-width="1.7"/>
+<rect x="72" y="1290" width="396" height="220" fill="#FFFFFF"/>
+<text x="270.0" y="1321.29" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Failure and recovery</text>
+<text x="270.0" y="1345.43" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Rollback: no partial Silver or Gold</text>
+<text x="270.0" y="1369.57" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Persist attempt error and retry budget</text>
+<text x="270.0" y="1393.71" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">RETRYABLE → redelivery / backoff</text>
+<text x="270.0" y="1417.85" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Expired lease → fence + recovery dispatch</text>
+<text x="270.0" y="1441.99" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">DLQ reconciler → terminal FAILED</text>
+<text x="270.0" y="1466.1299999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Manual retry → new dispatch generation</text>
+<text x="270.0" y="1490.27" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Old generations cannot claim or publish</text>
+<rect x="620" y="1280" width="520" height="240" rx="3" fill="#FFFFFF" stroke="#A96915" stroke-width="1.7"/>
+<rect x="632" y="1290" width="496" height="220" fill="#FFFFFF"/>
+<text x="880.0" y="1321.29" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Independent downstream outboxes</text>
+<text x="880.0" y="1345.43" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">AUDIT_OUTBOX → audit-export → DynamoDB</text>
+<text x="880.0" y="1369.57" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Existing direct projection; chunks + manifest</text>
+<text x="880.0" y="1393.71" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46"></text>
+<text x="880.0" y="1417.85" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">RUN_EVENT_OUTBOX → relay → EventBridge</text>
+<text x="880.0" y="1441.99" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Proposed RunCompleted + result reference</text>
+<text x="880.0" y="1466.1299999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">ACK each successful entry; retry failures</text>
+<text x="880.0" y="1490.27" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Consumers deduplicate by stable event ID</text>
+<polyline points="880,1115 880,1280" fill="none" stroke="#A96915" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="665" y="1175" width="430" height="32" fill="#FFFFFF"/>
+<text x="880.0" y="1196.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#A96915">Read only committed events</text>
+<rect x="1280" y="1280" width="460" height="240" rx="3" fill="#FFFFFF" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="1292" y="1290" width="436" height="220" fill="#FFFFFF"/>
+<text x="1510.0" y="1321.29" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Stage 2 · when multi-step state is needed</text>
+<text x="1510.0" y="1345.43" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Step Functions Standard OR Temporal</text>
+<text x="1510.0" y="1369.57" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Core → human wait → custom fan-out</text>
+<text x="1510.0" y="1393.71" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Explicit chaining from delivered Gold</text>
+<text x="1510.0" y="1417.85" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Activities call the same idempotent run API</text>
+<text x="1510.0" y="1441.99" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Server-side callback / workflow state</text>
+<text x="1510.0" y="1466.1299999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Choose one retry owner per layer</text>
+<text x="1510.0" y="1490.27" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">No engine is deployed in this package</text>
+<rect x="55" y="1570" width="1690" height="38" fill="#FFFFFF"/>
+<text x="900.0" y="1595.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#172B46">FIFO deduplication lasts five minutes. Relay retries reuse dispatchId; deliberate retry/recovery uses a new dispatchId and generation.</text>
+<rect x="55" y="1620" width="1690" height="38" fill="#FFFFFF"/>
+<text x="900.0" y="1645.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Queue order is not database ownership. Prove control-table uniqueness and concurrency; fence stale workers and guard scenario result pointers.</text>
+<rect x="55" y="1670" width="1690" height="38" fill="#FFFFFF"/>
+<text x="900.0" y="1694.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">AWS deployment: API / relay / worker credentials via Secrets Manager; Snowflake region alignment and PrivateLink where required and supported.</text>
+</svg>

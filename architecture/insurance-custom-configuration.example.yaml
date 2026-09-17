@@ -1,0 +1,37 @@
+# Proposed four-parameter Custom Configuration, not a version 2 API payload.
+# Published separately in CONFIG_REVISIONS and loaded through ConfigCatalog.
+# Python reads this and the selected DataContract independently, then checks
+# compatibility and combines shared defaults with these process-specific rules.
+specVersion: "1.0"
+configId: REGION_A
+revision: 1
+processName: Regional Calculation
+contractRef: {contractId: INSURANCE_CALCULATION, revision: 3}
+region: A
+parameterOverrides: {}
+bindings:
+  Death:
+    functionRef: {functionId: REGIONAL_CAP, revision: 1}
+    arguments:
+      AMOUNT: {source: phaseInput, parameter: Death}
+      CAP: {source: constant, name: cap}
+    constants: {cap: "200000.00"}
+    dependsOn: []
+  AccidentalDeath:
+    functionRef: {functionId: REGIONAL_CAP, revision: 1}
+    arguments:
+      AMOUNT: {source: phaseInput, parameter: AccidentalDeath}
+      CAP: {source: constant, name: cap}
+    constants: {cap: "150000.00"}
+    dependsOn: []
+  CriticalIllness:
+    functionRef: {functionId: CUSTOM_CI, revision: 1}
+    arguments:
+      AMOUNT: {source: phaseInput, parameter: CriticalIllness}
+      FACTOR: {source: constant, name: factor}
+    constants: {factor: "0.90"}
+    dependsOn: []
+# TotalPermanentDisability uses the DataContract default: copy the phase input.
+publication:
+  immutable: true
+  requiredChecks: [schema, exactContractCompatibility, parameterOverrides, releasedFunctionExistence, functionSignatures, dependencyGraph, allowedOverrides]

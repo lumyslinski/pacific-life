@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1960" height="2640" viewBox="0 0 1960 2640" role="img">
+<title>09 Core phase then custom runs</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<rect width="1960" height="2640" fill="#FFFFFF"/>
+<rect x="40" y="24" width="1880" height="46" fill="#FFFFFF"/>
+<text x="40" y="56.86" text-anchor="start" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#172B46">Core first. Then a custom run with input overrides.</text>
+<rect x="40" y="78" width="1880" height="34" fill="#FFFFFF"/>
+<text x="40" y="100.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#738096">Business lifecycle · Regional is one example of a custom process. DataContract governs both phases. Proposed revision 3.</text>
+<rect x="25" y="310" width="1910" height="675" rx="3" fill="#F5E3D0" stroke="#95612E" stroke-width="1.7"/>
+<rect x="25" y="1005" width="1910" height="315" rx="3" fill="#E7EBF0" stroke="#738096" stroke-width="1.7"/>
+<rect x="25" y="1340" width="1910" height="790" rx="3" fill="#EAF2FF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="25" y="2150" width="1910" height="345" rx="3" fill="#FFF0B8" stroke="#A96915" stroke-width="1.7"/>
+<rect x="12" y="145" width="356" height="120" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="25" y="158" width="330" height="45" fill="#FFFFFF"/>
+<text x="190.0" y="187.3" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#172B46">Business user</text>
+<rect x="25" y="212" width="330" height="34" fill="#FFFFFF"/>
+<text x="190.0" y="234.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#356CC9">Vue application</text>
+<polyline points="190,265 190,2505" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="407" y="145" width="356" height="120" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="420" y="158" width="330" height="45" fill="#FFFFFF"/>
+<text x="585.0" y="187.3" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#172B46">Calculation application</text>
+<rect x="420" y="212" width="330" height="34" fill="#FFFFFF"/>
+<text x="585.0" y="234.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#356CC9">Litestar API · Python</text>
+<polyline points="585,265 585,2505" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="802" y="145" width="356" height="120" rx="3" fill="#FFFFFF" stroke="#6E57A5" stroke-width="1.7"/>
+<rect x="815" y="158" width="330" height="45" fill="#FFFFFF"/>
+<text x="980.0" y="187.3" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#172B46">DataContract · Calculation rules</text>
+<rect x="815" y="212" width="330" height="34" fill="#FFFFFF"/>
+<text x="980.0" y="234.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#6E57A5">Snowflake · CONTRACT_REVISIONS</text>
+<polyline points="980,265 980,2505" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="1197" y="145" width="356" height="120" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="1210" y="158" width="330" height="45" fill="#FFFFFF"/>
+<text x="1375.0" y="187.3" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#172B46">Background calculation worker</text>
+<rect x="1210" y="212" width="330" height="34" fill="#FFFFFF"/>
+<text x="1375.0" y="234.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#356CC9">Python · Amazon ECS / Fargate</text>
+<polyline points="1375,265 1375,2505" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="1592" y="145" width="356" height="120" rx="3" fill="#FFFFFF" stroke="#24795C" stroke-width="1.7"/>
+<rect x="1605" y="158" width="330" height="45" fill="#FFFFFF"/>
+<text x="1770.0" y="187.3" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#172B46">Model storage and formulas</text>
+<rect x="1605" y="212" width="330" height="34" fill="#FFFFFF"/>
+<text x="1770.0" y="234.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#24795C">Snowflake · snapshots / SQL</text>
+<polyline points="1770,265 1770,2505" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="48" y="321" width="1840" height="38" fill="#FFFFFF"/>
+<text x="48" y="347.82" text-anchor="start" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#95612E">1 · CORE PHASE — transform the Bronze input model into a Silver model</text>
+<polyline points="190,435 585,435" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="200" y="382" width="375" height="48" fill="#FFFFFF"/>
+<text x="387.5" y="400.08" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Run Core Calculation</text>
+<text x="387.5" y="422.79999999999995" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Bronze { DeathPenatly: 1000 }</text>
+<polyline points="585,505 980,505" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="595" y="476" width="375" height="24" fill="#FFFFFF"/>
+<text x="782.5" y="493.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Read the published Core DataContract</text>
+<polyline points="980,580 585,580" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="595" y="527" width="375" height="48" fill="#FFFFFF"/>
+<text x="782.5" y="545.08" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Required parameter; cap at 800;</text>
+<text x="782.5" y="567.8000000000001" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">exact released Core SQL function</text>
+<polyline points="585,665 1770,665" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="595" y="636" width="1165" height="24" fill="#FFFFFF"/>
+<text x="1177.5" y="653.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Validate input; save Bronze 1000, frozen Core plan, contract version and queued run</text>
+<polyline points="585,740 190,740" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="200" y="687" width="375" height="48" fill="#FFFFFF"/>
+<text x="387.5" y="705.08" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Core run accepted</text>
+<text x="387.5" y="727.8000000000001" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Screen follows its saved status</text>
+<rect x="395" y="785" width="1130" height="85" rx="3" fill="none" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="407" y="768" width="567" height="34" fill="#FFFFFF"/>
+<text x="407" y="790.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#356CC9">ref · ASYNCHRONOUS DISPATCH — expanded on page 11</text>
+<rect x="415" y="803" width="1090" height="50" fill="#FFFFFF"/>
+<text x="960.0" y="821.7099999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Saved run → Python dispatch service → Amazon SQS FIFO → Python worker</text>
+<text x="960.0" y="845.8499999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Worker claims the run and loads its frozen model and DataContract plan.</text>
+<polyline points="1375,955 1770,955" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1385" y="902" width="375" height="48" fill="#FFFFFF"/>
+<text x="1572.5" y="920.08" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Execute Core formula in SQL</text>
+<text x="1572.5" y="942.8000000000001" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">LEAST(1000, 800) = 800</text>
+<rect x="48" y="1017" width="1840" height="36" fill="#FFFFFF"/>
+<text x="48" y="1042.48" text-anchor="start" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#738096">CORE OUTPUT · SILVER — complete calculated model; immutable after publication</text>
+<polyline points="1770,1090 1375,1090" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="1385" y="1061" width="375" height="24" fill="#FFFFFF"/>
+<text x="1572.5" y="1078.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Core output { DeathPenatly: 800 }</text>
+<polyline points="1375,1160 1770,1160" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1385" y="1131" width="375" height="24" fill="#FFFFFF"/>
+<text x="1572.5" y="1148.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Commit Silver + lineage + Ready</text>
+<rect x="130" y="1200" width="1730" height="85" rx="3" fill="none" stroke="#738096" stroke-width="1.7"/>
+<rect x="142" y="1183" width="545" height="34" fill="#FFFFFF"/>
+<text x="142" y="1205.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#738096">ref · CLIENT STATUS CHECK — expanded on page 11</text>
+<rect x="150" y="1217" width="1690" height="50" fill="#FFFFFF"/>
+<text x="995.0" y="1235.34" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Vue polls Litestar; the API reads saved run status and returns the completed Silver model.</text>
+<text x="995.0" y="1260.8999999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">The user now sees { DeathPenatly: 800 }. A custom run can start only after Core succeeds.</text>
+<rect x="48" y="1352" width="1840" height="38" fill="#FFFFFF"/>
+<text x="48" y="1378.82" text-anchor="start" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#356CC9">2 · CUSTOM PHASE — the user chooses a process and may override its input parameters</text>
+<polyline points="190,1460 585,1460" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="200" y="1407" width="375" height="48" fill="#FFFFFF"/>
+<text x="387.5" y="1425.0800000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Choose custom process: Regional</text>
+<text x="387.5" y="1447.8000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Override { DeathPenatly: 700 }</text>
+<polyline points="585,1535 980,1535" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="595" y="1506" width="375" height="24" fill="#FFFFFF"/>
+<text x="782.5" y="1523.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Read DataContract for Regional</text>
+<polyline points="980,1610 585,1610" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="595" y="1557" width="375" height="48" fill="#FFFFFF"/>
+<text x="782.5" y="1575.0800000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Allow the parameter override;</text>
+<text x="782.5" y="1597.8000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">regional rule: amount × 0.90</text>
+<polyline points="585,1685 1770,1685" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="595" y="1656" width="1165" height="24" fill="#FFFFFF"/>
+<text x="1177.5" y="1673.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Read the selected Silver model; validate its scenario revision</text>
+<polyline points="1770,1755 585,1755" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="595" y="1726" width="1165" height="24" fill="#FFFFFF"/>
+<text x="1177.5" y="1743.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Pinned Silver input { DeathPenatly: 800 }</text>
+<rect x="430" y="1780" width="1380" height="57" fill="#FFFFFF"/>
+<text x="430" y="1801.84" text-anchor="start" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#172B46">Python builds this run&#x27;s input: Silver 800 + user override 700 = { DeathPenatly: 700 }.</text>
+<text x="430" y="1827.3999999999999" text-anchor="start" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#172B46">It validates the override against DataContract. The saved Silver model remains 800.</text>
+<polyline points="585,1890 1770,1890" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="595" y="1861" width="1165" height="24" fill="#FFFFFF"/>
+<text x="1177.5" y="1878.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Save custom scenario revision, frozen input 700, selected process, DataContract and queued run</text>
+<polyline points="585,1965 190,1965" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="200" y="1912" width="375" height="48" fill="#FFFFFF"/>
+<text x="387.5" y="1930.0800000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Custom run accepted</text>
+<text x="387.5" y="1952.8000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Screen follows this run&#x27;s status</text>
+<rect x="395" y="2010" width="1130" height="85" rx="3" fill="none" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="407" y="1993" width="490" height="34" fill="#FFFFFF"/>
+<text x="407" y="2015.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#356CC9">ref · SAME ASYNCHRONOUS DISPATCH — page 11</text>
+<rect x="415" y="2030" width="1090" height="45" fill="#FFFFFF"/>
+<text x="960.0" y="2046.21" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Python dispatch service → Amazon SQS FIFO → Python worker</text>
+<text x="960.0" y="2070.35" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Load frozen custom input 700 and the selected Regional plan.</text>
+<rect x="48" y="2162" width="1840" height="38" fill="#FFFFFF"/>
+<text x="48" y="2188.48" text-anchor="start" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#A96915">CUSTOM OUTPUT · GOLD — a new result; Silver and previous results remain unchanged</text>
+<polyline points="1375,2265 1770,2265" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1385" y="2212" width="375" height="48" fill="#FFFFFF"/>
+<text x="1572.5" y="2230.08" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Execute custom formula in SQL</text>
+<text x="1572.5" y="2252.7999999999997" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">700 × 0.90 = 630</text>
+<polyline points="1770,2330 1375,2330" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="1385" y="2301" width="375" height="24" fill="#FFFFFF"/>
+<text x="1572.5" y="2318.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Custom output { DeathPenatly: 630 }</text>
+<polyline points="1375,2395 1770,2395" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1385" y="2366" width="375" height="24" fill="#FFFFFF"/>
+<text x="1572.5" y="2383.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Commit new Gold + lineage + Ready</text>
+<rect x="100" y="2423" width="1760" height="50" fill="#FFFFFF"/>
+<text x="980.0" y="2441.3399999999997" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#172B46">Vue follows the saved status and displays Gold { DeathPenatly: 630 }.</text>
+<text x="980.0" y="2466.8999999999996" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#172B46">The user may finish, change the override, or select another published custom process.</text>
+<rect x="45" y="2525" width="1870" height="40" fill="#FFFFFF"/>
+<text x="980.0" y="2551.8" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#172B46">New override 600 → new custom run → new Gold 540. Retry → same frozen input and DataContract (page 12).</text>
+<rect x="45" y="2580" width="1870" height="35" fill="#FFFFFF"/>
+<text x="980.0" y="2603.62" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Bronze, Silver and Gold are data layers. Core and Custom are calculation phases. Regional is a custom process, not a mandatory phase.</text>
+</svg>

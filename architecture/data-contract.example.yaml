@@ -1,0 +1,104 @@
+# Proposed domain calculation contract. This is not a request payload accepted
+# by the existing v2 API. Function bodies live in the SQL function catalogue.
+# Optional Git authoring input for CONTRACT_DRAFTS -> CONTRACT_REVISIONS.
+# Python validates and resolves this document; Snowflake stores it and executes SQL.
+# Publication identity/hash/timestamps are server metadata, not caller authority.
+specVersion: "1.0"
+contractId: INSURANCE_CALCULATION
+revision: 3
+# Publication/deprecation status is stored separately from this immutable document.
+
+parameterSchema:
+  unknownParameterPolicy: reject
+  defaultType: {kind: decimalString, precision: 18, scale: 2, minimum: "0.00"}
+  parameters:
+    Death: {required: true}
+    AccidentalDeath: {required: true}
+    TotalPermanentDisability: {required: true}
+    CriticalIllness: {required: true}
+
+# Each phaseInput reference reads the frozen input for that run.
+# phaseOutput references require an explicit dependency on the referenced param.
+phases:
+  core:
+    processName: Core Calculation
+    inputLayer: bronze
+    outputLayer: silver
+    sourceMappings:
+      Death: {sourceField: Death}
+      AccidentalDeath: {sourceField: AccidentalDeath}
+      TotalPermanentDisability: {sourceField: TotalPermanentDisability}
+      CriticalIllness: {sourceField: CriticalIllness}
+    unboundParameterPolicy: error
+    bindings:
+      Death:
+        functionRef: {functionId: CORE_LIMIT_AMOUNT, revision: 1}
+        arguments:
+          AMOUNT: {source: phaseInput, parameter: Death}
+          CAP: {source: constant, name: cap}
+        constants: {cap: "300000.00"}
+        dependsOn: []
+      AccidentalDeath:
+        functionRef: {functionId: CORE_LIMIT_RELATIVE, revision: 1}
+        arguments:
+          AMOUNT: {source: phaseInput, parameter: AccidentalDeath}
+          REFERENCE_AMOUNT: {source: phaseOutput, parameter: Death}
+          RATIO: {source: constant, name: ratio}
+        constants: {ratio: "1.00"}
+        dependsOn: [Death]
+      TotalPermanentDisability:
+        functionRef: {functionId: CORE_LIMIT_RELATIVE, revision: 1}
+        arguments:
+          AMOUNT: {source: phaseInput, parameter: TotalPermanentDisability}
+          REFERENCE_AMOUNT: {source: phaseOutput, parameter: Death}
+          RATIO: {source: constant, name: ratio}
+        constants: {ratio: "1.00"}
+        dependsOn: [Death]
+      CriticalIllness:
+        functionRef: {functionId: CORE_LIMIT_RELATIVE, revision: 1}
+        arguments:
+          AMOUNT: {source: phaseInput, parameter: CriticalIllness}
+          REFERENCE_AMOUNT: {source: phaseOutput, parameter: Death}
+          RATIO: {source: constant, name: ratio}
+        constants: {ratio: "0.50"}
+        dependsOn: [Death]
+    objective:
+      functionRef: {functionId: OBJECTIVE_RELATIVE_CHANGE, revision: 1}
+      baseline: bronzeInput
+      aggregation: sumPerPolicy
+
+  # Shared defaults and constraints. Regional rules are separately published in
+  # insurance-custom-configuration.example.yaml, not owned by this DataContract.
+  custom:
+    inputLayer: silverOrExplicitGoldSource
+    outputLayer: gold
+    defaultSourceMode: silver
+    inputAssembly: sourceSnapshotWithCustomConfigurationParameterOverrides
+    unboundParameterPolicy: copyFromPhaseInput
+    defaultBindings: {}
+    objective:
+      functionRef: {functionId: OBJECTIVE_RELATIVE_CHANGE, revision: 1}
+      baseline: originalSilver
+      aggregation: sumPerPolicy
+
+customConfigurationPolicy:
+  contractCompatibility: exactPublishedContractRevision
+  parameterOverrides: existingParametersPassingSchemaValidation
+  constants: declaredAndTypeCompatible
+  functionRefs: publishedSignatureCompatibleReleases
+  bindings: mustPassDependencyAndSignatureValidation
+
+publication:
+  immutable: true
+  requiredChecks: [schema, releasedFunctionExistence, functionSignatures, completeCoreBindings, dependencyGraph, allowedOverrides]
+  resolvedAtRunCreation: [contractHash, customConfigurationHashWhenCustom, functionSqlNames, functionDefinitionHashes, planHash]
+
+runPolicy:
+  pin: [sourceSnapshot, scenarioRevisionWhenCustom, contractRevision, customConfigurationRevisionWhenCustom, effectivePlan]
+  customProcessSelection: exactProcessNameFromPublishedCustomConfiguration
+  customInputResolution: independentContractAndCustomConfigurationReadsThenValidateAndCombine
+  publishOnlyOnCompleteSuccess: true
+  retryInput: sameFrozenModelContractCustomConfigurationAndPlan
+  changedScenario: newRun
+  goldHistory: appendOnly
+  optionalChaining: explicitPinnedGoldSource

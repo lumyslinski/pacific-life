@@ -1,0 +1,7 @@
+duckdb==1.5.5
+sqlglot==30.15.0
+starlette==1.6.0
+uvicorn==0.52.4
+snowflake-connector-python==4.7.3
+litestar==2.24.0
+boto3==1.43.93

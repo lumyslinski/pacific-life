@@ -1,0 +1,85 @@
+"""Publish demo SQL functions and bindings. The worker never reads these files."""
+from pathlib import Path
+import json
+import os
+
+import snowflake.connector
+import sqlglot
+from sqlglot import exp
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def connection_options():
+    if os.getenv("SNOWFLAKE_CONNECTION_JSON"):
+        return json.loads(os.environ["SNOWFLAKE_CONNECTION_JSON"])
+    os.environ["SNOWFLAKE_DISABLE_PLATFORM_DETECTION"] = "true"
+    os.environ["AWS_EC2_METADATA_DISABLED"] = "true"
+    return {"account": "local", "user": "test", "password": "test",
+            "host": os.getenv("EMULATOR_HOST", "127.0.0.1"),
+            "port": int(os.getenv("EMULATOR_PORT", "8084")), "protocol": "http",
+            "login_timeout": 5, "network_timeout": 30,
+            "platform_detection_timeout_seconds": 0,
+            "session_parameters": {"CLIENT_OUT_OF_BAND_TELEMETRY_ENABLED": False}}
+
+
+def seed(connection):
+    for filename in ("schema.sql", "functions.sql", "lifecycle.sql"):
+        script = (ROOT / "fixtures" / filename).read_text(encoding="utf-8")
+        with connection.cursor() as cursor:
+            for statement in sqlglot.parse(script, read="snowflake"):
+                if statement is not None:
+                    cursor.execute(statement.sql(dialect="snowflake"))
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT COUNT(*) FROM INSURANCE.CALC.PARAMETER_BINDINGS WHERE MODEL_VERSION=%s", ("insurance-v1",))
+        bindings = json.loads((ROOT / "fixtures" / "bindings.json").read_text())
+        if cursor.fetchone()[0] == 0:
+            for binding in bindings:
+                cursor.execute("INSERT INTO INSURANCE.CALC.PARAMETER_BINDINGS VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",
+                    ("insurance-v1", binding["calculation"], binding["region"], binding["parameter"],
+                     binding["function"], json.dumps(binding["arguments"]),
+                     json.dumps(binding["constants"]), json.dumps(binding["dependsOn"])))
+        cursor.execute("SELECT COUNT(*) FROM INSURANCE.CALC.MODEL_OBJECTIVES WHERE MODEL_VERSION=%s", ("insurance-v1",))
+        if cursor.fetchone()[0] == 0:
+            cursor.execute("INSERT INTO INSURANCE.CALC.MODEL_OBJECTIVES VALUES (%s,%s)",
+                           ("insurance-v1", "INSURANCE.CALC.OBJECTIVE_RELATIVE_CHANGE_V1"))
+    seed_lifecycle(connection)
+
+
+def seed_lifecycle(connection):
+    from .catalog import FunctionCatalog, ConfigCatalog
+    from .gateway import SnowflakeGateway
+    database = SnowflakeGateway(connection)
+    functions, configs = FunctionCatalog(database), ConfigCatalog(database)
+    for node in sqlglot.parse((ROOT / "fixtures" / "functions.sql").read_text(), read="snowflake"):
+        if node is None:
+            continue
+        name = node.this.this.name.removesuffix("_V1")
+        existing = database.rows("SELECT 1 FROM INSURANCE.CALC.FUNCTION_RELEASES WHERE FUNCTION_ID=%s AND REVISION=1", (name,))
+        if existing:
+            continue
+        definition = {"arguments": [{"name": a.name.upper(), "type": a.args["kind"].sql(dialect="snowflake").replace("DECIMAL", "NUMBER").replace(" ", "")}
+                                    for a in node.this.expressions],
+                      "returns": next(p for p in node.args["properties"].expressions if isinstance(p, exp.ReturnsProperty)).this.sql(dialect="snowflake").replace("DECIMAL", "NUMBER").replace(" ", ""),
+                      "body": node.args["expression"].this}
+        drafts = database.rows("SELECT REVISION FROM INSURANCE.CALC.FUNCTION_DRAFTS WHERE FUNCTION_ID=%s", (name,))
+        if not drafts:
+            functions.edit(name, 0, definition)
+        functions.publish(name, 1)
+    raw = json.loads((ROOT / "fixtures" / "bindings.json").read_text())
+    for config_id, calculation, region in [("CORE_INSURANCE", "Core Calculation", "*"),
+        ("REGION_A", "Regional Calculation", "A"), ("REGION_B", "Regional Calculation", "B")]:
+        if database.rows("SELECT 1 FROM INSURANCE.CALC.CONFIG_REVISIONS WHERE CONFIG_ID=%s AND REVISION=1", (config_id,)):
+            continue
+        bindings = [{"parameter": b["parameter"], "functionId": b["function"].split(".")[-1].removesuffix("_V1"),
+            "functionRevision": 1, "arguments": b["arguments"], "constants": b["constants"], "dependsOn": b["dependsOn"]}
+            for b in raw if b["calculation"] == calculation and b["region"] == region]
+        configs.publish(config_id, {"expectedRevision": 0, "kind": "core" if region == "*" else "variation",
+            "processName": calculation, "region": region, "bindings": bindings,
+            "objective": {"functionId": "OBJECTIVE_RELATIVE_CHANGE", "functionRevision": 1}})
+
+
+if __name__ == "__main__":
+    with snowflake.connector.connect(**connection_options()) as connection:
+        seed(connection)
+    print("Demo SQL functions and database bindings are ready.")

@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1130" viewBox="0 0 1600 1130" role="img">
+<title>01 Layer overview</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<rect width="1600" height="1130" fill="#FFFFFF"/>
+<rect x="40" y="24" width="1520" height="46" fill="#FFFFFF"/>
+<text x="40" y="56.86" text-anchor="start" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#172B46">Calculation modeling · layer overview</text>
+<rect x="40" y="78" width="1520" height="34" fill="#FFFFFF"/>
+<text x="40" y="100.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#738096">Revision 3 target · Python resolves Snowflake contracts; durable AWS run dispatch is detailed on page 8.</text>
+<rect x="60" y="150" width="320" height="150" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="72" y="160" width="296" height="130" fill="#FFFFFF"/>
+<text x="220.0" y="205.56" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Vue workspace</text>
+<text x="220.0" y="231.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Submit input / edit scenario</text>
+<text x="220.0" y="256.68" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Run / retry / inspect results</text>
+<rect x="500" y="150" width="480" height="150" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="512" y="160" width="456" height="130" fill="#FFFFFF"/>
+<text x="740.0" y="192.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Litestar command API</text>
+<text x="740.0" y="218.34" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Freeze input, contract and scenario revisions</text>
+<text x="740.0" y="243.9" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Commit run + dispatch outbox; return 202</text>
+<text x="740.0" y="269.46" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Vue polls GET /runs/{runId}</text>
+<rect x="1110" y="130" width="430" height="180" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="1122" y="140" width="406" height="160" fill="#FFFFFF"/>
+<text x="1325.0" y="175.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Data Contract module in Python</text>
+<text x="1325.0" y="200.56" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Parameter schema + validation</text>
+<text x="1325.0" y="226.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Phase / parameter / DB function</text>
+<text x="1325.0" y="251.68" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Arguments + dependencies + objective</text>
+<text x="1325.0" y="277.24" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Snowflake CONTRACT_REVISIONS</text>
+<polyline points="380,225 500,225" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="383" y="184" width="112" height="32" fill="#FFFFFF"/>
+<text x="439.0" y="205.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#356CC9">Commands</text>
+<polyline points="1110,225 980,225" fill="none" stroke="#356CC9" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="987" y="184" width="117" height="32" fill="#FFFFFF"/>
+<text x="1045.5" y="205.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#356CC9">Pinned spec</text>
+<rect x="45" y="397" width="565" height="215" rx="3" fill="none" stroke="#95612E" stroke-width="1.7"/>
+<rect x="57" y="380" width="303" height="34" fill="#FFFFFF"/>
+<text x="57" y="402.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#95612E">CORE PHASE · BRONZE INPUT</text>
+<rect x="60" y="435" width="225" height="160" rx="3" fill="#FFFFFF" stroke="#95612E" stroke-width="1.7"/>
+<rect x="72" y="445" width="201" height="140" fill="#FFFFFF"/>
+<text x="172.5" y="494.47999999999996" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172B46">BRONZE</text>
+<text x="172.5" y="521.4599999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172B46">Input model</text>
+<text x="172.5" y="548.4399999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172B46">Saved raw snapshot</text>
+<rect x="335" y="435" width="260" height="160" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="347" y="445" width="236" height="140" fill="#FFFFFF"/>
+<text x="465.0" y="495.56" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Core Calculation</text>
+<text x="465.0" y="521.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Validate + map</text>
+<text x="465.0" y="546.68" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Calculate every param</text>
+<rect x="645" y="435" width="240" height="160" rx="3" fill="#FFFFFF" stroke="#738096" stroke-width="1.7"/>
+<rect x="657" y="445" width="216" height="140" fill="#FFFFFF"/>
+<text x="765.0" y="494.47999999999996" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172B46">SILVER</text>
+<text x="765.0" y="521.4599999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172B46">Immutable core</text>
+<text x="765.0" y="548.4399999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172B46">Complete model</text>
+<rect x="935" y="435" width="275" height="160" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="947" y="445" width="251" height="140" fill="#FFFFFF"/>
+<text x="1072.5" y="495.56" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Custom Calculation</text>
+<text x="1072.5" y="521.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Silver + input overrides</text>
+<text x="1072.5" y="546.68" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Selected parameters</text>
+<rect x="1260" y="435" width="280" height="160" rx="3" fill="#FFFFFF" stroke="#A96915" stroke-width="1.7"/>
+<rect x="1272" y="445" width="256" height="140" fill="#FFFFFF"/>
+<text x="1400.0" y="494.47999999999996" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172B46">GOLD</text>
+<text x="1400.0" y="521.4599999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172B46">Calculated variation</text>
+<text x="1400.0" y="548.4399999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#172B46">Versioned results</text>
+<polyline points="285,515 335,515" fill="none" stroke="#24795C" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="595,515 645,515" fill="none" stroke="#24795C" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="885,515 935,515" fill="none" stroke="#24795C" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="1210,515 1260,515" fill="none" stroke="#24795C" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="570,300 570,320 255,320 255,435" fill="none" stroke="#356CC9" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="165" y="343" width="180" height="30" fill="#FFFFFF"/>
+<text x="255.0" y="363.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Store input</text>
+<polyline points="680,300 680,355 465,355 465,435" fill="none" stroke="#356CC9" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="370" y="326" width="240" height="28" fill="#FFFFFF"/>
+<text x="490.0" y="345.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Core command</text>
+<polyline points="820,300 820,355 1072,355 1072,435" fill="none" stroke="#356CC9" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="906" y="326" width="300" height="28" fill="#FFFFFF"/>
+<text x="1056.0" y="345.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Custom command</text>
+<rect x="1242" y="627" width="310" height="100" fill="#FFFFFF"/>
+<text x="1397.0" y="646.5699999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#A96915">Every successful custom run</text>
+<text x="1397.0" y="670.7099999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#A96915">delivers another Gold model.</text>
+<text x="1397.0" y="694.8499999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#A96915">The user processes it further</text>
+<text x="1397.0" y="718.9899999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#A96915">or finishes the pipeline.</text>
+<rect x="210" y="750" width="1230" height="265" rx="3" fill="none" stroke="#738096" stroke-width="1.7"/>
+<rect x="222" y="733" width="182" height="34" fill="#FFFFFF"/>
+<text x="222" y="755.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#738096">SHARED RUNTIME</text>
+<rect x="260" y="800" width="430" height="160" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="272" y="810" width="406" height="140" fill="#FFFFFF"/>
+<text x="475.0" y="847.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Python worker on Fargate (target)</text>
+<text x="475.0" y="873.3399999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">SQS dispatch + fenced run lease</text>
+<text x="475.0" y="898.9" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Resolve dependencies + batch calls</text>
+<text x="475.0" y="924.4599999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Assemble the complete output</text>
+<rect x="980" y="800" width="410" height="160" rx="3" fill="#FFFFFF" stroke="#24795C" stroke-width="1.7"/>
+<rect x="992" y="810" width="386" height="140" fill="#FFFFFF"/>
+<text x="1185.0" y="860.5600000000001" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Snowflake (emulated locally)</text>
+<text x="1185.0" y="886.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Execute released SQL functions</text>
+<text x="1185.0" y="911.6800000000001" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Store models, runs, lineage and audit</text>
+<polyline points="465,612 465,800" fill="none" stroke="#356CC9" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="327" y="668" width="276" height="35" fill="#FFFFFF"/>
+<text x="465.0" y="691.28" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Execute core plan</text>
+<polyline points="1072,595 1072,660 735,660 735,820 690,820" fill="none" stroke="#356CC9" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="773" y="626" width="290" height="33" fill="#FFFFFF"/>
+<text x="918.0" y="648.28" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Execute custom plan</text>
+<polyline points="690,865 980,865" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="714" y="823" width="241" height="32" fill="#FFFFFF"/>
+<text x="834.5" y="844.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#356CC9">Batched SQL calls</text>
+<polyline points="980,930 690,930" fill="none" stroke="#24795C" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="714" y="938" width="241" height="32" fill="#FFFFFF"/>
+<text x="834.5" y="959.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#24795C">Values + query IDs</text>
+<rect x="55" y="1040" width="1490" height="28" fill="#FFFFFF"/>
+<text x="800.0" y="1060.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#172B46">Bronze, Silver and Gold are logical data layers; one database can host all three.</text>
+<rect x="55" y="1080" width="1490" height="28" fill="#FFFFFF"/>
+<text x="800.0" y="1099.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Solid green = model data. Dashed blue = control/specification. Each run records inputs, contract, functions, outputs and audit.</text>
+</svg>

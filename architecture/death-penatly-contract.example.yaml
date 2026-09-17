@@ -1,0 +1,71 @@
+# Proposed one-property Data Contract, not accepted by the current version 2 API.
+# Python interprets this document; Snowflake stores the published revision and
+# executes the referenced SQL functions. Amounts use decimal-string transport.
+# Core obtains parameter definitions, Bronze source mappings and calculation
+# rules from this DataContract. Custom Configuration is a separate document.
+specVersion: "1.0"
+contractId: DEATH_PENALTY_EXAMPLE
+revision: 1
+
+parameterSchema:
+  unknownParameterPolicy: reject
+  defaultType: {kind: decimalString, precision: 18, scale: 2, minimum: "0.00"}
+  parameters:
+    DeathPenatly: {required: true}
+
+phases:
+  core:
+    processName: Core Calculation
+    inputLayer: bronze
+    outputLayer: silver
+    sourceMappings:
+      DeathPenatly: {sourceField: DeathPenatly}
+    unboundParameterPolicy: error
+    bindings:
+      DeathPenatly:
+        functionRef: {functionId: CORE_LIMIT_AMOUNT, revision: 1}
+        arguments:
+          AMOUNT: {source: phaseInput, parameter: DeathPenatly}
+          CAP: {source: constant, name: cap}
+        constants: {cap: "800.00"}
+        dependsOn: []
+    objective:
+      functionRef: {functionId: OBJECTIVE_RELATIVE_CHANGE, revision: 1}
+      baseline: bronzeInput
+      aggregation: sumPerPolicy
+  # Shared custom-run defaults and constraints, not a regional configuration.
+  # Python independently reads this document AND custom-configuration.example.yaml,
+  # then validates compatibility and combines them into one execution plan.
+  custom:
+    inputLayer: silverOrExplicitGoldSource
+    outputLayer: gold
+    defaultSourceMode: silver
+    inputAssembly: sourceSnapshotWithCustomConfigurationParameterOverrides
+    unboundParameterPolicy: copyFromPhaseInput
+    defaultBindings: {}
+    objective:
+      functionRef: {functionId: OBJECTIVE_RELATIVE_CHANGE, revision: 1}
+      baseline: originalSilver
+      aggregation: sumPerPolicy
+
+customConfigurationPolicy:
+  contractCompatibility: exactPublishedContractRevision
+  parameterOverrides: existingParametersPassingSchemaValidation
+  constants: declaredAndTypeCompatible
+  functionRefs: publishedSignatureCompatibleReleases
+  bindings: mustPassDependencyAndSignatureValidation
+
+publication:
+  immutable: true
+  requiredChecks: [schema, releasedFunctionExistence, functionSignatures, completeCoreBindings, dependencyGraph, allowedOverrides]
+  resolvedAtRunCreation: [contractHash, customConfigurationHashWhenCustom, functionSqlNames, functionDefinitionHashes, planHash]
+
+runPolicy:
+  pin: [sourceSnapshot, scenarioRevisionWhenCustom, contractRevision, customConfigurationRevisionWhenCustom, effectivePlan]
+  customProcessSelection: exactProcessNameFromPublishedCustomConfiguration
+  customInputResolution: independentContractAndCustomConfigurationReadsThenValidateAndCombine
+  publishOnlyOnCompleteSuccess: true
+  retryInput: sameFrozenModelContractCustomConfigurationAndPlan
+  changedScenario: newRun
+  goldHistory: appendOnly
+  optionalChaining: explicitPinnedGoldSource

@@ -1,0 +1,404 @@
+openapi: 3.1.0
+info:
+  title: Insurance Calculation API — proposed contract and run resources
+  version: 3.0.0-draft
+  description: |
+    DESIGN ONLY. These routes are not implemented or served by the local API.
+    This partial specification covers contract publication and asynchronous
+    runs; existing function APIs remain defined in openapi.yaml. Full Bronze,
+    scenario, Silver and Gold resource routes remain to be specified.
+    Core reads a published DataContract for parameter definitions, Bronze source
+    mappings and Core rules. Each new custom calculation independently reads BOTH
+    a selected DataContract and a separately published Custom Configuration from
+    Snowflake. Neither read depends on the other. After both are available, Python
+    checks compatibility and combines them into an immutable execution plan.
+    Commands commit a run, receipt and dispatch outbox before returning
+    202. Request IDs are scoped to operation/target and compared by payload hash.
+    Published documents and frozen plans cannot be replaced by a retry.
+x-implementation-status: proposed
+paths:
+  /contracts/{contractId}:
+    parameters:
+      - $ref: '#/components/parameters/ContractId'
+    get:
+      operationId: getContractDraft
+      responses:
+        '200':
+          description: Current mutable draft.
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ContractDraft'}
+        '404': {$ref: '#/components/responses/NotFound'}
+    put:
+      operationId: editContractDraft
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/EditContractRequest'}
+      responses:
+        '200':
+          description: Saved draft; revision advances. expectedRevision 0 creates it.
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ContractDraft'}
+        '409': {$ref: '#/components/responses/Conflict'}
+        '422': {$ref: '#/components/responses/Invalid'}
+  /contracts/{contractId}/publish:
+    parameters:
+      - $ref: '#/components/parameters/ContractId'
+    post:
+      operationId: publishContract
+      description: |
+        Check the command receipt before mutable state. Validate the exact draft,
+        schema, dependencies and released function signatures, then publish one
+        immutable revision. Published revision equals the selected draft revision;
+        repeated publication of that revision returns its existing record.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/PublishContractRequest'}
+      responses:
+        '201':
+          description: Published revision, or saved response for command replay.
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/PublishedContract'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409': {$ref: '#/components/responses/Conflict'}
+        '422': {$ref: '#/components/responses/Invalid'}
+  /contracts/{contractId}/revisions/{revision}:
+    parameters:
+      - $ref: '#/components/parameters/ContractId'
+      - name: revision
+        in: path
+        required: true
+        schema: {type: integer, minimum: 1}
+    get:
+      operationId: getPublishedContract
+      responses:
+        '200':
+          description: Exact immutable published document and publication metadata.
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/PublishedContract'}
+        '404': {$ref: '#/components/responses/NotFound'}
+  /runs:
+    post:
+      operationId: submitRun
+      description: |
+        Check the receipt first. Core reads the selected DataContract for its
+        parameter definitions, Bronze source mappings and Core modeling rules.
+        Core input is a retained Bronze snapshot and its output is immutable Silver.
+        For a NEW custom calculation, independently read the exact DataContract
+        and Custom Configuration revisions supplied in the command. Both are
+        required inputs; neither read depends on the result of the other.
+        Once both documents are available, check configuration contractRef,
+        processName, parameter overrides, function signatures and dependencies
+        against the DataContract's shared defaults and constraints. processName
+        must match the selected Custom Configuration and scenario. Apply the
+        configuration's parameterOverrides to a copy of the pinned Silver source
+        (or explicitly selected Gold source), then freeze the assembled input,
+        both document revisions/content hashes and the combined execution plan.
+        Verify source/scenario revision and saved selections, then atomically save
+        the frozen manifest, request receipt and RUN_OUTBOX. Core must have
+        succeeded before its Silver output can be used by a custom calculation.
+        Duplicate
+        submits return the original acceptance response and run ID, even if the
+        run has since finished. GET its Location for current state.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/SubmitRunRequest'}
+      responses:
+        '202': {$ref: '#/components/responses/AcceptedRun'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409': {$ref: '#/components/responses/Conflict'}
+        '422': {$ref: '#/components/responses/Invalid'}
+  /runs/{runId}:
+    parameters:
+      - $ref: '#/components/parameters/RunId'
+    get:
+      operationId: getRun
+      parameters:
+        - name: If-None-Match
+          in: header
+          schema: {type: string}
+      responses:
+        '200':
+          description: Authoritative persisted run status, attempts and result reference.
+          headers:
+            ETag:
+              description: Changes with the returned run representation.
+              schema: {type: string}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Run'}
+        '304':
+          description: Run representation is unchanged; no response body.
+          headers:
+            ETag:
+              schema: {type: string}
+        '404': {$ref: '#/components/responses/NotFound'}
+  /runs/{runId}/retry:
+    parameters:
+      - $ref: '#/components/parameters/RunId'
+    post:
+      operationId: retryRun
+      description: |
+        Idempotent command. A FAILED run gets a new dispatch generation and a
+        bounded manual retry budget when retryEligible is true, preserving its
+        frozen model, DataContract, Custom Configuration (for custom runs) and
+        combined plan. Retry does not resolve either document again. To select a
+        different model, contract or configuration, submit a NEW calculation.
+        QUEUED, RUNNING or RETRYABLE returns existing work without a competing
+        attempt. SUCCEEDED returns the saved result. Record/replay the command
+        response; use GET /runs/{runId} for status after a replay.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/RetryRunRequest'}
+      responses:
+        '202': {$ref: '#/components/responses/AcceptedRun'}
+        '200':
+          description: Existing successful run; no recalculation.
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Run'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409': {$ref: '#/components/responses/Conflict'}
+        '422': {$ref: '#/components/responses/Invalid'}
+components:
+  parameters:
+    ContractId:
+      name: contractId
+      in: path
+      required: true
+      schema: {type: string, minLength: 1}
+    RunId:
+      name: runId
+      in: path
+      required: true
+      schema: {type: string, minLength: 1}
+  responses:
+    AcceptedRun:
+      description: Durable acceptance or existing active work; poll Location for current state.
+      headers:
+        Location:
+          description: Relative status URL /runs/{runId}.
+          schema: {type: string, format: uri-reference}
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Run'}
+    NotFound:
+      description: Referenced contract, custom configuration, source, scenario or run does not exist.
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+    Conflict:
+      description: Stale expectedRevision, incompatible scenario/document selections, or request ID reused with different payload.
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+    Invalid:
+      description: Invalid document/plan/source, hash mismatch or command validation failure.
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+  schemas:
+    ContractDocument:
+      type: object
+      description: |
+        Proposed domain document shaped by architecture/data-contract.example.yaml.
+        The complete domain schema is a separate implementation deliverable;
+        this transport placeholder does not imply arbitrary documents are valid.
+        Core obtains parameter definitions, Bronze source mappings and Core
+        modeling rules from this document. Its custom section defines shared
+        defaults and constraints; process-specific settings and parameter
+        overrides belong to a separately published Custom Configuration.
+        Python validates schema, bindings, argument sources, dependencies,
+        overrides and objective against exact function releases.
+      additionalProperties: true
+    EditContractRequest:
+      type: object
+      additionalProperties: false
+      required: [expectedRevision, document]
+      properties:
+        expectedRevision: {type: integer, minimum: 0}
+        document: {$ref: '#/components/schemas/ContractDocument'}
+    PublishContractRequest:
+      type: object
+      additionalProperties: false
+      required: [requestId, expectedRevision]
+      properties:
+        requestId: {type: string, minLength: 1}
+        expectedRevision: {type: integer, minimum: 1}
+    ContractDraft:
+      type: object
+      required: [contractId, revision, document]
+      properties:
+        contractId: {type: string}
+        revision: {type: integer, minimum: 1}
+        document: {$ref: '#/components/schemas/ContractDocument'}
+    PublishedContract:
+      type: object
+      required: [contractId, revision, contentHash, document, publishedAt, publishedBy]
+      properties:
+        contractId: {type: string}
+        revision: {type: integer, minimum: 1}
+        contentHash: {type: string, pattern: '^[a-f0-9]{64}$'}
+        document: {$ref: '#/components/schemas/ContractDocument'}
+        publishedAt: {type: string, format: date-time}
+        publishedBy: {type: string, description: Server-derived publisher identity.}
+    ContractSelector:
+      type: object
+      additionalProperties: false
+      required: [contractId, revision]
+      properties:
+        contractId: {type: string, minLength: 1}
+        revision:
+          oneOf:
+            - {type: integer, minimum: 1}
+            - {type: string, const: latestPublished}
+    ContractRef:
+      type: object
+      additionalProperties: false
+      description: Exact published DataContract selected explicitly for a custom calculation.
+      required: [contractId, revision]
+      properties:
+        contractId: {type: string, minLength: 1}
+        revision: {type: integer, minimum: 1}
+    CustomConfigurationRef:
+      type: object
+      additionalProperties: false
+      description: |
+        Exact independently selected Custom Configuration in CONFIG_REVISIONS,
+        read through ConfigCatalog. Its processName must match the requested
+        process and its contractRef must match the selected DataContract.
+        See architecture/custom-configuration.example.yaml. This proposed
+        document shape is not yet accepted by the existing version 2 Config API.
+      required: [configId, revision]
+      properties:
+        configId: {type: string, minLength: 1}
+        revision: {type: integer, minimum: 1}
+    PinnedContract:
+      type: object
+      required: [contractId, revision, contentHash]
+      properties:
+        contractId: {type: string}
+        revision: {type: integer, minimum: 1}
+        contentHash: {type: string, pattern: '^[a-f0-9]{64}$'}
+    PinnedCustomConfiguration:
+      type: object
+      description: Configuration revision and verified content hash frozen with the run.
+      required: [configId, revision, contentHash]
+      properties:
+        configId: {type: string}
+        revision: {type: integer, minimum: 1}
+        contentHash: {type: string, pattern: '^[a-f0-9]{64}$'}
+    SnapshotRef:
+      type: object
+      additionalProperties: false
+      required: [kind, modelId, revision, contentHash]
+      properties:
+        kind: {type: string, enum: [bronze, silver, gold]}
+        modelId: {type: string, minLength: 1}
+        revision: {type: integer, minimum: 1}
+        contentHash: {type: string, pattern: '^[a-f0-9]{64}$'}
+    SubmitRunRequest:
+      oneOf:
+        - type: object
+          additionalProperties: false
+          required: [requestId, phase, source, contract]
+          properties:
+            requestId: {type: string, minLength: 1}
+            phase: {type: string, const: core}
+            source:
+              allOf:
+                - {$ref: '#/components/schemas/SnapshotRef'}
+                - properties:
+                    kind: {const: bronze}
+            contract: {$ref: '#/components/schemas/ContractSelector'}
+        - type: object
+          additionalProperties: false
+          required: [requestId, phase, processName, scenarioId, expectedRevision, contract, customConfiguration]
+          properties:
+            requestId: {type: string, minLength: 1}
+            phase: {type: string, const: custom}
+            processName: {type: string, minLength: 1, description: Exact process name declared by the selected published Custom Configuration.}
+            scenarioId: {type: string, minLength: 1}
+            expectedRevision: {type: integer, minimum: 1}
+            contract: {$ref: '#/components/schemas/ContractRef'}
+            customConfiguration: {$ref: '#/components/schemas/CustomConfigurationRef'}
+          examples:
+            - requestId: regional-calculation-command-001
+              phase: custom
+              processName: Regional Calculation
+              scenarioId: regional-scenario
+              expectedRevision: 1
+              contract: {contractId: DEATH_PENALTY_EXAMPLE, revision: 1}
+              customConfiguration: {configId: REGIONAL_DEATH_PENALTY, revision: 1}
+    RetryRunRequest:
+      type: object
+      additionalProperties: false
+      required: [requestId]
+      properties:
+        requestId: {type: string, minLength: 1}
+    Run:
+      type: object
+      required: [runId, phase, status, contract, planHash, source, attempts, retryEligible]
+      properties:
+        runId: {type: string}
+        phase: {type: string, enum: [core, custom]}
+        processName: {type: string, minLength: 1}
+        status: {type: string, enum: [QUEUED, RUNNING, RETRYABLE, FAILED, SUCCEEDED]}
+        contract: {$ref: '#/components/schemas/PinnedContract'}
+        customConfiguration: {$ref: '#/components/schemas/PinnedCustomConfiguration'}
+        planHash: {type: string, pattern: '^[a-f0-9]{64}$'}
+        source: {$ref: '#/components/schemas/SnapshotRef'}
+        scenarioId: {type: string}
+        scenarioRevision: {type: integer, minimum: 1}
+        retryEligible: {type: boolean, description: Whether manual retry may create another attempt.}
+        attempts:
+          type: array
+          items: {$ref: '#/components/schemas/RunAttempt'}
+        result:
+          allOf:
+            - {$ref: '#/components/schemas/SnapshotRef'}
+            - properties:
+                kind: {enum: [silver, gold]}
+      allOf:
+        - if:
+            properties:
+              status: {const: SUCCEEDED}
+          then:
+            required: [result]
+          else:
+            not:
+              required: [result]
+        - if:
+            properties:
+              phase: {const: custom}
+          then:
+            required: [processName, scenarioId, scenarioRevision, customConfiguration]
+    RunAttempt:
+      type: object
+      required: [attemptId, status, startedAt]
+      properties:
+        attemptId: {type: string}
+        status: {type: string, enum: [RUNNING, SUCCEEDED, FAILED, ABANDONED]}
+        startedAt: {type: string, format: date-time}
+        finishedAt: {type: string, format: date-time}
+        error: {$ref: '#/components/schemas/Error'}
+        queryIds:
+          type: array
+          items: {type: string}
+    Error:
+      type: object
+      required: [code, message]
+      properties:
+        code: {type: string}
+        message: {type: string, description: Client-safe diagnostic without credentials or SQL secrets.}

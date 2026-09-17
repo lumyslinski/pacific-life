@@ -1,0 +1,11 @@
+[
+  {"calculation":"Core Calculation","region":"*","parameter":"Death","function":"INSURANCE.CALC.CORE_LIMIT_AMOUNT_V1","arguments":[{"param":"Death"},{"constant":"cap"}],"constants":{"cap":"300000.00"},"dependsOn":[]},
+  {"calculation":"Core Calculation","region":"*","parameter":"AccidentalDeath","function":"INSURANCE.CALC.CORE_LIMIT_RELATIVE_V1","arguments":[{"param":"AccidentalDeath"},{"param":"Death"},{"constant":"ratio"}],"constants":{"ratio":"1.00"},"dependsOn":["Death"]},
+  {"calculation":"Core Calculation","region":"*","parameter":"TotalPermanentDisability","function":"INSURANCE.CALC.CORE_LIMIT_RELATIVE_V1","arguments":[{"param":"TotalPermanentDisability"},{"param":"Death"},{"constant":"ratio"}],"constants":{"ratio":"1.00"},"dependsOn":["Death"]},
+  {"calculation":"Core Calculation","region":"*","parameter":"CriticalIllness","function":"INSURANCE.CALC.CORE_LIMIT_RELATIVE_V1","arguments":[{"param":"CriticalIllness"},{"param":"Death"},{"constant":"ratio"}],"constants":{"ratio":"0.50"},"dependsOn":["Death"]},
+  {"calculation":"Regional Calculation","region":"A","parameter":"Death","function":"INSURANCE.CALC.REGIONAL_CAP_V1","arguments":[{"param":"Death"},{"constant":"cap"}],"constants":{"cap":"200000.00"},"dependsOn":[]},
+  {"calculation":"Regional Calculation","region":"A","parameter":"AccidentalDeath","function":"INSURANCE.CALC.REGIONAL_CAP_V1","arguments":[{"param":"AccidentalDeath"},{"constant":"cap"}],"constants":{"cap":"150000.00"},"dependsOn":[]},
+  {"calculation":"Regional Calculation","region":"A","parameter":"CriticalIllness","function":"INSURANCE.CALC.REGIONAL_CAP_V1","arguments":[{"param":"CriticalIllness"},{"constant":"cap"}],"constants":{"cap":"100000.00"},"dependsOn":[]},
+  {"calculation":"Regional Calculation","region":"B","parameter":"AccidentalDeath","function":"INSURANCE.CALC.REGIONAL_CAP_V1","arguments":[{"param":"AccidentalDeath"},{"constant":"cap"}],"constants":{"cap":"100000.00"},"dependsOn":[]},
+  {"calculation":"Regional Calculation","region":"B","parameter":"TotalPermanentDisability","function":"INSURANCE.CALC.REGIONAL_CAP_V1","arguments":[{"param":"TotalPermanentDisability"},{"constant":"cap"}],"constants":{"cap":"150000.00"},"dependsOn":[]}
+]

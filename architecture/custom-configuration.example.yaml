@@ -1,0 +1,32 @@
+# Proposed Custom Configuration, not accepted by the current version 2 API.
+# A separately published immutable CONFIG_REVISIONS document, read through
+# ConfigCatalog. DataContract is read independently through the contract catalogue.
+# Both documents must be available before Python validates and builds the plan.
+# Before publication, publish the illustrative REGIONAL_ADJUST_AMOUNT release:
+# AMOUNT NUMBER(18,2), FACTOR NUMBER(18,8) -> ROUND(AMOUNT * FACTOR, 2).
+# That function release is not seeded by the current application.
+specVersion: "1.0"
+configId: REGIONAL_DEATH_PENALTY
+revision: 1
+processName: Regional Calculation
+contractRef: {contractId: DEATH_PENALTY_EXAMPLE, revision: 1}
+
+# Silver contains DeathPenatly='800.00'. This configuration overrides the
+# calculation input to '700.00'; it does not modify the Silver source snapshot.
+parameterOverrides:
+  DeathPenatly: "700.00"
+bindings:
+  DeathPenatly:
+    functionRef: {functionId: REGIONAL_ADJUST_AMOUNT, revision: 1}
+    arguments:
+      AMOUNT: {source: phaseInput, parameter: DeathPenatly}
+      FACTOR: {source: constant, name: factor}
+    constants: {factor: "0.90"}
+    dependsOn: []
+
+publication:
+  immutable: true
+  requiredChecks: [schema, exactContractCompatibility, parameterOverrides, releasedFunctionExistence, functionSignatures, dependencyGraph, allowedOverrides]
+# Python combines this document with the independently loaded DataContract:
+# assembled input '700.00' * factor '0.90' = immutable Gold '630.00'.
+# A retry preserves both selected documents and the assembled input/plan.

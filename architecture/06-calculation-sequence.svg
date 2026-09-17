@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1550" viewBox="0 0 1500 1550" role="img">
+<title>06 Calculation sequence</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<rect width="1500" height="1550" fill="#FFFFFF"/>
+<rect x="40" y="24" width="1420" height="46" fill="#FFFFFF"/>
+<text x="40" y="56.86" text-anchor="start" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#172B46">Calculation sequence · one Core Calculation request</text>
+<rect x="40" y="78" width="1420" height="34" fill="#FFFFFF"/>
+<text x="40" y="100.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#738096">Implemented version 2 · synchronous request. Regional writes advance the head and append a historical revision.</text>
+<rect x="27" y="140" width="246" height="80" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="39" y="150" width="222" height="60" fill="#FFFFFF"/>
+<text x="150.0" y="185.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Frontend / HTTP client</text>
+<polyline points="150,220 150,1455" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="327" y="140" width="246" height="80" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="339" y="150" width="222" height="60" fill="#FFFFFF"/>
+<text x="450.0" y="185.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Litestar + ModelLifecycle</text>
+<polyline points="450,220 450,1455" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="627" y="140" width="246" height="80" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="639" y="150" width="222" height="60" fill="#FFFFFF"/>
+<text x="750.0" y="185.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">CalculationWorker</text>
+<polyline points="750,220 750,1455" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="927" y="140" width="246" height="80" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="939" y="150" width="222" height="60" fill="#FFFFFF"/>
+<text x="1050.0" y="173.71" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">SnowflakeGateway</text>
+<text x="1050.0" y="197.85000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">+ Python connector</text>
+<polyline points="1050,220 1050,1455" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="1227" y="140" width="246" height="80" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="1239" y="150" width="222" height="60" fill="#FFFFFF"/>
+<text x="1350.0" y="173.71" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Local Snowflake emulator</text>
+<text x="1350.0" y="197.85000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">+ DuckDB SQL engine</text>
+<polyline points="1350,220 1350,1455" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="444" y="263" width="12" height="1217" rx="3" fill="#E6EEFC" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="744" y="680" width="12" height="495" rx="3" fill="#E6EEFC" stroke="#356CC9" stroke-width="1.7"/>
+<polyline points="150,270 450,270" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="157" y="244" width="286" height="23" fill="#FFFFFF"/>
+<text x="300.0" y="260.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">POST /core-models</text>
+<polyline points="450,330 1050,330" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="457" y="304" width="586" height="23" fill="#FFFFFF"/>
+<text x="750.0" y="320.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">BEGIN; requestId replay check</text>
+<polyline points="1050,380 1350,380" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1057" y="354" width="286" height="23" fill="#FFFFFF"/>
+<text x="1200.0" y="370.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">SQL: transaction + receipt lookup</text>
+<polyline points="1350,430 1050,430" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="1057" y="404" width="286" height="23" fill="#FFFFFF"/>
+<text x="1200.0" y="420.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">No cached command result</text>
+<polyline points="450,480 1050,480" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="457" y="454" width="586" height="23" fill="#FFFFFF"/>
+<text x="750.0" y="470.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">ConfigCatalog.get() uses rows() for core config r1</text>
+<polyline points="1050,530 1350,530" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1057" y="504" width="286" height="23" fill="#FFFFFF"/>
+<text x="1200.0" y="520.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">SELECT CONFIG_REVISIONS</text>
+<polyline points="1350,580 1050,580" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="1057" y="554" width="286" height="23" fill="#FFFFFF"/>
+<text x="1200.0" y="570.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">Pinned function releases + mappings</text>
+<polyline points="1050,630 450,630" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="457" y="604" width="586" height="23" fill="#FFFFFF"/>
+<text x="750.0" y="620.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">Complete effective settings</text>
+<polyline points="450,680 750,680" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="457" y="654" width="286" height="23" fill="#FFFFFF"/>
+<text x="600.0" y="670.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">run(policies, bindings, objective)</text>
+<rect x="625" y="724" width="815" height="205" rx="3" fill="none" stroke="#738096" stroke-width="1.7"/>
+<rect x="637" y="707" width="490" height="34" fill="#FFFFFF"/>
+<text x="637" y="729.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#738096">loop [dependency waves / function batches]</text>
+<polyline points="750,775 1050,775" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="757" y="749" width="286" height="23" fill="#FFFFFF"/>
+<text x="900.0" y="765.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">execute_batch(function_name, calls)</text>
+<polyline points="1050,825 1350,825" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1057" y="799" width="286" height="23" fill="#FFFFFF"/>
+<text x="1200.0" y="815.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">SELECT CALL_ID, SQL_FUNCTION(args)</text>
+<polyline points="1350,875 1050,875" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="1057" y="849" width="286" height="23" fill="#FFFFFF"/>
+<text x="1200.0" y="865.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">Rows + sfqid</text>
+<polyline points="1050,915 750,915" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="757" y="889" width="286" height="23" fill="#FFFFFF"/>
+<text x="900.0" y="905.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">Values correlated by CALL_ID</text>
+<polyline points="750,995 1050,995" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="757" y="969" width="286" height="23" fill="#FFFFFF"/>
+<text x="900.0" y="985.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">objective(); audit(records)</text>
+<polyline points="1050,1040 1350,1040" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1057" y="1014" width="286" height="23" fill="#FFFFFF"/>
+<text x="1200.0" y="1030.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">SQL SUM(UDF(...)); INSERT trace</text>
+<polyline points="1350,1085 1050,1085" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="1057" y="1059" width="286" height="23" fill="#FFFFFF"/>
+<text x="1200.0" y="1075.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">Objective totals; trace staged</text>
+<polyline points="1050,1125 750,1125" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="757" y="1099" width="286" height="23" fill="#FFFFFF"/>
+<text x="900.0" y="1115.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">Objective values / write ack</text>
+<polyline points="750,1175 450,1175" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="457" y="1149" width="286" height="23" fill="#FFFFFF"/>
+<text x="600.0" y="1165.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">Results + iterations</text>
+<polyline points="450,1230 1050,1230" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="457" y="1204" width="586" height="23" fill="#FFFFFF"/>
+<text x="750.0" y="1220.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">Repository uses rows(): model / event / receipt</text>
+<polyline points="1050,1280 1350,1280" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1057" y="1254" width="286" height="23" fill="#FFFFFF"/>
+<text x="1200.0" y="1270.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">INSERT model + audit + outbox + receipt</text>
+<polyline points="450,1330 1050,1330" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="457" y="1304" width="586" height="23" fill="#FFFFFF"/>
+<text x="750.0" y="1320.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">connection.commit()</text>
+<polyline points="1050,1370 1350,1370" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1057" y="1344" width="286" height="23" fill="#FFFFFF"/>
+<text x="1200.0" y="1360.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">COMMIT</text>
+<polyline points="1350,1410 1050,1410" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="1057" y="1384" width="286" height="23" fill="#FFFFFF"/>
+<text x="1200.0" y="1400.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">Committed</text>
+<polyline points="1050,1445 450,1445" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="457" y="1419" width="586" height="23" fill="#FFFFFF"/>
+<text x="750.0" y="1435.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">Commit acknowledged</text>
+<polyline points="450,1480 150,1480" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="157" y="1454" width="286" height="23" fill="#FFFFFF"/>
+<text x="300.0" y="1470.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">201: immutable core JSON + contentHash</text>
+<rect x="40" y="1510" width="1420" height="30" fill="#FFFFFF"/>
+<text x="750.0" y="1530.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">On failure: rollback. A replay returns the saved response without re-running SQL formulas. Core functions cover every input parameter.</text>
+</svg>

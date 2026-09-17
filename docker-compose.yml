@@ -1,0 +1,60 @@
+services:
+  snowflake-emulator:
+    build: .
+    command: ["python", "-m", "snowflake_emulator", "--host", "0.0.0.0", "--port", "8084", "--database", "/data/emulator.duckdb", "--history", "/data/query-history.jsonl"]
+    ports:
+      - "127.0.0.1:8084:8084"
+    volumes:
+      - emulator-data:/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8084/_emulator/health', timeout=2)"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+
+  calculation-api:
+    build: .
+    command: ["sh", "-c", "python -m calculation_api.bootstrap && python -m calculation_api --host 0.0.0.0 --port 8000"]
+    environment:
+      EMULATOR_HOST: snowflake-emulator
+      EMULATOR_PORT: "8084"
+      FRONTEND_ORIGINS: http://localhost:3000,http://localhost:4200,http://localhost:5173
+    depends_on:
+      snowflake-emulator:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:8000:8000"
+
+  dynamodb-local:
+    profiles: ["aws-audit"]
+    image: "${DYNAMODB_LOCAL_IMAGE:-amazon/dynamodb-local:latest}"
+    working_dir: /home/dynamodblocal
+    user: "0:0"
+    command: ["-jar", "DynamoDBLocal.jar", "-sharedDb", "-dbPath", "./data", "-disableTelemetry"]
+    ports:
+      - "127.0.0.1:8001:8000"
+    volumes:
+      - dynamodb-data:/home/dynamodblocal/data
+
+  audit-export:
+    profiles: ["aws-audit"]
+    build: .
+    command: ["python", "-m", "calculation_api.audit_export", "--create-table"]
+    environment:
+      EMULATOR_HOST: snowflake-emulator
+      EMULATOR_PORT: "8084"
+      DYNAMODB_ENDPOINT: http://dynamodb-local:8000
+      AWS_REGION: eu-central-1
+      AUDIT_TABLE: CalculationAudit
+    depends_on:
+      snowflake-emulator:
+        condition: service_healthy
+      dynamodb-local:
+        condition: service_started
+      calculation-api:
+        condition: service_started
+    restart: on-failure
+
+volumes:
+  emulator-data:
+  dynamodb-data:

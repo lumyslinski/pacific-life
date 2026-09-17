@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2560" height="2710" viewBox="0 0 2560 2710" role="img">
+<title>11 Background execution detail with DataContract</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<rect width="2560" height="2710" fill="#FFFFFF"/>
+<rect x="40" y="24" width="2480" height="46" fill="#FFFFFF"/>
+<text x="40" y="56.86" text-anchor="start" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#172B46">Background execution detail · accept, dispatch, calculate and report the outcome</text>
+<rect x="40" y="78" width="2480" height="34" fill="#FFFFFF"/>
+<text x="40" y="100.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#738096">Shared mechanism for Core and custom runs. This detail uses the custom Regional example: Silver 800 + override 700. Start with the lifecycle on page 9.</text>
+<rect x="20" y="145" width="280" height="100" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="30" y="151" width="260" height="34" fill="#FFFFFF"/>
+<text x="160.0" y="174.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#172B46">Business user</text>
+<rect x="30" y="188" width="260" height="50" fill="#FFFFFF"/>
+<text x="160.0" y="218.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#356CC9">Vue application</text>
+<polyline points="160,245 160,2640" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="340" y="145" width="280" height="100" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="350" y="151" width="260" height="34" fill="#FFFFFF"/>
+<text x="480.0" y="174.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#172B46">Calculation application</text>
+<rect x="350" y="188" width="260" height="50" fill="#FFFFFF"/>
+<text x="480.0" y="218.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#356CC9">Litestar API · Python resolver</text>
+<polyline points="480,245 480,2640" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="660" y="145" width="280" height="100" rx="3" fill="#FFFFFF" stroke="#6E57A5" stroke-width="1.7"/>
+<rect x="670" y="151" width="260" height="34" fill="#FFFFFF"/>
+<text x="800.0" y="174.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#172B46">DataContract</text>
+<rect x="670" y="188" width="260" height="50" fill="#FFFFFF"/>
+<text x="800.0" y="207.45" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#6E57A5">Published calculation rules</text>
+<text x="800.0" y="228.75" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#6E57A5">Snowflake CONTRACT_REVISIONS</text>
+<polyline points="800,245 800,2640" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="980" y="145" width="280" height="100" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="990" y="151" width="260" height="34" fill="#FFFFFF"/>
+<text x="1120.0" y="174.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#172B46">Model and run records</text>
+<rect x="990" y="188" width="260" height="50" fill="#FFFFFF"/>
+<text x="1120.0" y="218.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#356CC9">Snowflake storage</text>
+<polyline points="1120,245 1120,2640" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="1300" y="145" width="280" height="100" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="1310" y="151" width="260" height="34" fill="#FFFFFF"/>
+<text x="1440.0" y="174.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#172B46">Job dispatch service</text>
+<rect x="1310" y="188" width="260" height="50" fill="#FFFFFF"/>
+<text x="1440.0" y="218.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#356CC9">Python · RUN_OUTBOX relay</text>
+<polyline points="1440,245 1440,2640" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="1620" y="145" width="280" height="100" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="1630" y="151" width="260" height="34" fill="#FFFFFF"/>
+<text x="1760.0" y="174.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#172B46">Calculation queue</text>
+<rect x="1630" y="188" width="260" height="50" fill="#FFFFFF"/>
+<text x="1760.0" y="207.07999999999998" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#356CC9">Amazon Simple Queue Service</text>
+<text x="1760.0" y="229.79999999999998" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#356CC9">FIFO queue · AWS</text>
+<polyline points="1760,245 1760,2640" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="1940" y="145" width="280" height="100" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="1950" y="151" width="260" height="34" fill="#FFFFFF"/>
+<text x="2080.0" y="174.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#172B46">Calculation worker</text>
+<rect x="1950" y="188" width="260" height="50" fill="#FFFFFF"/>
+<text x="2080.0" y="218.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#356CC9">Python · Amazon ECS/Fargate</text>
+<polyline points="2080,245 2080,2640" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="2260" y="145" width="280" height="100" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="2270" y="151" width="260" height="34" fill="#FFFFFF"/>
+<text x="2400.0" y="174.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#172B46">Formula execution</text>
+<rect x="2270" y="188" width="260" height="50" fill="#FFFFFF"/>
+<text x="2400.0" y="218.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#356CC9">Snowflake SQL engine</text>
+<polyline points="2400,245 2400,2640" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="474" y="345" width="12" height="700" rx="3" fill="#E6EEFC" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="50" y="280" width="2460" height="38" fill="#FFFFFF"/>
+<text x="50" y="306.14" text-anchor="start" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#172B46">ACCEPTANCE · read the published Data Contract and save the exact calculation instructions</text>
+<polyline points="160,390 480,390" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="170" y="337" width="300" height="48" fill="#FFFFFF"/>
+<text x="320.0" y="355.08" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Calculate regional scenario</text>
+<text x="320.0" y="377.79999999999995" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">{ DeathPenatly: 700 }</text>
+<polyline points="480,460 1120,460" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="490" y="431" width="620" height="24" fill="#FFFFFF"/>
+<text x="800.0" y="448.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Check request replay and the saved scenario revision</text>
+<polyline points="1120,525 480,525" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="490" y="496" width="620" height="24" fill="#FFFFFF"/>
+<text x="800.0" y="513.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">New request; saved regional input is 700</text>
+<polyline points="480,610 800,610" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="490" y="557" width="300" height="48" fill="#FFFFFF"/>
+<text x="640.0" y="575.08" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Read selected published</text>
+<text x="640.0" y="597.8000000000001" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Data Contract version 1</text>
+<polyline points="800,710 480,710" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="490" y="633" width="300" height="72" fill="#FFFFFF"/>
+<text x="640.0" y="651.72" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Version 1: nonnegative amount;</text>
+<text x="640.0" y="674.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">regional factor 0.90;</text>
+<text x="640.0" y="697.1600000000001" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">exact SQL function release</text>
+<polyline points="480,765 538,765 538,815 480,815" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="555" y="750" width="535" height="80" fill="#FFFFFF"/>
+<text x="822.5" y="783.34" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#356CC9">Python validates the edit and contract hash,</text>
+<text x="822.5" y="808.9" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#356CC9">then freezes input, function versions and plan.</text>
+<polyline points="480,895 1120,895" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="490" y="842" width="620" height="48" fill="#FFFFFF"/>
+<text x="800.0" y="860.08" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Commit input 700 + contract version 1 + frozen plan + Waiting + receipt +</text>
+<text x="800.0" y="882.8000000000001" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">dispatch instruction</text>
+<polyline points="1120,945 480,945" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="490" y="916" width="620" height="24" fill="#FFFFFF"/>
+<text x="800.0" y="933.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Calculation safely recorded</text>
+<polyline points="480,1030 160,1030" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="170" y="977" width="300" height="48" fill="#FFFFFF"/>
+<text x="320.0" y="995.08" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">202 Accepted</text>
+<text x="320.0" y="1017.8000000000001" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Keep this calculation reference</text>
+<rect x="35" y="1085" width="2490" height="1540" rx="3" fill="none" stroke="#738096" stroke-width="1.7"/>
+<rect x="47" y="1068" width="798" height="34" fill="#FFFFFF"/>
+<text x="47" y="1090.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#738096">par [background processing and client status checks run independently]</text>
+<rect x="60" y="1103" width="1600" height="34" fill="#FFFFFF"/>
+<text x="60" y="1126.12" text-anchor="start" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#356CC9">[BACKGROUND PROCESSING]</text>
+<polyline points="1440,1200 1120,1200" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1130" y="1171" width="300" height="24" fill="#FFFFFF"/>
+<text x="1280.0" y="1188.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Read pending dispatch instruction</text>
+<polyline points="1120,1270 1440,1270" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="1130" y="1241" width="300" height="24" fill="#FFFFFF"/>
+<text x="1280.0" y="1258.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Saved calculation reference</text>
+<polyline points="1440,1340 1760,1340" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1450" y="1311" width="300" height="24" fill="#FFFFFF"/>
+<text x="1600.0" y="1328.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Send calculation reference</text>
+<polyline points="1760,1410 1440,1410" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="1450" y="1381" width="300" height="24" fill="#FFFFFF"/>
+<text x="1600.0" y="1398.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Delivery accepted</text>
+<polyline points="1440,1480 1120,1480" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1130" y="1451" width="300" height="24" fill="#FFFFFF"/>
+<text x="1280.0" y="1468.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Mark dispatch delivered</text>
+<polyline points="2080,1550 1760,1550" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1770" y="1521" width="300" height="24" fill="#FFFFFF"/>
+<text x="1920.0" y="1538.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Wait for the next calculation</text>
+<polyline points="1760,1620 2080,1620" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="1770" y="1591" width="300" height="24" fill="#FFFFFF"/>
+<text x="1920.0" y="1608.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Return queued calculation</text>
+<polyline points="2080,1690 1120,1690" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1130" y="1661" width="940" height="24" fill="#FFFFFF"/>
+<text x="1600.0" y="1678.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Claim ownership; open attempt; mark Calculating; load frozen input and plan</text>
+<polyline points="1120,1760 2080,1760" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="1130" y="1731" width="940" height="24" fill="#FFFFFF"/>
+<text x="1600.0" y="1748.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Input 700 + original contract version 1 + exact function release</text>
+<polyline points="2080,1840 2400,1840" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="2090" y="1787" width="300" height="48" fill="#FFFFFF"/>
+<text x="2240.0" y="1805.0800000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Execute saved regional rule</text>
+<text x="2240.0" y="1827.8000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">700 × 0.90</text>
+<polyline points="2400,1910 2080,1910" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="2090" y="1881" width="300" height="24" fill="#FFFFFF"/>
+<text x="2240.0" y="1898.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Return 630 or a calculation error</text>
+<rect x="1080" y="1960" width="1410" height="280" rx="3" fill="none" stroke="#24795C" stroke-width="1.7"/>
+<rect x="1092" y="1943" width="314" height="34" fill="#FFFFFF"/>
+<text x="1092" y="1965.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#24795C">alt [calculation succeeds]</text>
+<polyline points="2080,2030 1120,2030" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1130" y="2001" width="940" height="24" fill="#FFFFFF"/>
+<text x="1600.0" y="2018.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Commit Gold { DeathPenatly: 630 } + contract lineage + audit + Ready together</text>
+<polyline points="2080,2095 1760,2095" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1770" y="2066" width="300" height="24" fill="#FFFFFF"/>
+<text x="1920.0" y="2083.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Acknowledge completed job</text>
+<polyline points="1080,2120 2490,2120" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="1098" y="2127" width="1280" height="30" fill="#FFFFFF"/>
+<text x="1098" y="2147.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#B04444">else [calculation fails: retry handling is expanded on page 12]</text>
+<polyline points="2080,2210 1120,2210" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1130" y="2181" width="940" height="24" fill="#FFFFFF"/>
+<text x="1600.0" y="2198.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Roll back incomplete output; save failure reason and retry eligibility</text>
+<polyline points="35,2280 2525,2280" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="60" y="2285" width="2370" height="34" fill="#FFFFFF"/>
+<text x="60" y="2308.12" text-anchor="start" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#356CC9">[CLIENT STATUS CHECKS]  Repeat while Waiting, Calculating or Retrying; stop at Ready or Failed.</text>
+<polyline points="160,2370 480,2370" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="170" y="2341" width="300" height="24" fill="#FFFFFF"/>
+<text x="320.0" y="2358.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Automatic status check</text>
+<polyline points="480,2430 1120,2430" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="490" y="2401" width="620" height="24" fill="#FFFFFF"/>
+<text x="800.0" y="2418.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Read current status, result reference and retry eligibility</text>
+<polyline points="1120,2500 480,2500" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="490" y="2447" width="620" height="48" fill="#FFFFFF"/>
+<text x="800.0" y="2465.08" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Waiting / Calculating / Retrying OR Ready + result reference OR Failed +</text>
+<text x="800.0" y="2487.7999999999997" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">retry option</text>
+<polyline points="480,2580 160,2580" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="170" y="2527" width="300" height="48" fill="#FFFFFF"/>
+<text x="320.0" y="2545.08" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Display status; Ready: result;</text>
+<text x="320.0" y="2567.7999999999997" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Failed: show Retry if allowed</text>
+<rect x="50" y="2660" width="2460" height="32" fill="#FFFFFF"/>
+<text x="1280.0" y="2681.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">The Data Contract is read at acceptance. Workers and retries use the saved plan. All three Snowflake participants are logical roles in the same database. Proposed design.</text>
+</svg>
