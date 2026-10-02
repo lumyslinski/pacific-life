@@ -121,8 +121,8 @@
 <rect x="620" y="1280" width="520" height="240" rx="3" fill="#FFFFFF" stroke="#A96915" stroke-width="1.7"/>
 <rect x="632" y="1290" width="496" height="220" fill="#FFFFFF"/>
 <text x="880.0" y="1321.29" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Independent downstream outboxes</text>
-<text x="880.0" y="1345.43" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">AUDIT_OUTBOX → audit-export → DynamoDB</text>
-<text x="880.0" y="1369.57" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Existing direct projection; chunks + manifest</text>
+<text x="880.0" y="1345.43" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">AUDIT_OUTBOX → audit-export → PostgreSQL</text>
+<text x="880.0" y="1369.57" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Existing direct copy; one row per event id</text>
 <text x="880.0" y="1393.71" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46"></text>
 <text x="880.0" y="1417.85" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">RUN_EVENT_OUTBOX → relay → EventBridge</text>
 <text x="880.0" y="1441.99" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Proposed RunCompleted + result reference</text>

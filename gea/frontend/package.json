@@ -1,0 +1,18 @@
+{
+  "name": "gea-api-client",
+  "private": true,
+  "type": "module",
+  "description": "Typed Vue 3 client for the GEA API (gea/api/openapi.yaml): every call resolves to one ApiResult",
+  "scripts": {
+    "generate:api": "openapi-typescript ../api/openapi.yaml -o src/api/generated.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "openapi-fetch": "^0.17.0",
+    "vue": "^3.5.43"
+  },
+  "devDependencies": {
+    "openapi-typescript": "^7.13.0",
+    "typescript": "^5.9.0"
+  }
+}

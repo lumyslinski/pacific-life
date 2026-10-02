@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1250" viewBox="0 0 1600 1250" role="img">
+<title>13 GEA components</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<rect width="1600" height="1250" fill="#FFFFFF"/>
+<rect x="40" y="24" width="1520" height="46" fill="#FFFFFF"/>
+<text x="40" y="56.86" text-anchor="start" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#172B46">GEA module · what runs where</text>
+<rect x="40" y="78" width="1520" height="34" fill="#FFFFFF"/>
+<text x="40" y="100.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#738096">Implemented · Vue client, Litestar API on PostgreSQL, Alembic migrations. Snowflake executes the run (page 17); the relay to it is not built yet.</text>
+<rect x="40" y="140" width="400" height="770" rx="3" fill="none" stroke="#738096" stroke-width="1.7"/>
+<rect x="52" y="123" width="303" height="34" fill="#FFFFFF"/>
+<text x="52" y="145.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#738096">VUE CLIENT · gea/frontend</text>
+<rect x="65" y="185" width="350" height="100" rx="3" fill="#FFFFFF" stroke="#738096" stroke-width="1.7"/>
+<rect x="77" y="195" width="326" height="80" fill="#FFFFFF"/>
+<text x="240.0" y="217.72" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">gea/api/openapi.yaml</text>
+<text x="240.0" y="240.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">The contract: 27 paths, 35 operations</text>
+<text x="240.0" y="263.15999999999997" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">GET /gea/v1/openapi.yaml</text>
+<rect x="65" y="345" width="350" height="85" rx="3" fill="#FFFFFF" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="77" y="355" width="326" height="65" fill="#FFFFFF"/>
+<text x="240.0" y="381.21" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">generated.ts + fields.ts</text>
+<text x="240.0" y="405.34999999999997" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Types of every path, the field list</text>
+<rect x="65" y="490" width="350" height="110" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="77" y="500" width="326" height="90" fill="#FFFFFF"/>
+<text x="240.0" y="526.64" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">client.ts + gea.ts</text>
+<text x="240.0" y="550.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">One function per operation</text>
+<text x="240.0" y="574.92" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">ApiResult: ok + data, or error</text>
+<rect x="65" y="660" width="350" height="120" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="77" y="670" width="326" height="100" fill="#FFFFFF"/>
+<text x="240.0" y="701.64" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">useRunWizard · useJobs · useCurrentUser</text>
+<text x="240.0" y="725.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Autosave and Next: PATCH /runs/{id}</text>
+<text x="240.0" y="749.92" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Submit, watch, cancel, resolve · can()</text>
+<polyline points="240,285 240,345" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="255" y="299" width="130" height="32" fill="#FFFFFF"/>
+<text x="320.0" y="320.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#738096">generate</text>
+<polyline points="240,430 240,490" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="255" y="444" width="130" height="32" fill="#FFFFFF"/>
+<text x="320.0" y="465.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#738096">typed calls</text>
+<polyline points="240,660 240,600" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="60" y="810" width="360" height="70" fill="#FFFFFF"/>
+<text x="240.0" y="827.72" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Every call resolves to one result object.</text>
+<text x="240.0" y="850.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Nothing is thrown; a failure sets</text>
+<text x="240.0" y="873.1600000000001" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">an error state with a message.</text>
+<rect x="480" y="140" width="520" height="770" rx="3" fill="none" stroke="#738096" stroke-width="1.7"/>
+<rect x="492" y="123" width="496" height="34" fill="#FFFFFF"/>
+<text x="492" y="145.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#738096">LITESTAR GEA API · python -m gea_api · 8010</text>
+<rect x="505" y="185" width="470" height="100" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="517" y="195" width="446" height="80" fill="#FFFFFF"/>
+<text x="740.0" y="216.64000000000001" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">routes.py · /gea/v1</text>
+<text x="740.0" y="240.78000000000003" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">36 handlers: HTTP in, HTTP out</text>
+<text x="740.0" y="264.92" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">X-Request-Id on every answer</text>
+<rect x="505" y="335" width="470" height="110" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="517" y="345" width="446" height="90" fill="#FFFFFF"/>
+<text x="740.0" y="371.64" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">respond()</text>
+<text x="740.0" y="395.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Authenticate · the caller&#x27;s role and permissions</text>
+<text x="740.0" y="419.91999999999996" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">One transaction · the envelope { data, error }</text>
+<rect x="505" y="495" width="225" height="125" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="517" y="505" width="201" height="105" fill="#FFFFFF"/>
+<text x="617.5" y="528.86" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">services.py</text>
+<text x="617.5" y="551.58" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">@needs: 403 by role</text>
+<text x="617.5" y="574.3" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Idempotency-Key · ETag</text>
+<text x="617.5" y="597.02" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Validate, then write</text>
+<rect x="750" y="495" width="225" height="125" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="762" y="505" width="201" height="105" fill="#FFFFFF"/>
+<text x="862.5" y="528.86" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">errors.py</text>
+<text x="862.5" y="551.58" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">The one error object</text>
+<text x="862.5" y="574.3" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">SQLSTATE to HTTP</text>
+<text x="862.5" y="597.02" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">403 · 409 · 412 · 422</text>
+<rect x="505" y="670" width="470" height="100" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="517" y="680" width="446" height="80" fill="#FFFFFF"/>
+<text x="740.0" y="701.64" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">queries.py · runconfig.py</text>
+<text x="740.0" y="725.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">SQL returns API-shaped JSON</text>
+<text x="740.0" y="749.92" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">A save updates only the columns that changed</text>
+<rect x="505" y="815" width="470" height="70" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="517" y="825" width="446" height="50" fill="#FFFFFF"/>
+<text x="740.0" y="855.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">db.py · psycopg 3 connection pool</text>
+<polyline points="415,545 458,545 458,235 505,235" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="343" y="617" width="150" height="28" fill="#FFFFFF"/>
+<text x="418.0" y="636.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#172B46">HTTPS / JSON</text>
+<polyline points="740,285 740,335" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="617,445 617,495" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="862,445 862,495" fill="none" stroke="#356CC9" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<polyline points="617,620 617,670" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="740,770 740,815" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1040" y="140" width="520" height="525" rx="3" fill="none" stroke="#24795C" stroke-width="1.7"/>
+<rect x="1052" y="123" width="314" height="34" fill="#FFFFFF"/>
+<text x="1052" y="145.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#24795C">POSTGRESQL 16 · schema gea</text>
+<rect x="1065" y="185" width="470" height="115" rx="3" fill="#FFFFFF" stroke="#24795C" stroke-width="1.7"/>
+<rect x="1077" y="195" width="446" height="95" fill="#FFFFFF"/>
+<text x="1300.0" y="224.14000000000001" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Tables + triggers</text>
+<text x="1300.0" y="248.28000000000003" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">One column per field of the workbook</text>
+<text x="1300.0" y="272.42" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Lifecycle and immutability enforced here</text>
+<rect x="1065" y="350" width="470" height="115" rx="3" fill="#FFFFFF" stroke="#24795C" stroke-width="1.7"/>
+<rect x="1077" y="360" width="446" height="95" fill="#FFFFFF"/>
+<text x="1300.0" y="389.14" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">DataContract + ContractDelivery + Job</text>
+<text x="1300.0" y="413.28" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Immutable document, SHA-256 checked</text>
+<text x="1300.0" y="437.41999999999996" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Outbox in the same transaction, in job order</text>
+<rect x="1065" y="515" width="470" height="115" rx="3" fill="#FFFFFF" stroke="#24795C" stroke-width="1.7"/>
+<rect x="1077" y="525" width="446" height="95" fill="#FFFFFF"/>
+<text x="1300.0" y="554.14" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Database roles (not the users&#x27; roles)</text>
+<text x="1300.0" y="578.28" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">gea_app: the API, no UPDATE on contracts</text>
+<text x="1300.0" y="602.42" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">gea_relay: the delivery functions only</text>
+<polyline points="975,850 1018,850 1018,242 1065,242" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1026" y="690" width="44" height="26" fill="#FFFFFF"/>
+<text x="1048.0" y="708.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#172B46">SQL</text>
+<rect x="1040" y="745" width="520" height="165" rx="3" fill="none" stroke="#A96915" stroke-width="1.7"/>
+<rect x="1052" y="728" width="457" height="34" fill="#FFFFFF"/>
+<text x="1052" y="750.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#A96915">DEPLOYMENT STEP · before the API starts</text>
+<rect x="1065" y="785" width="470" height="100" rx="3" fill="#FFFFFF" stroke="#A96915" stroke-width="1.7"/>
+<rect x="1077" y="795" width="446" height="80" fill="#FFFFFF"/>
+<text x="1300.0" y="816.64" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Alembic · gea/db/postgres</text>
+<text x="1300.0" y="840.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">env.py + versions 0001 to 0007</text>
+<text x="1300.0" y="864.92" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">sql/&lt;revision&gt;.up.sql and .down.sql</text>
+<polyline points="1520,785 1520,665" fill="none" stroke="#A96915" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1312" y="690" width="196" height="32" fill="#FFFFFF"/>
+<text x="1410.0" y="711.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#A96915">alembic upgrade head</text>
+<rect x="40" y="975" width="960" height="190" rx="3" fill="none" stroke="#738096" stroke-width="1.7"/>
+<rect x="52" y="958" width="413" height="34" fill="#FFFFFF"/>
+<text x="52" y="980.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#738096">ONE LIST OF FIELDS · the workbook&#x27;s</text>
+<rect x="65" y="1015" width="420" height="120" rx="3" fill="#FFFFFF" stroke="#738096" stroke-width="1.7"/>
+<rect x="77" y="1025" width="396" height="100" fill="#FFFFFF"/>
+<text x="275.0" y="1056.6399999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">gea/spec/poc-data.json</text>
+<text x="275.0" y="1080.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Workbook sheet POC Data</text>
+<text x="275.0" y="1104.9199999999998" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">36 fields, 8 steps</text>
+<rect x="555" y="1015" width="420" height="120" rx="3" fill="#FFFFFF" stroke="#738096" stroke-width="1.7"/>
+<rect x="567" y="1025" width="396" height="100" fill="#FFFFFF"/>
+<text x="765.0" y="1056.6399999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">gea/tools/generate.py</text>
+<text x="765.0" y="1080.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">fields.py · OpenAPI · JSON Schema</text>
+<text x="765.0" y="1104.9199999999998" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">generated.ts · fields.ts · fields.md</text>
+<polyline points="485,1075 555,1075" fill="none" stroke="#738096" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1040" y="975" width="520" height="190" rx="3" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="1052" y="958" width="171" height="34" fill="#FFFFFF"/>
+<text x="1052" y="980.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#738096">NOT BUILT YET</text>
+<rect x="1065" y="1015" width="470" height="120" rx="3" fill="#FFFFFF" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="1077" y="1025" width="446" height="100" fill="#FFFFFF"/>
+<text x="1300.0" y="1057.72" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Relay to Snowflake (page 17)</text>
+<text x="1300.0" y="1080.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">claim → MERGE DATA_CONTRACT → EXECUTE TASK</text>
+<text x="1300.0" y="1103.16" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">copy status and log back · pass a cancel on</text>
+<rect x="40" y="1190" width="1520" height="30" fill="#FFFFFF"/>
+<text x="800.0" y="1210.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">The calculation API (pages 1 to 12) is a separate process on port 8000 with its own store. GEA shares the repository, not the runtime.</text>
+</svg>

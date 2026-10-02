@@ -14,22 +14,25 @@ dependencies = [
   "uvicorn==0.52.4",
   "snowflake-connector-python==4.7.3",
   "litestar==2.24.0",
-  "boto3==1.43.93",
+  "alembic==1.20.0",
+  "SQLAlchemy==2.0.54",
+  "psycopg[binary,pool]==3.3.6",
 ]
 
 [project.optional-dependencies]
-test = ["snowflake-connector-python==4.7.3", "pytest==9.1.1"]
+test = ["snowflake-connector-python==4.7.3", "pytest==9.1.1", "PyYAML==6.0.3", "jsonschema==4.26.0"]
 
 [project.scripts]
 local-snowflake = "snowflake_emulator.__main__:main"
 calculation-api = "calculation_api.__main__:main"
+gea-api = "gea_api.__main__:main"
 
 [tool.setuptools.packages.find]
-include = ["snowflake_emulator*", "calculation_api*", "fixtures*"]
+include = ["snowflake_emulator*", "calculation_api*", "fixtures*", "gea_api*"]
 
 [tool.setuptools.package-data]
 fixtures = ["*.sql", "*.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-markers = ["aws_local: integration test requiring a loopback DynamoDB or Moto server"]
+markers = ["postgres: integration test requiring a PostgreSQL database at the Alembic head (AUDIT_TEST_DATABASE_URL)"]

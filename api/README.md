@@ -160,7 +160,7 @@ default `http://localhost:4200,http://localhost:5173`, Compose adds
 
 The browser calls only Litestar. Litestar calls the Snowflake connector. The
 browser must never connect to Snowflake, the local emulator, DuckDB or
-DynamoDB directly.
+PostgreSQL directly.
 
 ## Sharing classes and enums
 

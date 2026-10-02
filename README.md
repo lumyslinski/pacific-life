@@ -132,25 +132,36 @@ python examples/lifecycle_demo.py --base-url http://127.0.0.1:8000
 ## Audit storage
 
 Snowflake (or this emulator) is authoritative: the model snapshot, audit event,
-outbox row and command receipt commit in one SQL transaction. The optional
-`calculation_api.audit_export` process projects committed events to DynamoDB
-through boto3. It marks an outbox row delivered only after the complete event
-is stored. Retries are safe and events larger than one DynamoDB item are stored
-as hashed chunks with a final manifest.
+outbox row and command receipt commit in one SQL transaction. The
+`calculation_api.audit_export` process copies committed events to PostgreSQL
+(`calc."AuditEvent"`, Alembic revision `0005` in
+[gea/db/postgres](gea/db/postgres/README.md)). It marks an outbox row delivered
+only after the event is stored. Retries are safe: an event is one row keyed by
+its id, a repeated delivery changes nothing, and different content under the
+same id is an error. The table is append-only and keeps the canonical JSON
+text with its SHA-256.
 
-DynamoDB is an audit projection, not the formula catalogue or calculation
-authority. The exporter polls `AUDIT_OUTBOX JOIN AUDIT_EVENTS` through its own
-Snowflake connection and writes directly to DynamoDB; no SQS or EventBridge is
-in this implemented path. The target adds separate run-dispatch and completion
+PostgreSQL holds a copy of the audit trail; it is not the formula catalogue or
+the calculation authority. The exporter polls `AUDIT_OUTBOX JOIN AUDIT_EVENTS`
+through its own Snowflake connection and inserts with psycopg; no SQS or
+EventBridge is in this implemented path. The target adds separate run-dispatch and completion
 outboxes without sharing this exporter's delivery flag. Production run
 ownership needs enforced uniqueness, fenced leases and conditional result
 publication, as described in [AWS orchestration](architecture/README.md#aws-run-orchestration-target-page-8).
 This local API serializes writers in one process.
 
-For Compose, start the optional profile:
+For Compose, start the optional profile; it also starts PostgreSQL and runs
+the migrations:
 
 ```bash
-docker compose --profile aws-audit up --build
+docker compose --profile audit up --build
+```
+
+Outside Compose, the login only needs to be a member of role `calc_audit`:
+
+```bash
+AUDIT_DATABASE_URL=postgresql://calc_audit_exporter:secret@localhost:5432/gea \
+python -m calculation_api.audit_export          # --once for a single pass
 ```
 
 ## Scale and safety boundaries
@@ -173,7 +184,7 @@ emulation or a production distributed scheduler.
 
 ## Tests
 
-For connector/API tests without AWS integration:
+For connector/API tests without PostgreSQL:
 
 ```bash
 SNOWFLAKE_DISABLE_PLATFORM_DETECTION=true \
@@ -181,14 +192,32 @@ AWS_EC2_METADATA_DISABLED=true \
 python -m pytest -q tests/test_connector.py tests/test_calculation_api.py
 ```
 
-The repository includes a launcher for the official AWS DynamoDB Local
-service. With the JAR extracted locally, it runs the same suite plus the
-audit integration tests:
+The audit export tests and the GEA API tests need a PostgreSQL 16 database at
+the Alembic head. Without the two variables they are skipped:
 
 ```bash
-python tests/run_with_dynamodb_local.py /path/to/DynamoDBLocal -q
+export GEA_DATABASE_URL=postgresql://postgres@localhost:5432/gea_test
+alembic -c gea/db/postgres/alembic.ini upgrade head
+AUDIT_TEST_DATABASE_URL=$GEA_DATABASE_URL GEA_TEST_DATABASE_URL=$GEA_DATABASE_URL python -m pytest -q
 ```
 
-The launcher starts the local service and injects its ephemeral loopback
-endpoint into pytest; do not set `DYNAMODB_TEST_ENDPOINT` to a stale port from
-another shell. The latest recorded results are in [STATE.md](STATE.md).
+The latest recorded results are in [STATE.md](STATE.md).
+
+## GEA module
+
+Projects, the run wizard and run data contracts for PL Re GEA live next to the calculation service:
+
+| Where | What |
+|---|---|
+| [`gea/`](gea/README.md) | Decisions, the field list of the workbook, the OpenAPI contract, the Vue client |
+| [`gea/EXECUTION.md`](gea/EXECUTION.md) | How a run executes: Snowflake computes, PostgreSQL decides when a run starts, Python only relays |
+| [`gea/db/postgres/`](gea/db/postgres/README.md) | PostgreSQL schema and its Alembic migrations |
+| [`gea_api/`](gea/api/README.md) | Litestar API on PostgreSQL (`python -m gea_api`, port 8010) |
+| [`tests/gea/`](tests/gea) | Unit tests and API tests against PostgreSQL |
+| [`architecture/`](architecture/README.md) | Diagrams, pages 13 to 17 |
+
+```bash
+docker compose --profile gea up          # postgres, alembic upgrade head, then the API on http://localhost:8010/gea/v1
+```
+
+It is a separate process with its own store; nothing in `calculation_api` or `snowflake_emulator` depends on it.

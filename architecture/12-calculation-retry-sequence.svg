@@ -1,11 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="2560" height="2620" viewBox="0 0 2560 2620" role="img">
+<svg xmlns="http://www.w3.org/2000/svg" width="2880" height="2620" viewBox="0 0 2880 2620" role="img">
 <title>12 Automatic and user-requested retry sequence</title>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
-<rect width="2560" height="2620" fill="#FFFFFF"/>
-<rect x="40" y="24" width="2480" height="46" fill="#FFFFFF"/>
-<text x="40" y="56.86" text-anchor="start" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#172B46">Retry calculation · repeat the saved request, preserve its model and Data Contract</text>
-<rect x="40" y="78" width="2480" height="34" fill="#FFFFFF"/>
-<text x="40" y="100.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#738096">Example failed request: regional input { DeathPenatly: 700 }, published Data Contract version 1, selected regional rule 700 × 0.90.</text>
+<rect width="2880" height="2620" fill="#FFFFFF"/>
+<rect x="40" y="24" width="2800" height="46" fill="#FFFFFF"/>
+<text x="40" y="56.86" text-anchor="start" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#172B46">Retry calculation · repeat the saved request, preserve its model, DataContract and Custom Configuration</text>
+<rect x="40" y="78" width="2800" height="34" fill="#FFFFFF"/>
+<text x="40" y="100.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#738096">Example failed request: regional input { DeathPenatly: 700 }, frozen DataContract AND Custom Configuration, selected regional rule 700 × 0.90.</text>
 <rect x="20" y="145" width="280" height="100" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
 <rect x="30" y="151" width="260" height="34" fill="#FFFFFF"/>
 <text x="160.0" y="174.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#172B46">Business user</text>
@@ -25,154 +25,159 @@
 <text x="800.0" y="207.45" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#6E57A5">Published calculation rules</text>
 <text x="800.0" y="228.75" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#6E57A5">Snowflake CONTRACT_REVISIONS</text>
 <polyline points="800,245 800,2555" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
-<rect x="980" y="145" width="280" height="100" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="980" y="145" width="280" height="100" rx="3" fill="#FFFFFF" stroke="#A65382" stroke-width="1.7"/>
 <rect x="990" y="151" width="260" height="34" fill="#FFFFFF"/>
-<text x="1120.0" y="174.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#172B46">Model and run records</text>
+<text x="1120.0" y="174.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#172B46">Custom Configuration</text>
 <rect x="990" y="188" width="260" height="50" fill="#FFFFFF"/>
-<text x="1120.0" y="218.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#356CC9">Snowflake storage</text>
+<text x="1120.0" y="207.45" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#A65382">Process rules and overrides</text>
+<text x="1120.0" y="228.75" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#A65382">Snowflake CONFIG_REVISIONS</text>
 <polyline points="1120,245 1120,2555" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
 <rect x="1300" y="145" width="280" height="100" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
 <rect x="1310" y="151" width="260" height="34" fill="#FFFFFF"/>
-<text x="1440.0" y="174.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#172B46">Job dispatch service</text>
+<text x="1440.0" y="174.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#172B46">Model and run records</text>
 <rect x="1310" y="188" width="260" height="50" fill="#FFFFFF"/>
-<text x="1440.0" y="218.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#356CC9">Python · RUN_OUTBOX relay</text>
+<text x="1440.0" y="218.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#356CC9">Snowflake storage</text>
 <polyline points="1440,245 1440,2555" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
 <rect x="1620" y="145" width="280" height="100" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
 <rect x="1630" y="151" width="260" height="34" fill="#FFFFFF"/>
-<text x="1760.0" y="174.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#172B46">Calculation queue</text>
+<text x="1760.0" y="174.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#172B46">Job dispatch service</text>
 <rect x="1630" y="188" width="260" height="50" fill="#FFFFFF"/>
-<text x="1760.0" y="207.07999999999998" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#356CC9">Amazon Simple Queue Service</text>
-<text x="1760.0" y="229.79999999999998" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#356CC9">FIFO queue · AWS</text>
+<text x="1760.0" y="218.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#356CC9">Python · RUN_OUTBOX relay</text>
 <polyline points="1760,245 1760,2555" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
 <rect x="1940" y="145" width="280" height="100" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
 <rect x="1950" y="151" width="260" height="34" fill="#FFFFFF"/>
-<text x="2080.0" y="174.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#172B46">Calculation worker</text>
+<text x="2080.0" y="174.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#172B46">Calculation queue</text>
 <rect x="1950" y="188" width="260" height="50" fill="#FFFFFF"/>
-<text x="2080.0" y="218.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#356CC9">Python · Amazon ECS/Fargate</text>
+<text x="2080.0" y="207.07999999999998" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#356CC9">Amazon Simple Queue Service</text>
+<text x="2080.0" y="229.79999999999998" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#356CC9">FIFO queue · AWS</text>
 <polyline points="2080,245 2080,2555" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
 <rect x="2260" y="145" width="280" height="100" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
 <rect x="2270" y="151" width="260" height="34" fill="#FFFFFF"/>
-<text x="2400.0" y="174.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#172B46">Formula execution</text>
+<text x="2400.0" y="174.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#172B46">Calculation worker</text>
 <rect x="2270" y="188" width="260" height="50" fill="#FFFFFF"/>
-<text x="2400.0" y="218.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#356CC9">Snowflake SQL engine</text>
+<text x="2400.0" y="218.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#356CC9">Python · Amazon ECS/Fargate</text>
 <polyline points="2400,245 2400,2555" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
-<rect x="60" y="278" width="2440" height="38" fill="#FFFFFF"/>
+<rect x="2580" y="145" width="280" height="100" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="2590" y="151" width="260" height="34" fill="#FFFFFF"/>
+<text x="2720.0" y="174.12" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#172B46">Formula execution</text>
+<rect x="2590" y="188" width="260" height="50" fill="#FFFFFF"/>
+<text x="2720.0" y="218.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#356CC9">Snowflake SQL engine</text>
+<polyline points="2720,245 2720,2555" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="60" y="278" width="2760" height="38" fill="#FFFFFF"/>
 <text x="60" y="304.14" text-anchor="start" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#172B46">AUTOMATIC RETRY · only for recoverable failures, within the saved attempt limit</text>
-<rect x="1070" y="345" width="1420" height="485" rx="3" fill="none" stroke="#A96915" stroke-width="1.7"/>
-<rect x="1082" y="328" width="600" height="34" fill="#FFFFFF"/>
-<text x="1082" y="350.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#A96915">loop [temporary failure and retry allowance remains]</text>
-<polyline points="2080,425 2400,425" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
-<rect x="2090" y="372" width="300" height="48" fill="#FFFFFF"/>
-<text x="2240.0" y="390.08" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Execute the saved rule</text>
-<text x="2240.0" y="412.79999999999995" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">700 × 0.90</text>
-<polyline points="2400,495 2080,495" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
-<rect x="2090" y="466" width="300" height="24" fill="#FFFFFF"/>
-<text x="2240.0" y="483.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Temporary calculation error</text>
-<polyline points="2080,565 1120,565" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
-<rect x="1130" y="536" width="940" height="24" fill="#FFFFFF"/>
-<text x="1600.0" y="553.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Roll back output; record failed attempt and Retrying; consume retry allowance</text>
-<polyline points="2080,635 1760,635" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
-<rect x="1770" y="582" width="300" height="48" fill="#FFFFFF"/>
-<text x="1920.0" y="600.08" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Make message available later</text>
-<text x="1920.0" y="622.8000000000001" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">for a retry after backoff</text>
-<polyline points="1760,705 2080,705" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
-<rect x="1770" y="676" width="300" height="24" fill="#FFFFFF"/>
-<text x="1920.0" y="693.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Redeliver the same calculation</text>
-<polyline points="2080,775 1120,775" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
-<rect x="1130" y="746" width="940" height="24" fill="#FFFFFF"/>
-<text x="1600.0" y="763.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Claim another attempt; reload the same saved input and plan</text>
+<rect x="1390" y="345" width="1420" height="485" rx="3" fill="none" stroke="#A96915" stroke-width="1.7"/>
+<rect x="1402" y="328" width="600" height="34" fill="#FFFFFF"/>
+<text x="1402" y="350.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#A96915">loop [temporary failure and retry allowance remains]</text>
+<polyline points="2400,425 2720,425" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="2410" y="372" width="300" height="48" fill="#FFFFFF"/>
+<text x="2560.0" y="390.08" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Execute the saved rule</text>
+<text x="2560.0" y="412.79999999999995" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">700 × 0.90</text>
+<polyline points="2720,495 2400,495" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="2410" y="466" width="300" height="24" fill="#FFFFFF"/>
+<text x="2560.0" y="483.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Temporary calculation error</text>
+<polyline points="2400,565 1440,565" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1450" y="536" width="940" height="24" fill="#FFFFFF"/>
+<text x="1920.0" y="553.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Roll back output; record failed attempt and Retrying; consume retry allowance</text>
+<polyline points="2400,635 2080,635" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="2090" y="582" width="300" height="48" fill="#FFFFFF"/>
+<text x="2240.0" y="600.08" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Make message available later</text>
+<text x="2240.0" y="622.8000000000001" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">for a retry after backoff</text>
+<polyline points="2080,705 2400,705" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="2090" y="676" width="300" height="24" fill="#FFFFFF"/>
+<text x="2240.0" y="693.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Redeliver the same calculation</text>
+<polyline points="2400,775 1440,775" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1450" y="746" width="940" height="24" fill="#FFFFFF"/>
+<text x="1920.0" y="763.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Claim another attempt; reload the same saved input and plan</text>
 <rect x="55" y="565" width="570" height="125" fill="#FFFFFF"/>
 <text x="340.0" y="608.0600000000001" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#A96915">A successful attempt follows page 11.</text>
 <text x="340.0" y="633.62" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#A96915">Continue below when the issue is permanent</text>
 <text x="340.0" y="659.1800000000001" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#A96915">or the automatic retry allowance is exhausted.</text>
-<polyline points="2080,885 1120,885" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
-<rect x="1130" y="856" width="940" height="24" fill="#FFFFFF"/>
-<text x="1600.0" y="873.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Record final Failed status, explanation and manual retry eligibility</text>
+<polyline points="2400,885 1440,885" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1450" y="856" width="940" height="24" fill="#FFFFFF"/>
+<text x="1920.0" y="873.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Record final Failed status, explanation and manual retry eligibility</text>
 <polyline points="160,955 480,955" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
 <rect x="170" y="926" width="300" height="24" fill="#FFFFFF"/>
 <text x="320.0" y="943.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Check calculation status</text>
-<polyline points="480,1015 1120,1015" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
-<rect x="490" y="986" width="620" height="24" fill="#FFFFFF"/>
-<text x="800.0" y="1003.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Read saved outcome</text>
-<polyline points="1120,1075 480,1075" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
-<rect x="490" y="1046" width="620" height="24" fill="#FFFFFF"/>
-<text x="800.0" y="1063.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Failed + explanation + retry allowed</text>
+<polyline points="480,1015 1440,1015" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="490" y="986" width="940" height="24" fill="#FFFFFF"/>
+<text x="960.0" y="1003.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Read saved outcome</text>
+<polyline points="1440,1075 480,1075" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="490" y="1046" width="940" height="24" fill="#FFFFFF"/>
+<text x="960.0" y="1063.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Failed + explanation + retry allowed</text>
 <polyline points="480,1150 160,1150" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
 <rect x="170" y="1097" width="300" height="48" fill="#FFFFFF"/>
 <text x="320.0" y="1115.0800000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Show failure and the</text>
 <text x="320.0" y="1137.8000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Retry calculation button</text>
-<rect x="60" y="1190" width="2440" height="38" fill="#FFFFFF"/>
-<text x="60" y="1216.14" text-anchor="start" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#172B46">USER-REQUESTED RETRY · when retry is allowed: same calculation, new attempt, same model and contract</text>
+<rect x="60" y="1190" width="2760" height="38" fill="#FFFFFF"/>
+<text x="60" y="1216.14" text-anchor="start" font-family="Arial, sans-serif" font-size="21" font-weight="700" fill="#172B46">USER-REQUESTED RETRY · when retry is allowed: same calculation, new attempt, same model and both configuration inputs</text>
 <polyline points="160,1290 480,1290" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
 <rect x="170" y="1237" width="300" height="48" fill="#FFFFFF"/>
 <text x="320.0" y="1255.0800000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Click Retry calculation</text>
 <text x="320.0" y="1277.8000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Keep the failed request reference</text>
-<polyline points="480,1360 1120,1360" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
-<rect x="490" y="1331" width="620" height="24" fill="#FFFFFF"/>
-<text x="800.0" y="1348.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Check retry request replay, permission and current calculation state</text>
-<polyline points="1120,1430 480,1430" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
-<rect x="490" y="1377" width="620" height="48" fill="#FFFFFF"/>
-<text x="800.0" y="1395.0800000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Failed and eligible; original input 700, original contract version 1 and</text>
-<text x="800.0" y="1417.8000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">frozen plan</text>
-<rect x="670" y="385" width="370" height="115" rx="3" fill="#FFFFFF" stroke="#6E57A5" stroke-width="1.7"/>
-<rect x="682" y="395" width="346" height="95" fill="#FFFFFF"/>
-<text x="855.0" y="423.06" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">DATA CONTRACT IS NOT REREAD</text>
-<text x="855.0" y="448.62" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">A newer published version cannot</text>
-<text x="855.0" y="474.18" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">change this saved calculation.</text>
-<polyline points="480,1535 1120,1535" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
-<rect x="490" y="1482" width="620" height="48" fill="#FFFFFF"/>
-<text x="800.0" y="1500.0800000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Commit Waiting + new dispatch generation + bounded retry allowance + retry</text>
-<text x="800.0" y="1522.8000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">receipt</text>
+<polyline points="480,1360 1440,1360" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="490" y="1331" width="940" height="24" fill="#FFFFFF"/>
+<text x="960.0" y="1348.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Check retry request replay, permission and current calculation state</text>
+<polyline points="1440,1430 480,1430" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="490" y="1401" width="940" height="24" fill="#FFFFFF"/>
+<text x="960.0" y="1418.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Failed and eligible; original input 700, BOTH original documents and the frozen plan</text>
+<rect x="670" y="385" width="650" height="115" rx="3" fill="#FFFFFF" stroke="#6E57A5" stroke-width="1.7"/>
+<rect x="682" y="395" width="626" height="95" fill="#FFFFFF"/>
+<text x="995.0" y="423.06" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">RETRY PRESERVES BOTH PINNED DOCUMENTS</text>
+<text x="995.0" y="448.62" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">A newer DataContract or Custom Configuration</text>
+<text x="995.0" y="474.18" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">cannot change the saved calculation.</text>
+<polyline points="480,1535 1440,1535" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="490" y="1506" width="940" height="24" fill="#FFFFFF"/>
+<text x="960.0" y="1523.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Commit Waiting + new dispatch generation + bounded retry allowance + retry receipt</text>
 <polyline points="480,1630 160,1630" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
 <rect x="170" y="1577" width="300" height="48" fill="#FFFFFF"/>
 <text x="320.0" y="1595.0800000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">202 Accepted</text>
 <text x="320.0" y="1617.8000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Resume checking this calculation</text>
-<polyline points="1440,1700 1120,1700" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
-<rect x="1130" y="1671" width="300" height="24" fill="#FFFFFF"/>
-<text x="1280.0" y="1688.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Read new pending dispatch</text>
-<polyline points="1120,1770 1440,1770" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
-<rect x="1130" y="1741" width="300" height="24" fill="#FFFFFF"/>
-<text x="1280.0" y="1758.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Same calculation; new dispatch</text>
-<polyline points="1440,1840 1760,1840" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
-<rect x="1450" y="1787" width="300" height="48" fill="#FFFFFF"/>
-<text x="1600.0" y="1805.0800000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Send new retry dispatch; record</text>
-<text x="1600.0" y="1827.8000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">delivery after queue acceptance</text>
-<polyline points="2080,1910 1760,1910" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
-<rect x="1770" y="1881" width="300" height="24" fill="#FFFFFF"/>
-<text x="1920.0" y="1898.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Receive next queued request</text>
-<polyline points="1760,1980 2080,1980" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
-<rect x="1770" y="1951" width="300" height="24" fill="#FFFFFF"/>
-<text x="1920.0" y="1968.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Retry dispatch received</text>
-<polyline points="2080,2050 1120,2050" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
-<rect x="1130" y="2021" width="940" height="24" fill="#FFFFFF"/>
-<text x="1600.0" y="2038.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Claim a new attempt; reload original input 700 and frozen plan</text>
-<polyline points="2080,2130 2400,2130" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
-<rect x="2090" y="2077" width="300" height="48" fill="#FFFFFF"/>
-<text x="2240.0" y="2095.08" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Use the original formula</text>
-<text x="2240.0" y="2117.7999999999997" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">700 × 0.90</text>
-<polyline points="2400,2200 2080,2200" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
-<rect x="2090" y="2171" width="300" height="24" fill="#FFFFFF"/>
-<text x="2240.0" y="2188.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">630, or another failure</text>
-<polyline points="2080,2270 1120,2270" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
-<rect x="1130" y="2241" width="940" height="24" fill="#FFFFFF"/>
-<text x="1600.0" y="2258.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Save complete Gold + Ready, or save failure/retry outcome; never publish partial output</text>
-<polyline points="2080,2340 1760,2340" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
-<rect x="1770" y="2287" width="300" height="48" fill="#FFFFFF"/>
-<text x="1920.0" y="2305.08" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">After terminal outcome is saved,</text>
-<text x="1920.0" y="2327.7999999999997" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">acknowledge this dispatch</text>
+<polyline points="1760,1700 1440,1700" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1450" y="1671" width="300" height="24" fill="#FFFFFF"/>
+<text x="1600.0" y="1688.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Read new pending dispatch</text>
+<polyline points="1440,1770 1760,1770" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="1450" y="1741" width="300" height="24" fill="#FFFFFF"/>
+<text x="1600.0" y="1758.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Same calculation; new dispatch</text>
+<polyline points="1760,1840 2080,1840" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1770" y="1787" width="300" height="48" fill="#FFFFFF"/>
+<text x="1920.0" y="1805.0800000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Send new retry dispatch; record</text>
+<text x="1920.0" y="1827.8000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">delivery after queue acceptance</text>
+<polyline points="2400,1910 2080,1910" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="2090" y="1881" width="300" height="24" fill="#FFFFFF"/>
+<text x="2240.0" y="1898.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Receive next queued request</text>
+<polyline points="2080,1980 2400,1980" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="2090" y="1951" width="300" height="24" fill="#FFFFFF"/>
+<text x="2240.0" y="1968.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Retry dispatch received</text>
+<polyline points="2400,2050 1440,2050" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1450" y="2021" width="940" height="24" fill="#FFFFFF"/>
+<text x="1920.0" y="2038.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Claim a new attempt; reload original input 700 and frozen plan</text>
+<polyline points="2400,2130 2720,2130" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="2410" y="2077" width="300" height="48" fill="#FFFFFF"/>
+<text x="2560.0" y="2095.08" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Use the original formula</text>
+<text x="2560.0" y="2117.7999999999997" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">700 × 0.90</text>
+<polyline points="2720,2200 2400,2200" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="2410" y="2171" width="300" height="24" fill="#FFFFFF"/>
+<text x="2560.0" y="2188.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">630, or another failure</text>
+<polyline points="2400,2270 1440,2270" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1450" y="2241" width="940" height="24" fill="#FFFFFF"/>
+<text x="1920.0" y="2258.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Save complete Gold + Ready, or save failure/retry outcome; never publish partial output</text>
+<polyline points="2400,2340 2080,2340" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="2090" y="2287" width="300" height="48" fill="#FFFFFF"/>
+<text x="2240.0" y="2305.08" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">After terminal outcome is saved,</text>
+<text x="2240.0" y="2327.7999999999997" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">acknowledge this dispatch</text>
 <polyline points="160,2350 480,2350" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
 <rect x="170" y="2321" width="300" height="24" fill="#FFFFFF"/>
 <text x="320.0" y="2338.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Automatic status check</text>
-<polyline points="480,2405 1120,2405" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
-<rect x="490" y="2376" width="620" height="24" fill="#FFFFFF"/>
-<text x="800.0" y="2393.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Read latest saved outcome</text>
-<polyline points="1120,2460 480,2460" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
-<rect x="490" y="2431" width="620" height="24" fill="#FFFFFF"/>
-<text x="800.0" y="2448.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Status and result reference, or failure reason</text>
+<polyline points="480,2405 1440,2405" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="490" y="2376" width="940" height="24" fill="#FFFFFF"/>
+<text x="960.0" y="2393.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Read latest saved outcome</text>
+<polyline points="1440,2460 480,2460" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="490" y="2431" width="940" height="24" fill="#FFFFFF"/>
+<text x="960.0" y="2448.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Status and result reference, or failure reason</text>
 <polyline points="480,2535 160,2535" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
 <rect x="170" y="2482" width="300" height="48" fill="#FFFFFF"/>
 <text x="320.0" y="2500.08" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Show completed model</text>
 <text x="320.0" y="2522.7999999999997" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">or updated failure and next action</text>
-<rect x="50" y="2575" width="2460" height="30" fill="#FFFFFF"/>
-<text x="1280.0" y="2595.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Already successful → return saved result. Already active → keep existing attempt. Repeated retry command → no duplicate. Edited input or a new contract → NEW calculation.</text>
+<rect x="50" y="2575" width="2780" height="30" fill="#FFFFFF"/>
+<text x="1440.0" y="2595.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Already successful → return saved result. Already active → keep existing attempt. Repeated retry command → no duplicate. Edited input or either changed configuration → NEW calculation.</text>
 </svg>

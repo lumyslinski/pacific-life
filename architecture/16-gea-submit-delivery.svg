@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1900" height="1775" viewBox="0 0 1900 1775" role="img">
+<title>16 GEA submit and delivery</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<rect width="1900" height="1775" fill="#FFFFFF"/>
+<rect x="40" y="24" width="1820" height="46" fill="#FFFFFF"/>
+<text x="40" y="56.86" text-anchor="start" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#172B46">GEA wizard · review, submit and delivery to Snowflake</text>
+<rect x="40" y="78" width="1820" height="34" fill="#FFFFFF"/>
+<text x="40" y="100.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#738096">API and database implemented · the relay and the Snowflake side are the target; their functions exist in PostgreSQL.</text>
+<rect x="47" y="140" width="246" height="80" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="59" y="150" width="222" height="60" fill="#FFFFFF"/>
+<text x="170.0" y="173.71" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Vue wizard</text>
+<text x="170.0" y="197.85000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">useRunWizard</text>
+<polyline points="170,220 170,1645" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="437" y="140" width="246" height="80" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="449" y="150" width="222" height="60" fill="#FFFFFF"/>
+<text x="560.0" y="185.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Litestar GEA API</text>
+<polyline points="560,220 560,1645" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="827" y="140" width="246" height="80" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="839" y="150" width="222" height="60" fill="#FFFFFF"/>
+<text x="950.0" y="173.71" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">PostgreSQL</text>
+<text x="950.0" y="197.85000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">schema gea</text>
+<polyline points="950,220 950,1645" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="1217" y="140" width="246" height="80" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="1229" y="150" width="222" height="60" fill="#FFFFFF"/>
+<text x="1340.0" y="173.71" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Relay</text>
+<text x="1340.0" y="197.85000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">(not built yet)</text>
+<polyline points="1340,220 1340,1645" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="1597" y="140" width="246" height="80" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="1609" y="150" width="222" height="60" fill="#FFFFFF"/>
+<text x="1720.0" y="173.71" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Snowflake</text>
+<text x="1720.0" y="197.85000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">GEA.CONTROL</text>
+<polyline points="1720,220 1720,1645" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="554" y="395" width="12" height="520" rx="3" fill="#E6EEFC" stroke="#356CC9" stroke-width="1.7"/>
+<polyline points="170,275 560,275" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="177" y="249" width="376" height="23" fill="#FFFFFF"/>
+<text x="365.0" y="265.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">GET /runs/{id}/review</text>
+<polyline points="560,330 170,330" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="177" y="281" width="376" height="46" fill="#FFFFFF"/>
+<text x="365.0" y="298.82" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">200: ready, missing fields per step, preview · ETag</text>
+<text x="365.0" y="318.7" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">of the run</text>
+<polyline points="170,410 560,410" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="177" y="384" width="376" height="23" fill="#FFFFFF"/>
+<text x="365.0" y="400.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">POST /runs/{id}/submit · Idempotency-Key · If-Match</text>
+<polyline points="560,465 950,465" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="567" y="439" width="376" height="23" fill="#FFFFFF"/>
+<text x="755.0" y="455.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">BEGIN; receipt for (caller, key)? then replay it</text>
+<polyline points="560,520 950,520" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="567" y="494" width="376" height="23" fill="#FFFFFF"/>
+<text x="755.0" y="510.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">SELECT run FOR UPDATE; compare the ETag</text>
+<rect x="95" y="565" width="950" height="110" rx="3" fill="none" stroke="#A96915" stroke-width="1.7"/>
+<rect x="107" y="548" width="688" height="34" fill="#FFFFFF"/>
+<text x="107" y="570.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#A96915">alt [changed after the review, or a required field is empty]</text>
+<polyline points="560,640 170,640" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="177" y="614" width="376" height="23" fill="#FFFFFF"/>
+<text x="365.0" y="630.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">412 precondition_failed · 422 not_ready + issues</text>
+<polyline points="560,740 950,740" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="567" y="691" width="376" height="46" fill="#FFFFFF"/>
+<text x="755.0" y="708.8199999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">build document; canonical JSON; SHA-256; INSERT</text>
+<text x="755.0" y="728.6999999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">DataContract</text>
+<rect x="968" y="752" width="330" height="64" fill="#FFFFFF"/>
+<text x="968" y="768.88" text-anchor="start" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#738096">triggers: hash and document must equal</text>
+<text x="968" y="788.76" text-anchor="start" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#738096">the saved columns; queue the delivery;</text>
+<text x="968" y="808.64" text-anchor="start" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#738096">run moves to queued</text>
+<polyline points="560,860 950,860" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="567" y="834" width="376" height="23" fill="#FFFFFF"/>
+<text x="755.0" y="850.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">store the receipt and the audit event; COMMIT</text>
+<polyline points="560,915 170,915" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="177" y="889" width="376" height="23" fill="#FFFFFF"/>
+<text x="365.0" y="905.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">201: the contract + Location; the run is locked</text>
+<rect x="830" y="965" width="1030" height="555" rx="3" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="842" y="948" width="523" height="34" fill="#FFFFFF"/>
+<text x="842" y="970.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#738096">after the commit · independent of the request</text>
+<polyline points="1340,1040 950,1040" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="957" y="991" width="376" height="46" fill="#FFFFFF"/>
+<text x="1145.0" y="1008.8199999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">ClaimContractDeliveries(): contracts allowed to</text>
+<text x="1145.0" y="1028.7" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">start</text>
+<polyline points="950,1095 1340,1095" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="957" y="1069" width="376" height="23" fill="#FFFFFF"/>
+<text x="1145.0" y="1085.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">DocumentCanonical + ContentHash</text>
+<polyline points="1340,1150 1720,1150" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1347" y="1124" width="366" height="23" fill="#FFFFFF"/>
+<text x="1530.0" y="1140.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">MERGE DATA_CONTRACT: same id, same hash</text>
+<polyline points="1720,1205 1340,1205" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="1347" y="1179" width="366" height="23" fill="#FFFFFF"/>
+<text x="1530.0" y="1195.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">stored; SHA2 matches</text>
+<polyline points="1340,1260 1720,1260" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1347" y="1234" width="366" height="23" fill="#FFFFFF"/>
+<text x="1530.0" y="1250.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">EXECUTE TASK RUN_PIPELINE (contractId)</text>
+<polyline points="1340,1315 950,1315" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="957" y="1289" width="376" height="23" fill="#FFFFFF"/>
+<text x="1145.0" y="1305.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">CompleteContractDelivery()</text>
+<rect x="1585" y="1333" width="270" height="26" fill="#FFFFFF"/>
+<text x="1720.0" y="1350.76" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#738096">task graph runs the steps (page 17)</text>
+<polyline points="1340,1405 1720,1405" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1347" y="1379" width="366" height="23" fill="#FFFFFF"/>
+<text x="1530.0" y="1395.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">read RUN_STATUS, RUN_STEP_STATUS, RUN_LOG</text>
+<polyline points="1340,1465 950,1465" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="957" y="1439" width="376" height="23" fill="#FFFFFF"/>
+<text x="1145.0" y="1455.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">RecordExecutionStatus(), RecordExecutionLog()</text>
+<polyline points="170,1575 560,1575" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="177" y="1549" width="376" height="23" fill="#FFFFFF"/>
+<text x="365.0" y="1565.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">GET /runs/{id}/execution · If-None-Match (polling)</text>
+<polyline points="560,1630 170,1630" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="177" y="1604" width="376" height="23" fill="#FFFFFF"/>
+<text x="365.0" y="1620.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">304 unchanged · or 200: status of every step</text>
+<rect x="40" y="1685" width="1820" height="28" fill="#FFFFFF"/>
+<text x="950.0" y="1704.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#172B46">A failed Snowflake write never undoes the contract: the delivery stays pending and is retried with the same document and hash.</text>
+<rect x="40" y="1723" width="1820" height="28" fill="#FFFFFF"/>
+<text x="950.0" y="1742.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Repeating the submit with the same Idempotency-Key returns the same contract. A failed run is resolved (POST /runs/{id}/resolution) and resubmitted as version n + 1.</text>
+</svg>

@@ -25,36 +25,68 @@ services:
     ports:
       - "127.0.0.1:8000:8000"
 
-  dynamodb-local:
-    profiles: ["aws-audit"]
-    image: "${DYNAMODB_LOCAL_IMAGE:-amazon/dynamodb-local:latest}"
-    working_dir: /home/dynamodblocal
-    user: "0:0"
-    command: ["-jar", "DynamoDBLocal.jar", "-sharedDb", "-dbPath", "./data", "-disableTelemetry"]
-    ports:
-      - "127.0.0.1:8001:8000"
-    volumes:
-      - dynamodb-data:/home/dynamodblocal/data
-
+  # Copies committed audit events to PostgreSQL: docker compose --profile audit up
   audit-export:
-    profiles: ["aws-audit"]
+    profiles: ["audit"]
     build: .
-    command: ["python", "-m", "calculation_api.audit_export", "--create-table"]
+    command: ["python", "-m", "calculation_api.audit_export"]
     environment:
       EMULATOR_HOST: snowflake-emulator
       EMULATOR_PORT: "8084"
-      DYNAMODB_ENDPOINT: http://dynamodb-local:8000
-      AWS_REGION: eu-central-1
-      AUDIT_TABLE: CalculationAudit
+      AUDIT_DATABASE_URL: postgresql://calc_audit_exporter:calc_audit_exporter@postgres:5432/gea    # member of calc_audit
     depends_on:
       snowflake-emulator:
         condition: service_healthy
-      dynamodb-local:
-        condition: service_started
       calculation-api:
         condition: service_started
+      gea-migrate:
+        condition: service_completed_successfully
     restart: on-failure
+
+  # GEA module: docker compose --profile gea up. PostgreSQL and its migration also serve the audit profile.
+  postgres:
+    profiles: ["gea", "audit"]
+    image: postgres:16
+    environment:
+      POSTGRES_DB: gea
+      POSTGRES_USER: gea_owner
+      POSTGRES_PASSWORD: gea_owner          # local development only
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - gea-postgres:/var/lib/postgresql/data
+      - ./gea/db/postgres/local/init-roles.sql:/docker-entrypoint-initdb.d/10-gea-roles.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gea_owner -d gea"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  gea-migrate:
+    profiles: ["gea", "audit"]
+    build: .
+    command: ["alembic", "-c", "gea/db/postgres/alembic.ini", "upgrade", "head"]
+    environment:
+      GEA_DATABASE_URL: postgresql://gea_owner:gea_owner@postgres:5432/gea
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+
+  gea-api:
+    profiles: ["gea"]
+    build: .
+    command: ["python", "-m", "gea_api", "--host", "0.0.0.0", "--port", "8010"]
+    environment:
+      GEA_DATABASE_URL: postgresql://gea_api:gea_api@postgres:5432/gea    # member of gea_app, not the owner
+      GEA_AUTH_MODE: dev                                                  # local development only
+      FRONTEND_ORIGINS: http://localhost:3000,http://localhost:4200,http://localhost:5173
+    depends_on:
+      gea-migrate:
+        condition: service_completed_successfully
+    ports:
+      - "127.0.0.1:8010:8010"
 
 volumes:
   emulator-data:
-  dynamodb-data:
+  gea-postgres:

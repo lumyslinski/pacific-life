@@ -31,7 +31,7 @@ requirements is tracked in [STATE.md](STATE.md); the HTTP contract is
 | Durable AWS dispatch | Commit run, request receipt and dispatch outbox together; relay sends to SQS FIFO before marking delivery | `RUNS`, `RUN_ATTEMPTS`, `RUN_OUTBOX`; separate ECS Fargate API, relay and worker |
 | Distributed ownership | Enforce unique command/run identities, conditional claims, lease heartbeats and fencing at result commit; FIFO alone is insufficient | Validate production control-table concurrency and cross-table transaction support; retain scenario pointer guards |
 | Queue recovery | Deduplicate persistently beyond the FIFO window; explicit retry gets a new dispatch ID/generation; bounded retries survive re-enqueue | Lease reaper, persisted attempt budget, SQS visibility extension/backoff and DLQ reconciliation; terminal failure remains visible through API |
-| Completion delivery | Result, lineage, success audit/outboxes and succeeded status commit atomically; no direct post-commit event dual write | Independent `RUN_EVENT_OUTBOX` for optional EventBridge completion relay; retain direct DynamoDB audit exporter and its own delivery flag |
+| Completion delivery | Result, lineage, success audit/outboxes and succeeded status commit atomically; no direct post-commit event dual write | Independent `RUN_EVENT_OUTBOX` for optional EventBridge completion relay; retain the direct PostgreSQL audit exporter and its own delivery flag |
 | Multi-step orchestration | Introduce one durable workflow engine when human waits/fan-out/chaining need shared workflow state | Stage 2 option: Step Functions Standard or Temporal above the same idempotent run primitives |
 
 The mutable user object is the custom scenario/head. Silver and historical
@@ -60,7 +60,7 @@ describe the served version 2 API.
 | Branch and chain | Independent regions use the same immutable core; another process may fork a specific variation revision | `parentVariationId` + `parentRevision`; preserve original `coreModelId` |
 | Core functions in later processes | A variation can use the same SQL functions as core without mutating core | Omit `configId` when forking directly from core; assign another process name |
 | Audit every committed operation | Save before/after results, SQL function identities, arguments, objective and query IDs | Model, audit event, command receipt and outbox commit together |
-| Optional AWS audit database | Export audit through the AWS SDK to a local AWS database emulator | DynamoDB Local, optional Compose profile `aws-audit` |
+| Audit copy outside Snowflake | Copy committed audit events to PostgreSQL: one row per event id, append-only, safe to retry | `calc."AuditEvent"` (Alembic revision `0005`), `calculation_api.audit_export`, optional Compose profile `audit` |
 | Safe retries | Repeating the same command returns the same response; stale concurrent edits fail | `requestId` replay and optimistic `expectedRevision`, HTTP 409 |
 | Scale within tests | Batch function calls across policies instead of one network call per parameter | Dependency waves; 256 calls per transformation batch; objective aggregation in SQL |
 

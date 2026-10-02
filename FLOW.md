@@ -57,7 +57,7 @@ sequenceDiagram
 
 The worker is an in-process Python class inside the API. The optional audit
 exporter later reads only undelivered outbox rows and writes an idempotent
-DynamoDB projection; it never participates in the calculation transaction and
+copy to PostgreSQL; it never participates in the calculation transaction and
 cannot change formulas or model snapshots (see
 [README.md — Audit storage](README.md#audit-storage)).
 
@@ -133,7 +133,7 @@ sequenceDiagram
     API-->>UI: 200 status / immutable result reference, or 304
     Events->>DB: Read committed RUN_EVENT_OUTBOX
     Note over Events,DB: Publish RunCompleted; acknowledge only successful entries
-    Note over API,DB: Existing AUDIT_OUTBOX to DynamoDB exporter stays independent
+    Note over API,DB: Existing AUDIT_OUTBOX to PostgreSQL exporter stays independent
 ```
 
 Queue ordering does not replace fenced run ownership or conditional scenario

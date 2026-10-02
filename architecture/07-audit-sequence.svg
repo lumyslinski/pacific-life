@@ -3,9 +3,9 @@
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
 <rect width="1440" height="1220" fill="#FFFFFF"/>
 <rect x="40" y="24" width="1360" height="46" fill="#FFFFFF"/>
-<text x="40" y="56.86" text-anchor="start" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#172B46">Audit persistence and optional AWS projection</text>
+<text x="40" y="56.86" text-anchor="start" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#172B46">Audit persistence and the PostgreSQL copy</text>
 <rect x="40" y="78" width="1360" height="34" fill="#FFFFFF"/>
-<text x="40" y="100.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#738096">Implemented version 2 · direct SQL outbox → boto3 → DynamoDB Local. Proposed completion events use a separate outbox.</text>
+<text x="40" y="100.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#738096">Implemented · SQL outbox → audit-export → PostgreSQL (calc.AuditEvent). Proposed completion events use a separate outbox.</text>
 <rect x="67" y="140" width="246" height="80" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
 <rect x="79" y="150" width="222" height="60" fill="#FFFFFF"/>
 <text x="190.0" y="185.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Litestar + Repository</text>
@@ -21,8 +21,8 @@
 <polyline points="895,220 895,1100" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
 <rect x="1127" y="140" width="246" height="80" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
 <rect x="1139" y="150" width="222" height="60" fill="#FFFFFF"/>
-<text x="1250.0" y="173.71" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">DynamoDB Local</text>
-<text x="1250.0" y="197.85000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">CalculationAudit</text>
+<text x="1250.0" y="173.71" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">PostgreSQL</text>
+<text x="1250.0" y="197.85000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">calc.AuditEvent</text>
 <polyline points="1250,220 1250,1100" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
 <polyline points="190,280 545,280" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
 <rect x="197" y="254" width="341" height="23" fill="#FFFFFF"/>
@@ -39,21 +39,21 @@
 <polyline points="545,525 895,525" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
 <rect x="552" y="499" width="336" height="23" fill="#FFFFFF"/>
 <text x="720.0" y="515.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">Committed event payloads</text>
-<rect x="770" y="585" width="610" height="170" rx="3" fill="none" stroke="#A96915" stroke-width="1.7"/>
-<rect x="782" y="568" width="369" height="34" fill="#FFFFFF"/>
-<text x="782" y="590.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#A96915">loop [256 KiB chunks per event]</text>
+<rect x="470" y="585" width="910" height="450" rx="3" fill="none" stroke="#A96915" stroke-width="1.7"/>
+<rect x="482" y="568" width="303" height="34" fill="#FFFFFF"/>
+<text x="482" y="590.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#A96915">loop [each pending event]</text>
 <polyline points="895,640 1250,640" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
 <rect x="902" y="614" width="341" height="23" fill="#FFFFFF"/>
-<text x="1072.5" y="630.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">Conditional PutItem(chunk, hash)</text>
+<text x="1072.5" y="630.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">INSERT … ON CONFLICT DO NOTHING</text>
 <polyline points="1250,705 895,705" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
 <rect x="902" y="679" width="341" height="23" fill="#FFFFFF"/>
-<text x="1072.5" y="695.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">Stored or identical existing item</text>
+<text x="1072.5" y="695.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">Stored, or event id already there</text>
 <polyline points="895,805 1250,805" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
 <rect x="902" y="779" width="341" height="23" fill="#FFFFFF"/>
-<text x="1072.5" y="795.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">Conditional PutItem(manifest last)</text>
+<text x="1072.5" y="795.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">If already there: compare SHA-256</text>
 <polyline points="1250,860 895,860" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
 <rect x="902" y="834" width="341" height="23" fill="#FFFFFF"/>
-<text x="1072.5" y="850.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">Complete event is readable</text>
+<text x="1072.5" y="850.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">Same: continue · different: error</text>
 <polyline points="895,945 545,945" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
 <rect x="552" y="919" width="336" height="23" fill="#FFFFFF"/>
 <text x="720.0" y="935.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">UPDATE AUDIT_OUTBOX delivered = true</text>
@@ -62,7 +62,7 @@
 <text x="720.0" y="995.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">Delivery acknowledged</text>
 <rect x="75" y="1052" width="590" height="80" fill="#FFFFFF"/>
 <text x="370.0" y="1085.34" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#24795C">The SQL model transaction never waits</text>
-<text x="370.0" y="1110.8999999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#24795C">for the optional DynamoDB projection.</text>
+<text x="370.0" y="1110.8999999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#24795C">for the PostgreSQL copy.</text>
 <rect x="750" y="1060" width="630" height="105" fill="#FFFFFF"/>
 <text x="1065.0" y="1094.1399999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Failure or crash before the delivery flag:</text>
 <text x="1065.0" y="1118.28" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">leave pending and retry. Identical duplicate writes</text>

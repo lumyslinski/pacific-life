@@ -16,8 +16,8 @@
 <rect x="992" y="123" width="303" height="34" fill="#FFFFFF"/>
 <text x="992" y="145.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#738096">SNOWFLAKE EMULATOR · 8084</text>
 <rect x="980" y="735" width="420" height="330" rx="3" fill="none" stroke="#A96915" stroke-width="1.7" stroke-dasharray="7 5"/>
-<rect x="992" y="718" width="336" height="34" fill="#FFFFFF"/>
-<text x="992" y="740.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#A96915">OPTIONAL · aws-audit PROFILE</text>
+<rect x="992" y="718" width="292" height="34" fill="#FFFFFF"/>
+<text x="992" y="740.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#A96915">OPTIONAL · audit PROFILE</text>
 <rect x="65" y="190" width="345" height="105" rx="3" fill="#FFFFFF" stroke="#738096" stroke-width="1.7"/>
 <rect x="77" y="200" width="321" height="85" fill="#FFFFFF"/>
 <text x="237.5" y="223.06" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">api/openapi.yaml</text>
@@ -118,15 +118,15 @@
 <rect x="1005" y="780" width="370" height="85" rx="3" fill="#FFFFFF" stroke="#A96915" stroke-width="1.7"/>
 <rect x="1017" y="790" width="346" height="65" fill="#FFFFFF"/>
 <text x="1190.0" y="815.84" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">audit-export process</text>
-<text x="1190.0" y="841.4" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">SQL outbox polling + boto3</text>
+<text x="1190.0" y="841.4" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">SQL outbox polling + psycopg</text>
 <rect x="1005" y="960" width="370" height="75" rx="3" fill="#FFFFFF" stroke="#A96915" stroke-width="1.7"/>
 <rect x="1017" y="970" width="346" height="55" fill="#FFFFFF"/>
-<text x="1190.0" y="990.84" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">DynamoDB Local · 8001</text>
-<text x="1190.0" y="1016.4" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">CalculationAudit projection</text>
+<text x="1190.0" y="990.84" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">PostgreSQL · calc.AuditEvent</text>
+<text x="1190.0" y="1016.4" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#172B46">Append-only, one row per event</text>
 <polyline points="1190,865 1190,960" fill="none" stroke="#A96915" stroke-width="1.7" marker-end="url(#arrow)"/>
 <rect x="1000" y="895" width="380" height="32" fill="#FFFFFF"/>
-<text x="1190.0" y="916.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#A96915">conditional PutItem; chunks + manifest</text>
+<text x="1190.0" y="916.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#A96915">INSERT … ON CONFLICT DO NOTHING</text>
 <polyline points="1375,822 1420,822 1420,237 1375,237" fill="none" stroke="#A96915" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
 <rect x="40" y="1090" width="1350" height="42" fill="#FFFFFF"/>
-<text x="715.0" y="1116.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Exporter DB access also uses the Snowflake connector. Cloud Snowflake, cloud AWS and a distributed queue are not deployed here.</text>
+<text x="715.0" y="1116.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">The exporter reads through the Snowflake connector and writes to PostgreSQL. Cloud Snowflake, AWS and a distributed queue are not deployed here.</text>
 </svg>

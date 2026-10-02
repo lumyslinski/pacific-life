@@ -1,9 +1,8 @@
-"""Snowflake adapter: retrieves DB bindings, invokes DB SQL functions, saves audit."""
+"""Snowflake adapter: invokes DB SQL functions and saves the calculation audit."""
 from decimal import Decimal
 import json
 import re
 
-from .contracts import Binding
 from .worker import ModelError
 
 
@@ -24,21 +23,6 @@ class SnowflakeGateway:
         with self.connection.cursor() as cursor:
             cursor.execute(sql, params)
             return cursor.fetchall()
-
-    def load(self, version):
-        rows = self.rows("""SELECT CALCULATION,REGION,PARAMETER,FUNCTION_NAME,
-            ARGS_JSON,CONSTANTS_JSON,DEPENDS_JSON FROM INSURANCE.CALC.PARAMETER_BINDINGS
-            WHERE MODEL_VERSION=%s ORDER BY CALCULATION,REGION,PARAMETER""", (version,))
-        if not rows:
-            raise ModelError(f"Unknown model version: {version}")
-        groups = {}
-        for calculation, region, param, function, args, constants, depends in rows:
-            groups.setdefault((calculation, region), []).append(Binding(
-                param, function, json.loads(args), json.loads(constants), json.loads(depends)))
-        objective = self.rows("SELECT FUNCTION_NAME FROM INSURANCE.CALC.MODEL_OBJECTIVES WHERE MODEL_VERSION=%s", (version,))
-        if len(objective) != 1:
-            raise ModelError("Model must have one objective function binding.")
-        return groups, objective[0][0]
 
     def execute_batch(self, function_name, calls):
         results = {}

@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+
+# Node (gea/frontend, examples/vue)
+node_modules/
+
+# IDE
+.idea/
+
+# Test reports
+test-results.xml

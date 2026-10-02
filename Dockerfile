@@ -8,11 +8,13 @@ COPY calculation_api ./calculation_api
 COPY fixtures ./fixtures
 COPY api ./api
 COPY examples ./examples
+COPY gea_api ./gea_api
+COPY gea ./gea
 COPY pyproject.toml ./
 
 ENV PYTHONUNBUFFERED=1
 ENV SNOWFLAKE_DISABLE_PLATFORM_DETECTION=true
 ENV AWS_EC2_METADATA_DISABLED=true
-EXPOSE 8084 8000
+EXPOSE 8084 8000 8010
 
 CMD ["python", "-m", "snowflake_emulator", "--host", "0.0.0.0", "--port", "8084", "--database", "/data/emulator.duckdb", "--history", "/data/query-history.jsonl"]

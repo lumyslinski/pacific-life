@@ -30,19 +30,6 @@ def seed(connection):
             for statement in sqlglot.parse(script, read="snowflake"):
                 if statement is not None:
                     cursor.execute(statement.sql(dialect="snowflake"))
-    with connection.cursor() as cursor:
-        cursor.execute("SELECT COUNT(*) FROM INSURANCE.CALC.PARAMETER_BINDINGS WHERE MODEL_VERSION=%s", ("insurance-v1",))
-        bindings = json.loads((ROOT / "fixtures" / "bindings.json").read_text())
-        if cursor.fetchone()[0] == 0:
-            for binding in bindings:
-                cursor.execute("INSERT INTO INSURANCE.CALC.PARAMETER_BINDINGS VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",
-                    ("insurance-v1", binding["calculation"], binding["region"], binding["parameter"],
-                     binding["function"], json.dumps(binding["arguments"]),
-                     json.dumps(binding["constants"]), json.dumps(binding["dependsOn"])))
-        cursor.execute("SELECT COUNT(*) FROM INSURANCE.CALC.MODEL_OBJECTIVES WHERE MODEL_VERSION=%s", ("insurance-v1",))
-        if cursor.fetchone()[0] == 0:
-            cursor.execute("INSERT INTO INSURANCE.CALC.MODEL_OBJECTIVES VALUES (%s,%s)",
-                           ("insurance-v1", "INSURANCE.CALC.OBJECTIVE_RELATIVE_CHANGE_V1"))
     seed_lifecycle(connection)
 
 

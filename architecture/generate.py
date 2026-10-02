@@ -10,6 +10,8 @@ Page 9 is the main actor sequence: Core transforms Bronze to Silver, then
 a user-selected custom process applies input overrides and produces Gold.
 Page 10 explains worker responsibilities. Pages 11-12 are actor/lifeline
 sequences for Data Contract resolution, asynchronous execution and retry.
+Pages 13-17 cover the GEA module: components, PostgreSQL data model, how the
+wizard saves the run, submit with delivery to Snowflake, and run execution.
 This script changes documentation only, not application behavior.
 """
 from pathlib import Path
@@ -225,7 +227,7 @@ def components():
     p.frame(40, 140, 395, 925, "CLIENT EXAMPLE / CONTRACT")
     p.frame(475, 140, 465, 925, "LITESTAR API PROCESS · 8000")
     p.frame(980, 140, 420, 520, "SNOWFLAKE EMULATOR · 8084")
-    p.frame(980, 735, 420, 330, "OPTIONAL · aws-audit PROFILE", AMBER, True)
+    p.frame(980, 735, 420, 330, "OPTIONAL · audit PROFILE", AMBER, True)
     p.box(65, 190, 345, 105, "api/openapi.yaml\nMaintained API contract\nGET /openapi.yaml", GRAY)
     p.box(65, 370, 345, 90, "openapi-typescript\nGenerate src/api/generated.ts", GRAY, dashed=True, size=17)
     p.box(65, 540, 345, 110, "Vue client example\nuseInsuranceCalculation\nopenapi-fetch + decimal strings", BLUE, size=17)
@@ -257,11 +259,11 @@ def components():
     p.line([(1190, 445), (1190, 505)])
     p.line([(915, 895), (958, 895), (958, 237), (1005, 237)])
     p.text(992, 672, 396, 38, "Query history: query IDs + JSONL log", 16)
-    p.box(1005, 780, 370, 85, "audit-export process\nSQL outbox polling + boto3", AMBER, size=18)
-    p.box(1005, 960, 370, 75, "DynamoDB Local · 8001\nCalculationAudit projection", AMBER, size=18)
-    p.line([(1190, 865), (1190, 960)], "conditional PutItem; chunks + manifest", (1000, 895, 380), color=AMBER)
+    p.box(1005, 780, 370, 85, "audit-export process\nSQL outbox polling + psycopg", AMBER, size=18)
+    p.box(1005, 960, 370, 75, "PostgreSQL · calc.AuditEvent\nAppend-only, one row per event", AMBER, size=18)
+    p.line([(1190, 865), (1190, 960)], "INSERT … ON CONFLICT DO NOTHING", (1000, 895, 380), color=AMBER)
     p.line([(1375, 822), (1420, 822), (1420, 237), (1375, 237)], dashed=True, color=AMBER)
-    p.text(40, 1090, 1350, 42, "Exporter DB access also uses the Snowflake connector. Cloud Snowflake, cloud AWS and a distributed queue are not deployed here.", 16)
+    p.text(40, 1090, 1350, 42, "The exporter reads through the Snowflake connector and writes to PostgreSQL. Cloud Snowflake, AWS and a distributed queue are not deployed here.", 16)
     return p
 
 
@@ -329,23 +331,23 @@ def calculation():
 
 
 def audit():
-    p = Page("07 Audit sequence", "Audit persistence and optional AWS projection",
-             "Implemented version 2 · direct SQL outbox → boto3 → DynamoDB Local. Proposed completion events use a separate outbox.", 1440, 1220)
+    p = Page("07 Audit sequence", "Audit persistence and the PostgreSQL copy",
+             "Implemented · SQL outbox → audit-export → PostgreSQL (calc.AuditEvent). Proposed completion events use a separate outbox.", 1440, 1220)
     api, db, exporter, aws = 190, 545, 895, 1250
-    p.participants([(api, "Litestar + Repository"), (db, "Emulator + SQL tables\nvia Snowflake connector"), (exporter, "audit-export process"), (aws, "DynamoDB Local\nCalculationAudit")], 1100)
+    p.participants([(api, "Litestar + Repository"), (db, "Emulator + SQL tables\nvia Snowflake connector"), (exporter, "audit-export process"), (aws, "PostgreSQL\ncalc.AuditEvent")], 1100)
     p.message(api, db, 280, "BEGIN; model / revision / audit / outbox")
     p.message(api, db, 335, "Save command receipt; COMMIT")
     p.message(db, api, 390, "Atomic commit succeeded", True)
     p.message(exporter, db, 470, "SELECT pending outbox JOIN audit events")
     p.message(db, exporter, 525, "Committed event payloads", True)
-    p.frame(770, 585, 610, 170, "loop [256 KiB chunks per event]", AMBER)
-    p.message(exporter, aws, 640, "Conditional PutItem(chunk, hash)")
-    p.message(aws, exporter, 705, "Stored or identical existing item", True)
-    p.message(exporter, aws, 805, "Conditional PutItem(manifest last)")
-    p.message(aws, exporter, 860, "Complete event is readable", True)
+    p.frame(470, 585, 910, 450, "loop [each pending event]", AMBER)
+    p.message(exporter, aws, 640, "INSERT … ON CONFLICT DO NOTHING")
+    p.message(aws, exporter, 705, "Stored, or event id already there", True)
+    p.message(exporter, aws, 805, "If already there: compare SHA-256")
+    p.message(aws, exporter, 860, "Same: continue · different: error", True)
     p.message(exporter, db, 945, "UPDATE AUDIT_OUTBOX delivered = true")
     p.message(db, exporter, 1005, "Delivery acknowledged", True)
-    p.text(75, 1052, 590, 80, "The SQL model transaction never waits\nfor the optional DynamoDB projection.", 18, True, color=GREEN)
+    p.text(75, 1052, 590, 80, "The SQL model transaction never waits\nfor the PostgreSQL copy.", 18, True, color=GREEN)
     p.text(750, 1060, 630, 105, "Failure or crash before the delivery flag:\nleave pending and retry. Identical duplicate writes\nare accepted; conflicting content raises an error.", 17)
     p.text(40, 1170, 1360, 28, "Calculation audit: before/after values, bindings, arguments, objective and query IDs. Emulator query history also records failed queries.", 16)
     return p
@@ -392,7 +394,7 @@ def aws_orchestration():
     p.box(60, 1280, 420, 240,
           "Failure and recovery\nRollback: no partial Silver or Gold\nPersist attempt error and retry budget\nRETRYABLE → redelivery / backoff\nExpired lease → fence + recovery dispatch\nDLQ reconciler → terminal FAILED\nManual retry → new dispatch generation\nOld generations cannot claim or publish", AMBER, size=17)
     p.box(620, 1280, 520, 240,
-          "Independent downstream outboxes\nAUDIT_OUTBOX → audit-export → DynamoDB\nExisting direct projection; chunks + manifest\n\nRUN_EVENT_OUTBOX → relay → EventBridge\nProposed RunCompleted + result reference\nACK each successful entry; retry failures\nConsumers deduplicate by stable event ID", AMBER, size=17)
+          "Independent downstream outboxes\nAUDIT_OUTBOX → audit-export → PostgreSQL\nExisting direct copy; one row per event id\n\nRUN_EVENT_OUTBOX → relay → EventBridge\nProposed RunCompleted + result reference\nACK each successful entry; retry failures\nConsumers deduplicate by stable event ID", AMBER, size=17)
     p.line([(880, 1115), (880, 1280)], "Read only committed events", (665, 1175, 430), color=AMBER)
     p.box(1280, 1280, 460, 240,
           "Stage 2 · when multi-step state is needed\nStep Functions Standard OR Temporal\nCore → human wait → custom fan-out\nExplicit chaining from delivered Gold\nActivities call the same idempotent run API\nServer-side callback / workflow state\nChoose one retry owner per layer\nNo engine is deployed in this package", GRAY, dashed=True, size=17)
@@ -647,6 +649,251 @@ def calculation_retry():
     return p
 
 
+# --- GEA module: PostgreSQL, Alembic, Litestar API and the Vue wizard --------
+
+def gea_components():
+    p = Page("13 GEA components", "GEA module · what runs where",
+             "Implemented · Vue client, Litestar API on PostgreSQL, Alembic migrations. Snowflake executes the run (page 17); the relay to it is not built yet.", 1600, 1250)
+    p.frame(40, 140, 400, 770, "VUE CLIENT · gea/frontend")
+    p.box(65, 185, 350, 100, "gea/api/openapi.yaml\nThe contract: 27 paths, 35 operations\nGET /gea/v1/openapi.yaml", GRAY, size=16)
+    p.box(65, 345, 350, 85, "generated.ts + fields.ts\nTypes of every path, the field list", GRAY, dashed=True, size=17)
+    p.box(65, 490, 350, 110, "client.ts + gea.ts\nOne function per operation\nApiResult: ok + data, or error", size=17)
+    p.box(65, 660, 350, 120, "useRunWizard · useJobs · useCurrentUser\nAutosave and Next: PATCH /runs/{id}\nSubmit, watch, cancel, resolve · can()", size=17)
+    p.line([(240, 285), (240, 345)], "generate", (255, 299, 130), True, color=GRAY)
+    p.line([(240, 430), (240, 490)], "typed calls", (255, 444, 130), True, color=GRAY)
+    p.line([(240, 660), (240, 600)])
+    p.text(60, 810, 360, 70, "Every call resolves to one result object.\nNothing is thrown; a failure sets\nan error state with a message.", 16)
+    p.frame(480, 140, 520, 770, "LITESTAR GEA API · python -m gea_api · 8010")
+    p.box(505, 185, 470, 100, "routes.py · /gea/v1\n36 handlers: HTTP in, HTTP out\nX-Request-Id on every answer", size=17)
+    p.box(505, 335, 470, 110, "respond()\nAuthenticate · the caller's role and permissions\nOne transaction · the envelope { data, error }", size=17)
+    p.box(505, 495, 225, 125, "services.py\n@needs: 403 by role\nIdempotency-Key · ETag\nValidate, then write", size=16)
+    p.box(750, 495, 225, 125, "errors.py\nThe one error object\nSQLSTATE to HTTP\n403 · 409 · 412 · 422", size=16)
+    p.box(505, 670, 470, 100, "queries.py · runconfig.py\nSQL returns API-shaped JSON\nA save updates only the columns that changed", size=17)
+    p.box(505, 815, 470, 70, "db.py · psycopg 3 connection pool", size=17)
+    p.line([(415, 545), (458, 545), (458, 235), (505, 235)])
+    p.text(343, 617, 150, 28, "HTTPS / JSON", 15, True)
+    p.line([(740, 285), (740, 335)])
+    p.line([(617, 445), (617, 495)])
+    p.line([(862, 445), (862, 495)], dashed=True)
+    p.line([(617, 620), (617, 670)])
+    p.line([(740, 770), (740, 815)])
+    p.frame(1040, 140, 520, 525, "POSTGRESQL 16 · schema gea", GREEN)
+    p.box(1065, 185, 470, 115, "Tables + triggers\nOne column per field of the workbook\nLifecycle and immutability enforced here", GREEN, size=17)
+    p.box(1065, 350, 470, 115, "DataContract + ContractDelivery + Job\nImmutable document, SHA-256 checked\nOutbox in the same transaction, in job order", GREEN, size=17)
+    p.box(1065, 515, 470, 115, "Database roles (not the users' roles)\ngea_app: the API, no UPDATE on contracts\ngea_relay: the delivery functions only", GREEN, size=17)
+    p.line([(975, 850), (1018, 850), (1018, 242), (1065, 242)])
+    p.text(1026, 690, 44, 26, "SQL", 15, True)
+    p.frame(1040, 745, 520, 165, "DEPLOYMENT STEP · before the API starts", AMBER)
+    p.box(1065, 785, 470, 100, "Alembic · gea/db/postgres\nenv.py + versions 0001 to 0007\nsql/<revision>.up.sql and .down.sql", AMBER, size=17)
+    p.line([(1520, 785), (1520, 665)], "alembic upgrade head", (1312, 690, 196), color=AMBER)
+    p.frame(40, 975, 960, 190, "ONE LIST OF FIELDS · the workbook's")
+    p.box(65, 1015, 420, 120, "gea/spec/poc-data.json\nWorkbook sheet POC Data\n36 fields, 8 steps", GRAY, size=17)
+    p.box(555, 1015, 420, 120, "gea/tools/generate.py\nfields.py · OpenAPI · JSON Schema\ngenerated.ts · fields.ts · fields.md", GRAY, size=17)
+    p.line([(485, 1075), (555, 1075)], color=GRAY)
+    p.frame(1040, 975, 520, 190, "NOT BUILT YET", GRAY, True)
+    p.box(1065, 1015, 470, 120, "Relay to Snowflake (page 17)\nclaim → MERGE DATA_CONTRACT → EXECUTE TASK\ncopy status and log back · pass a cancel on", GRAY, dashed=True, size=16)
+    p.text(40, 1190, 1520, 30, "The calculation API (pages 1 to 12) is a separate process on port 8000 with its own store. GEA shares the repository, not the runtime.", 16)
+    return p
+
+
+def gea_table(p, x, y, name, lines, color=BLUE, width=340):
+    """One table: name in bold, then the columns that carry the keys and the rules."""
+    height = 46 + 22 * len(lines)
+    p.box(x, y, width, height, color=color)
+    p.text(x + 14, y + 8, width - 28, 28, name, 17, True, "left")
+    p.text(x + 14, y + 38, width - 28, 22 * len(lines), "\n".join(lines), 15, False, "left")
+    return y + height
+
+
+def gea_data_model():
+    p = Page("14 GEA data model", "GEA module · PostgreSQL data model",
+             "Implemented · schema gea at Alembic revision 0007. Tables and columns carry the workbook's names. Full column list: gea/db/postgres/erd.svg.", 1700, 1420)
+    c1, c2, c3, c4 = 50, 470, 890, 1310
+    p.frame(35, 140, 1630, 220, "LOOKUPS, USER, ROLE AND DROPDOWN VALUES", GRAY)
+    gea_table(p, c1, 180, "Region · BusinessPurpose · Benefit", ["PK Id (north-america, rnd, mortality)", "Name · SortOrder · IsActive", "three lookup tables of the same shape:", "the closed lists of the project form"], GREEN)
+    gea_table(p, c2, 180, "User", ["PK Id · Subject · Name · Email", "FK RegionId → Region (home region)", "FK RoleId → Role (what the user may do)"], GREEN)
+    gea_table(p, c3, 180, "Role", ["PK Id · Name · SortOrder · IsActive", "CanPrepare · CanReview · CanAdminister", "viewer · preparer · reviewer · admin"], GREEN)
+    gea_table(p, c4, 180, "ParameterOption", ["PK Id · Parameter · Value · Label", "SortOrder · IsDefault · IsActive", "optional FK RegionId, BusinessPurposeId,", "BenefitId · Investigation", "the values a run dropdown offers"], GRAY)
+    p.line([(c2, 235), (c1 + 340, 235)], color=GREEN)
+    p.line([(c4, 304), (c1 + 340, 304)], color=GRAY)
+    p.line([(c2 + 340, 235), (c3, 235)], color=GREEN)
+
+    p.frame(35, 410, 1630, 515, "PROJECT, RUN AND JOB")
+    gea_table(p, c1, 450, "Project", ["PK Id · Name · State · Revision", "FK RegionId, BusinessPurposeId", "FK OwnerId → User", "Period · PeriodFrom · PeriodTo", "Description · FK ParentProjectId", "Signed off by a role that may review;", "then locked"])
+    gea_table(p, c1, 678, "ProjectBenefit", ["PK ProjectId, BenefitId", "at least one, checked at commit"], width=270)
+    gea_table(p, c1, 780, "Job · several runs submitted together", ["PK Id · Name · Kind · Note", "FK ProjectId (when all runs are in one)", "MaxParallel: 1 = in sequence, empty = no limit", "SubmittedBy · SubmittedAt"])
+    gea_table(p, c2, 450, "Run · one column per field of workbook sheet POC Data", [
+        "PK Id · FK ProjectId · Name · Treaty  (step Main)",
+        "Data and set up: DataScope[] · StudyPeriodStart · StudyPeriodEnd · Investigation",
+        "· StudyPeriodTreatyOverride · PerTreatyEndDatesMapping",
+        "Segmentation: ExposureMethod · InitialExposureMethod · ExposureExclusion[]",
+        "· PolicyTenureSegmentation · CalendarTenureSegmentation · AttainedAgeSegmentation",
+        "Actuals: PartialClaimTreatment · AmountBasis",
+        "IBNR: ClaimBasis · IbnrMethodology · DerivationMethod · IbnrStudyPeriodStart/End",
+        "· DevelopmentFrequency · UpliftFrequency · EventMonthFilter · ReportingMonthFilter",
+        "· IbnrRbnsBasis · TailStartPeriod",
+        "Assigning expected: ComparisonBases · TrendAssumptions",
+        "Ultimate calculation: Adjustment · UltimateRbnsBasis",
+        "Actual / Expected: OutputFrequency[] · AdditionalOutputFields[]",
+        "Status: draft → queued → running → complete | failed → draft · Locked · CloneSourceId",
+        "CurrentContractVersion · SubmittedAt · SubmittedBy · FailureMessage · Revision",
+        "FK JobId · JobOrdinal · ResolutionAction, ResolutionNote, ResolvedBy, ResolvedAt · CancelRequestedAt, By",
+        "CHECK: every required field is filled before the run leaves draft"], width=760)
+    gea_table(p, c4, 450, "RunStudyPeriodExclusion", ["PK RunId, Ordinal", "StartDate · EndDate", "createRun.studyPeriodExclusions", "writable only while the run is draft"])
+    p.box(c4, 805, 340, 105, "NAMING\nTables and columns: PascalCase,\nquoted in SQL: gea.\"Run\".\"Treaty\"\nPK_ · FK_ · UQ_ · CK_ · IX_", GRAY, dashed=True, size=14)
+    p.box(c4, 640, 340, 150, "WIZARD STEPS ARE NOT TABLES\ngea.\"RunSteps\"(runId) returns the\ncolumns grouped into the 8 steps of\nthe workbook: the steps of the contract", GRAY, dashed=True, size=15)
+    p.line([(c1 + 135, 678), (c1 + 135, 650)])
+    p.line([(c1 + 305, 780), (c1 + 305, 650)])
+    p.line([(c2, 815), (c1 + 340, 815)])
+    p.line([(c2, 520), (c1 + 340, 520)])
+    p.line([(c4, 510), (c2 + 760, 510)])
+    p.line([(c1 + 240, 450), (c1 + 240, 314)], color=GREEN)
+    p.line([(c1 + 310, 450), (c1 + 310, 386), (c2 + 170, 386), (c2 + 170, 292)], color=GREEN)
+
+    p.frame(35, 960, 1630, 380, "DATA CONTRACT, DELIVERY AND EXECUTION", GREEN)
+    gea_table(p, c1, 1000, "CommandReceipt", ["PK CreatedBy, IdempotencyKey", "RequestHash", "ResponseStatus, Headers, Body"], GRAY)
+    gea_table(p, c1, 1150, "AuditEvent", ["PK Id · AggregateType, AggregateId", "append-only"], GRAY)
+    gea_table(p, c2, 1000, "DataContract", ["PK Id (contractId)", "FK RunId, ProjectId · Version", "DocumentCanonical · ContentHash", "CHECK hash = sha256(document)", "immutable: no update, no delete"], GREEN)
+    gea_table(p, c3, 1000, "ContractDelivery", ["PK ContractId, Target", "Status: pending → delivering", "→ delivered | failed | cancelled", "Attempts · lease · LastError", "the outbox to Snowflake, claimed in job order"], GREEN)
+    gea_table(p, c3, 1215, "RunLog", ["PK Id · FK RunId, ContractId · ExternalId", "StepKey · Level · Message · Detail", "append-only; a line is stored once"], GREEN)
+    gea_table(p, c4, 1000, "RunExecution", ["PK ContractId · FK RunId", "Status reported by Snowflake"], GREEN)
+    gea_table(p, c4, 1140, "RunExecutionStep", ["PK ContractId, StepKey", "Status · StartedAt · FinishedAt"], GREEN)
+    p.line([(c2 + 120, 1000), (c2 + 120, 848)], color=GREEN)
+    p.line([(c2 + 220, 848), (c2 + 220, 1000)], dashed=True, color=GREEN)
+    p.text(c2 + 230, 931, 118, 24, "current version", 15, False, "left", GREEN)
+    p.text(c2 + 24, 931, 90, 24, "published as", 15, False, "left", GREEN)
+    p.line([(c3, 1070), (c2 + 340, 1070)], color=GREEN)
+    p.line([(c4, 1050), (c4 - 40, 1050), (c4 - 40, 1185), (c3 - 40, 1185), (c3 - 40, 1130), (c2 + 340, 1130)], color=GREEN)
+    p.line([(c4 + 170, 1140), (c4 + 170, 1090)], color=GREEN)
+    p.line([(c3, 1270), (c2 + 170, 1270), (c2 + 170, 1156)], color=GREEN)
+    p.text(35, 1360, 1630, 28, "An arrow points from the table that holds the foreign key to the table it references. Dashed = deferred key, checked at commit.", 16)
+    return p
+
+
+def gea_wizard_save():
+    p = Page("15 GEA wizard save", "GEA wizard · saving the run",
+             "Implemented · the wizard is saved with PATCH /runs/{id} (JSON Merge Patch of the fields that changed). If-Match guards against overwriting another tab.", 1560, 1560)
+    form, wizard, api, db = 170, 540, 940, 1360
+    p.participants([(form, "User in the Vue form"), (wizard, "useRunWizard\n(composable)"), (api, "Litestar GEA API\nservices.update_run"), (db, "PostgreSQL\ntable Run")], 1450)
+    p.activation(api, 345, 800)
+    p.message(form, wizard, 275, "change({ field: value }) on every edit")
+    p.text(wizard + 18, 288, 330, 44, "collect the changed fields;\nwait for 800 ms without edits", 14, False, "left", GRAY)
+    p.message(wizard, api, 380, "PATCH /runs/{id} · If-Match · the changed fields")
+    p.message(api, db, 435, "BEGIN; SELECT the run FOR UPDATE")
+    p.message(db, api, 485, "the run with its columns", True)
+    p.frame(95, 530, 1010, 205, "alt [If-Match is not the ETag of the saved run]", AMBER)
+    p.message(api, wizard, 595, "412 { data: null, error: precondition_failed }", True)
+    p.message(wizard, api, 650, "GET /runs/{id}: the version saved elsewhere")
+    p.message(wizard, form, 705, "saveState = conflict; the user decides", True)
+    p.frame(95, 790, 1010, 170, "alt [a field that does not exist, or a value of the wrong type]", AMBER)
+    p.message(api, wizard, 855, "422 validation_failed: one issue per field; nothing stored", True)
+    p.message(wizard, form, 910, "saveError, fieldErrors(step)", True)
+    p.message(api, db, 1020, "UPDATE Run SET only the columns that changed")
+    p.text(db + 18, 1035, 190, 44, "trigger: only while the run\nis a draft; Revision + 1", 14, False, "left", GRAY)
+    p.message(db, api, 1110, "stored; read the run again; COMMIT", True)
+    p.message(api, wizard, 1165, "200: the run, what is still missing, its new ETag", True)
+    p.message(wizard, form, 1220, "saveState = saved; run.issues: what is missing", True)
+    p.message(form, wizard, 1300, "Next: save(fields)")
+    p.message(wizard, api, 1355, "PATCH /runs/{id} at once, with what was still waiting")
+    p.text(40, 1470, 1480, 28, "A half-filled run is saved and answered with 200 and ready = false: saving a draft never fails because the user is not finished.", 16, True)
+    p.text(40, 1508, 1480, 28, "One save is in flight; later changes wait and go out as one PATCH. One ETag guards the whole run. Every field is a column of Run.", 16)
+    return p
+
+
+def gea_submit_delivery():
+    p = Page("16 GEA submit and delivery", "GEA wizard · review, submit and delivery to Snowflake",
+             "API and database implemented · the relay and the Snowflake side are the target; their functions exist in PostgreSQL.", 1900, 1775)
+    wizard, api, db, relay, sf = 170, 560, 950, 1340, 1720
+    p.participants([(wizard, "Vue wizard\nuseRunWizard"), (api, "Litestar GEA API"), (db, "PostgreSQL\nschema gea"), (relay, "Relay\n(not built yet)"), (sf, "Snowflake\nGEA.CONTROL")], 1645)
+    p.activation(api, 395, 520)
+    p.message(wizard, api, 275, "GET /runs/{id}/review")
+    p.message(api, wizard, 330, "200: ready, missing fields per step, preview · ETag of the run", True)
+    p.message(wizard, api, 410, "POST /runs/{id}/submit · Idempotency-Key · If-Match")
+    p.message(api, db, 465, "BEGIN; receipt for (caller, key)? then replay it")
+    p.message(api, db, 520, "SELECT run FOR UPDATE; compare the ETag")
+    p.frame(95, 565, 950, 110, "alt [changed after the review, or a required field is empty]", AMBER)
+    p.message(api, wizard, 640, "412 precondition_failed · 422 not_ready + issues", True)
+    p.message(api, db, 740, "build document; canonical JSON; SHA-256; INSERT DataContract")
+    p.text(db + 18, 752, 330, 64, "triggers: hash and document must equal\nthe saved columns; queue the delivery;\nrun moves to queued", 14, False, "left", GRAY)
+    p.message(api, db, 860, "store the receipt and the audit event; COMMIT")
+    p.message(api, wizard, 915, "201: the contract + Location; the run is locked", True)
+    p.frame(830, 965, 1030, 555, "after the commit · independent of the request", GRAY, True)
+    p.message(relay, db, 1040, "ClaimContractDeliveries(): contracts allowed to start")
+    p.message(db, relay, 1095, "DocumentCanonical + ContentHash", True)
+    p.message(relay, sf, 1150, "MERGE DATA_CONTRACT: same id, same hash")
+    p.message(sf, relay, 1205, "stored; SHA2 matches", True)
+    p.message(relay, sf, 1260, "EXECUTE TASK RUN_PIPELINE (contractId)")
+    p.message(relay, db, 1315, "CompleteContractDelivery()")
+    p.text(sf - 135, 1333, 270, 26, "task graph runs the steps (page 17)", 14, False, "center", GRAY)
+    p.message(relay, sf, 1405, "read RUN_STATUS, RUN_STEP_STATUS, RUN_LOG")
+    p.message(relay, db, 1465, "RecordExecutionStatus(), RecordExecutionLog()")
+    p.message(wizard, api, 1575, "GET /runs/{id}/execution · If-None-Match (polling)")
+    p.message(api, wizard, 1630, "304 unchanged · or 200: status of every step", True)
+    p.text(40, 1685, 1820, 28, "A failed Snowflake write never undoes the contract: the delivery stays pending and is retried with the same document and hash.", 16, True)
+    p.text(40, 1723, 1820, 28, "Repeating the submit with the same Idempotency-Key returns the same contract. A failed run is resolved (POST /runs/{id}/resolution) and resubmitted as version n + 1.", 16)
+    return p
+
+
+def gea_run_execution():
+    p = Page("17 GEA run execution", "GEA run execution · who computes, who decides, who carries",
+             "PostgreSQL and API implemented · the Snowflake pipeline is draft SQL that was never executed · the relay is not built.", 1900, 1500)
+    # The user's side: three kinds of request.
+    p.frame(40, 140, 1820, 150, "USER · Vue client → GEA API (Python: validates and records, never computes)")
+    p.box(65, 180, 560, 85, "Start\nPOST /runs/{id}/submit · POST /jobs", size=17)
+    p.box(670, 180, 560, 85, "Watch\nGET /runs/{id}/execution · /logs · GET /jobs/{id}", size=17)
+    p.box(1275, 180, 560, 85, "Decide\nPOST /runs/{id}/cancel · /resolution", size=17)
+
+    p.frame(40, 350, 600, 840, "POSTGRESQL · decides when, keeps state", GREEN)
+    p.box(65, 395, 550, 130, "Run · Job · DataContract\nA run is submitted on its own or in a job\nJobOrdinal · MaxParallel\nCancelRequestedAt · Resolution", GREEN, size=16)
+    p.box(65, 575, 550, 150, "ContractDelivery · ClaimContractDeliveries()\nA run on its own: at the next claim\nA job: in order, MaxParallel at a time\nMaxParallel 1 = one after another", GREEN, size=16)
+    p.box(65, 775, 550, 130, "RunExecution · RunExecutionStep · RunLog\nThe copy of the status the API reads\nJobSummary: status and progress of a job", GREEN, size=16)
+    p.box(65, 955, 550, 105, "FailStaleExecutions(30 minutes)\nAn execution that went silent is failed,\nit does not stay running", GREEN, size=16)
+    p.box(65, 1100, 550, 65, "View RunCancelRequest: cancels to pass on", GREEN, size=16)
+    p.line([(560, 290), (560, 350)], color=GREEN)
+
+    p.frame(690, 350, 460, 840, "RELAY · Python, role gea_relay · NOT BUILT", GRAY, True)
+    p.box(715, 395, 410, 105, "No computation, no waiting:\nevery call is short\nand can be repeated", GRAY, dashed=True, size=16)
+    p.box(715, 575, 410, 150, "1 Deliver\nclaim → MERGE the contract\n→ read the hash back\n→ EXECUTE TASK", GRAY, dashed=True, size=16)
+    p.box(715, 775, 410, 130, "2 Report\nstatus, steps and log lines\ncopied every few seconds", GRAY, dashed=True, size=16)
+    p.box(715, 955, 410, 105, "3 Watch\nreport lost graph runs;\ncall FailStaleExecutions()", GRAY, dashed=True, size=16)
+    p.box(715, 1100, 410, 65, "4 Cancel: pass the request on", GRAY, dashed=True, size=16)
+
+    p.frame(1200, 350, 660, 840, "SNOWFLAKE · executes · draft SQL, never executed", AMBER)
+    p.box(1225, 395, 610, 105, "GEA.CONTROL.DATA_CONTRACT\nThe frozen document, same id and SHA-256\nEvery step reads its configuration from it", AMBER, size=16)
+    p.box(1225, 550, 610, 105, "Task graph GEA.CONTROL.RUN_PIPELINE\nOne graph run per contract · runs overlap\nOVERLAP_POLICY = ALLOW_ALL_OVERLAP", AMBER, size=16)
+    steps = ["Data and\nset up", "Segmen-\ntation", "Actuals", "IBNR", "Assigning\nexpected", "Ultimate\ncalculation", "Actual /\nExpected"]
+    for index, label in enumerate(steps):
+        x = 1225 + index * 90
+        p.box(x, 700, 70, 70, label, AMBER, size=12)
+        if index:
+            p.line([(x - 20, 735), (x, 735)], color=AMBER)
+    p.text(1225, 778, 610, 44, "Each task calls RUN_STEP, which calls the step's procedure GEA.STEP.<STEP>:\nset-based SQL, or Snowpark Python where SQL cannot express it", 14, False, "center", GRAY)
+    p.box(1225, 835, 610, 70, "Finalizer RUN_PIPELINE_END: the terminal status", AMBER, size=16)
+    p.box(1225, 955, 610, 105, "RUN_STATUS · RUN_STEP_STATUS · RUN_LOG\nWritten before and after every step\nStatements tagged gea:<contractId>:<stepKey>", AMBER, size=16)
+    p.box(1225, 1100, 610, 65, "RUN_STATUS.CANCEL_REQUESTED_AT: stop before the next step", AMBER, size=16)
+    p.line([(1530, 500), (1530, 550)], color=AMBER)
+    p.line([(1530, 655), (1530, 700)], color=AMBER)
+
+    # What crosses the borders.
+    p.line([(615, 650), (715, 650)], color=GRAY)
+    p.line([(1125, 620), (1163, 620), (1163, 447), (1225, 447)], color=GRAY)
+    p.line([(1125, 680), (1187, 680), (1187, 603), (1225, 603)], color=GRAY)
+    p.line([(1225, 1008), (1175, 1008), (1175, 840), (1125, 840)], dashed=True, color=GREEN)
+    p.line([(715, 840), (615, 840)], dashed=True, color=GREEN)
+    p.line([(715, 1008), (615, 1008)], color=GRAY)
+    p.line([(615, 1132), (715, 1132)], color=GRAY)
+    p.line([(1125, 1132), (1225, 1132)], color=GRAY)
+
+    p.frame(40, 1250, 1820, 150, "HOW RUNS ARE ORDERED · decided at submit, enforced in PostgreSQL")
+    p.box(65, 1290, 425, 85, "One run\nstarts at the next claim", size=16)
+    p.box(513, 1290, 425, 85, "Job, maxParallel omitted\nall its runs at once", size=16)
+    p.box(961, 1290, 425, 85, "Job, maxParallel n\nin the order of runIds, n at a time", size=16)
+    p.box(1409, 1290, 426, 85, "Job, maxParallel 1\nstrictly one after another", size=16)
+    p.text(40, 1425, 1820, 28, "State is rows, written by the system that does the work and copied to the one the user talks to. Nothing in Python computes, waits for, or sequences a step.", 16, True)
+    p.text(40, 1460, 1820, 28, "A cancelled run is a failed run with the reason. A failed run does not stop its job. To confirm on a real account: several graph runs of one task graph at the same time.", 16)
+    return p
+
+
 PAGES = [
     ("01-layer-overview", layers),
     ("02-data-contract", contract),
@@ -660,6 +907,11 @@ PAGES = [
     ("10-assessment-worker", assessment_worker),
     ("11-assessment-client-updates", assessment_updates),
     ("12-calculation-retry-sequence", calculation_retry),
+    ("13-gea-components", gea_components),
+    ("14-gea-data-model", gea_data_model),
+    ("15-gea-wizard-save", gea_wizard_save),
+    ("16-gea-submit-delivery", gea_submit_delivery),
+    ("17-gea-run-execution", gea_run_execution),
 ]
 
 

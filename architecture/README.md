@@ -27,8 +27,8 @@ and [retry handling](12-calculation-retry-sequence.svg). The
 | File | Purpose |
 |---|---|
 | `README.md` | This document: target design, implemented runtime, required changes |
-| `calculation-architecture.drawio` | Twelve editable diagram pages (draw.io; uncompressed XML) |
-| `01-…` to `12-….svg` | Vector previews of the same twelve pages |
+| `calculation-architecture.drawio` | Seventeen editable diagram pages (draw.io; uncompressed XML) |
+| `01-…` to `17-….svg` | Vector previews of the same seventeen pages |
 | `03-….png`, `09-….png` to `12-….png` | Raster previews of regional scenarios, the model example, responsibilities and actor sequences |
 | `data-contract.example.yaml` | Proposed Data Contract for the four seeded parameters |
 | `death-penatly-contract.example.yaml` | Proposed one-property Data Contract used by the business and retry sequences |
@@ -43,15 +43,20 @@ and [retry handling](12-calculation-retry-sequence.svg). The
 | 1 — Layer overview | target | How do Bronze, Core Calculation, Silver, custom calculations and Gold connect, and what controls them? | [01-layer-overview.svg](01-layer-overview.svg) |
 | 2 — Data Contract | target | How does a published contract become a frozen execution plan that the database executes? | [02-data-contract.svg](02-data-contract.svg) |
 | 3 — Silver to Gold | target | How do scenario edits, reruns and retries produce versioned Gold models without touching Silver? | [03-silver-to-gold.svg](03-silver-to-gold.svg) |
-| 4 — Components | runtime | What runs where, and how do Vue, Litestar, Snowflake emulation and AWS emulation connect? | [04-components.svg](04-components.svg) |
+| 4 — Components | runtime | What runs where, and how do Vue, Litestar, the Snowflake emulation and the PostgreSQL audit copy connect? | [04-components.svg](04-components.svg) |
 | 5 — Functions and bindings | runtime | How is SQL edited, published, selected per parameter, retrieved and executed? | [05-functions-and-bindings.svg](05-functions-and-bindings.svg) |
 | 6 — Calculation sequence | runtime | What is inside `calculate()`, and which methods execute SQL and commit results? | [06-calculation-sequence.svg](06-calculation-sequence.svg) |
-| 7 — Audit sequence | runtime | When is an audit durable, and how does optional DynamoDB export recover from failures? | [07-audit-sequence.svg](07-audit-sequence.svg) |
+| 7 — Audit sequence | runtime | When is an audit durable, and how does the export to PostgreSQL recover from failures? | [07-audit-sequence.svg](07-audit-sequence.svg) |
 | 8 — Contract storage and AWS orchestration | target | Where is a contract published, how is a run queued and claimed, and how are results delivered? | [08-contract-storage-aws-orchestration.svg](08-contract-storage-aws-orchestration.svg) |
 | 9 — Core phase, then custom runs | main target sequence | How does Core model Bronze using DataContract, and how does a later custom run combine independently loaded DataContract, Custom Configuration and source model? | [09-parameter-layer-sequence.svg](09-parameter-layer-sequence.svg) |
 | 10 — The business calculation journey | target, business and technology view | Which part uses Amazon Simple Queue Service, what is the Python worker, and where is DeathPenatly calculated? | [10-assessment-worker.svg](10-assessment-worker.svg) |
 | 11 — Background execution detail with DataContract and Custom Configuration | supporting target sequence | How are both inputs loaded, validated and frozen before dispatch, execution and client updates? Regional is the detailed example. | [11-assessment-client-updates.svg](11-assessment-client-updates.svg) |
 | 12 — Automatic and user-requested retry | target, actor sequence | How does retry preserve the original model, DataContract, Custom Configuration and execution plan? | [12-calculation-retry-sequence.svg](12-calculation-retry-sequence.svg) |
+| 13 — GEA components | GEA, implemented | What runs where: the Vue client, the Litestar GEA API, PostgreSQL and the Alembic migrations? | [13-gea-components.svg](13-gea-components.svg) |
+| 14 — GEA data model | GEA, implemented | Which tables hold the lookups, users with their role, projects, runs with their workbook fields, jobs, contracts and execution status, and how are they related? | [14-gea-data-model.svg](14-gea-data-model.svg) |
+| 15 — GEA wizard save | GEA, implemented, actor sequence | How is the run autosaved while the wizard is filled in, validated and protected against a concurrent edit? | [15-gea-wizard-save.svg](15-gea-wizard-save.svg) |
+| 16 — GEA submit and delivery | GEA, API implemented, relay target | How does a reviewed run become an immutable contract, and how does it reach Snowflake? | [16-gea-submit-delivery.svg](16-gea-submit-delivery.svg) |
+| 17 — GEA run execution | GEA, PostgreSQL and API implemented; Snowflake pipeline is draft SQL; relay target | Who computes a run, who decides when it starts, how is its state observed, and how are runs ordered or run in parallel? | [17-gea-run-execution.svg](17-gea-run-execution.svg) |
 
 Pages 1–3 show the target data layers; page 8 shows the proposed AWS deployment.
 Page 9 is the main sequence: Core first, then a custom process with input overrides.
@@ -59,12 +64,50 @@ Its six participant headers pair business roles with concrete technical names.
 Page 10 is a responsibility map. Pages 11–12 are supporting execution sequences,
 with participants at the top, lifelines, requests/returns, parallel client
 checks, success/failure alternatives and retry loops.
-Pages 4–7 show the implemented version 2 runtime
+Pages 13–17 show the GEA module and are described under
+[GEA module](#gea-module-pages-1317). Pages 4–7 show the implemented version 2 runtime
 the layers execute on and are checked against the source files listed under
 [Source traceability](#source-traceability). All draw.io text uses explicit
 dark font colours and white label backgrounds (`html=0`,
 `labelBackgroundColor=#FFFFFF`); SVG files are vector previews that stay sharp
 when zoomed. An import into the Lucidchart application has not been exercised.
+
+## GEA module (pages 13–17)
+
+Pages 1–12 describe the calculation module. Pages 13–17 describe the GEA module
+(projects, the run wizard and run data contracts), which lives in
+[`../gea`](../gea/README.md) and [`../gea_api`](../gea_api) and runs as its own
+process. The two share this repository and the Snowflake account, not a runtime
+or a store.
+
+**Storage decision for GEA.** The section [Contract storage and publication](#contract-storage-and-publication-target)
+selects Snowflake as the store of the calculation Data Contract. For GEA the
+system of record is **PostgreSQL**: a run's contract and its pending Snowflake
+delivery are committed in one PostgreSQL transaction, and a relay delivers the
+identical document (same id, same SHA-256) to Snowflake afterwards. Writing to
+both stores from the request could leave a contract in one that the other never
+committed. The reasoning is decision 7 in [`../gea/README.md`](../gea/README.md).
+
+The same words mean different things in the two modules:
+
+| Word | Calculation module (pages 1–12) | GEA module (pages 13–17) |
+|---|---|---|
+| Data Contract | Parameter schema plus SQL-function bindings, published in Snowflake | The frozen configuration of one submitted run, stored in PostgreSQL and copied to Snowflake |
+| Run | One asynchronous calculation | A configured study inside a project, built in the wizard |
+| Revision | Published version of a contract, function or scenario | Counter on a row; optimistic concurrency uses the ETag of the representation |
+
+The full column list of the GEA schema is drawn from the live catalogue by
+`python gea/tools/erd.py` into [`../gea/db/postgres/erd.svg`](../gea/db/postgres/erd.svg);
+page 14 shows the keys, the rules and the run fields grouped by wizard step. Tables and columns carry the names of the workbook, in PascalCase.
+
+**Execution of a GEA run.** Snowflake computes: one stored procedure per workbook step, ordered by a task graph, one graph run per
+contract. PostgreSQL decides when a run may start (a run on its own at once; the runs of a job in order, `MaxParallel` at a time) and
+keeps the status the user sees. Python only carries messages between the two. Page 17 shows the three parts;
+[`../gea/EXECUTION.md`](../gea/EXECUTION.md) gives the reasoning and what is built. The Snowflake SQL is a draft that has not been executed.
+
+**Roles of GEA users.** A user has one role (`User.RoleId` → `Role`: Viewer, Preparer, Reviewer, Admin) and a role is three permissions,
+`CanPrepare`, `CanReview` and `CanAdminister`. The API asks for a permission, never for a role, and answers 403 without it; page 13 shows
+where the check sits, page 14 the tables. The database roles `gea_app` and `gea_relay` on page 13 are logins of the services, not roles of users.
 
 ## The main rule
 
@@ -196,7 +239,7 @@ where it runs. **The cloud deployment is proposed, not already implemented.**
 | Calculation application | Litestar Python web service; proposed deployment in its own container on Amazon Elastic Container Service with AWS Fargate | Local web service exists; cloud deployment and asynchronous run endpoints do not |
 | Saved models, requests and status | Snowflake database tables | Local emulator stores models and audit; new durable job/status tables are still required |
 | Background job waiting list | An Amazon Simple Queue Service **First-In, First-Out** queue hosted in AWS, separate from Python and Snowflake | Proposed; neither an AWS queue nor a local queue emulator is configured |
-| Delivery process, previously called the relay | A separate Python process reads saved, undelivered calculation requests from Snowflake and sends their references to the Amazon queue using the boto3 AWS SDK | Proposed; the existing audit exporter is a similar delivery pattern but exports audit to DynamoDB |
+| Delivery process, previously called the relay | A separate Python process reads saved, undelivered calculation requests from Snowflake and sends their references to the Amazon queue using the boto3 AWS SDK | Proposed; the existing audit exporter is a similar delivery pattern but copies audit events to PostgreSQL |
 | Background calculation worker | Our Python program in a separate container, kept running by an Amazon Elastic Container Service service on AWS Fargate | The `CalculationWorker` class exists; its queue-consuming process and service deployment do not |
 | Policy formula execution | Released SQL functions inside Snowflake; locally, the Snowflake emulator executes supported formulas in DuckDB | Implemented locally |
 | Screen updates | Vue asks the Litestar web service for the saved calculation status and loads the completed model | Proposed for the asynchronous run API |
@@ -321,7 +364,7 @@ calculation reference and shows its new attempt's outcome.
 | Custom Calculation | Apply the configured process, such as Regional Calculation; preserve other assembled input values | Independently load DataContract and Custom Configuration, join them with the source model, validate and freeze; use the same worker and SQL execution mechanism as Core |
 | Gold | Complete custom output for a specific successful run, with lineage and objective | Read/compare/export; scenario head may point to the latest successful result |
 | DB adapter and Snowflake/emulator | Execute released SQL functions, return values/query IDs, persist models and audit | Runtime calls the adapter; functions execute in the database |
-| Run/audit records | Frozen run manifest, attempts, status, before/after values, query traces | Result, success audit and outbox commit together; optional DynamoDB export stays downstream |
+| Run/audit records | Frozen run manifest, attempts, status, before/after values, query traces | Result, success audit and outbox commit together; the PostgreSQL audit copy stays downstream |
 
 For local execution, the DB adapter continues to use the real Snowflake Python
 connector against the emulator, which executes supported SQL in DuckDB. The
@@ -401,7 +444,7 @@ Snowpark procedure could read the same document, but that is a separate change.
 | Option | Assessment |
 |---|---|
 | Contract supplied in each Vue request | Suitable for draft preview; a production run must reference a server-published revision with verified provenance |
-| Separate DynamoDB, RDS or S3 store | Possible, but publication must coordinate contract references with Snowflake function releases across stores; consider only with a concrete separate-consumer or authoring requirement |
+| Separate RDS or S3 store | Possible, but publication must coordinate contract references with Snowflake function releases across stores; consider only with a concrete separate-consumer or authoring requirement |
 | Published revisions in Snowflake | Selected target: contract, function-release registry, models and lineage share a database and publication can validate bindings within its transaction |
 
 Proposed tables (not yet in `fixtures/lifecycle.sql`):
@@ -467,7 +510,7 @@ SQS or publish EventBridge events.
 | `INSURANCE.CALC.RUN_ATTEMPTS` | Attempt ID, run ID, lease token, start/end, outcome, error and query diagnostics; attempt start survives calculation rollback |
 | `INSURANCE.CALC.RUN_OUTBOX` | Stable dispatch ID, run ID, generation, message group, delivery state; created with the run or a deliberate retry |
 | Command receipts | Unique command scope/request ID plus payload hash and saved run ID, committed with acceptance; conflicting payload returns 409 |
-| `AUDIT_EVENTS` + `AUDIT_OUTBOX` | Authoritative committed audit and independent DynamoDB projection delivery state, retaining the existing exporter pattern |
+| `AUDIT_EVENTS` + `AUDIT_OUTBOX` | Authoritative committed audit and independent delivery state of the PostgreSQL copy (`calc."AuditEvent"`), retaining the existing exporter pattern |
 | `INSURANCE.CALC.RUN_EVENT_OUTBOX` | Stable completion event ID and compact result reference for EventBridge; independent delivery state from the audit exporter |
 
 1. `POST /runs` checks the receipt, validates `expectedRevision` for regional
@@ -536,7 +579,7 @@ Success returns an immutable Silver/Gold reference; failures expose attempt
 diagnostics and retry eligibility. Never infer success from queue deletion or
 an EventBridge notification.
 
-The existing audit path remains `AUDIT_OUTBOX → audit-export → DynamoDB`.
+The existing audit path remains `AUDIT_OUTBOX → audit-export → PostgreSQL`.
 For optional notifications/downstream consumers, a separate completion relay
 reads `RUN_EVENT_OUTBOX` and publishes `RunCompleted` to EventBridge after the
 result commits. Check each `PutEvents` entry before acknowledging delivery;
@@ -695,7 +738,7 @@ later uses references to unchanged values.
 The current API serializes work inside one process. SQS FIFO, separate Fargate
 workers, fenced leases and outbox dispatch are the explicit Stage 1 target
 above; they are not implemented locally. No production throughput guarantee
-follows from emulator tests. Optional DynamoDB audit export remains
+follows from emulator tests. The audit export to PostgreSQL remains
 asynchronous to the committed SQL result and is not a calculation dependency.
 
 ## Implemented runtime (pages 4–7)
@@ -720,9 +763,9 @@ revisions and audit tables. The compose volume stores the database file and
 query-history JSONL file. This is the local Snowflake substitute, accessed
 through the real Snowflake Python connector.
 
-The optional `aws-audit` profile adds a separate `audit-export` process and
-DynamoDB Local (host port 8001). That exporter has its own Snowflake connector
-session, reads committed outbox records, and writes events through boto3.
+The optional `audit` profile adds a separate `audit-export` process and the
+PostgreSQL of the GEA module. That exporter has its own Snowflake connector
+session, reads committed outbox records, and inserts events with psycopg.
 There is no real cloud Snowflake/AWS deployment, queue or distributed scheduler
 in the current package.
 
@@ -767,7 +810,7 @@ service or a Python formula.
 
 The revision rules for core models, variation heads and pinned parents are
 [REQUIREMENTS.md lifecycle rules 1–4](../REQUIREMENTS.md#implemented-version-2-lifecycle-rules);
-audit durability and the optional DynamoDB projection are in
+audit durability and the PostgreSQL copy are in
 [README.md — Audit storage](../README.md#audit-storage). Two details are only
 visible in the diagrams:
 
@@ -814,12 +857,17 @@ DLQ reconciliation and independent downstream-outbox recovery.
 | 4 — Components | `../docker-compose.yml`, `../calculation_api/app.py`, `../snowflake_emulator/app.py`, `../snowflake_emulator/engine.py`, `../examples/vue/src/api/client.ts` |
 | 5 — Functions and bindings | `../calculation_api/catalog.py`, `../calculation_api/bootstrap.py`, `../fixtures/functions.sql` |
 | 6 — Calculation sequence | `../calculation_api/app.py`, `../calculation_api/lifecycle.py`, `../calculation_api/worker.py`, `../calculation_api/gateway.py` |
-| 7 — Audit sequence | `../calculation_api/repository.py`, `../calculation_api/audit_export.py`, `../tests/test_audit.py` |
+| 7 — Audit sequence | `../calculation_api/repository.py`, `../calculation_api/audit_export.py`, `../tests/test_audit.py`, `../gea/db/postgres/migrations/sql/0005_calculation_audit.up.sql` |
 | 8 — Contract storage and AWS orchestration (target) | Storage/orchestration decisions above; `../api/openapi-v3-draft.yaml`; current patterns in `../calculation_api/catalog.py`, `../calculation_api/audit_export.py`, `../calculation_api/app.py`; linked AWS/Snowflake documentation |
 | 9 — Core phase then custom runs | `death-penatly-contract.example.yaml`; Core cap 800, custom process Regional Calculation with user overrides 700 / 600 and 10% reduction; SQL arithmetic verified locally |
 | 10 — Assessment worker (business view) | Business explanation above; `../calculation_api/worker.py` and `../calculation_api/gateway.py` for existing coordination/SQL execution; page 8 for proposed background service |
 | 11 — Background execution detail with DataContract | `death-penatly-contract.example.yaml`; business status mapping above; `../api/openapi-v3-draft.yaml` for proposed acceptance, polling and failure; page 8 for durable dispatch and recovery |
 | 12 — Automatic and user-requested retry | Frozen-input retry rules above; `death-penatly-contract.example.yaml`; `../api/openapi-v3-draft.yaml` for retry eligibility, request replay and active/successful run responses |
+| 13 — GEA components | `../gea_api/routes.py`, `services.py` (`needs`), `auth.py`, `runconfig.py`, `queries.py`, `errors.py`, `db.py`; `../gea/spec/poc-data.json`; `../gea/frontend/src`; `../gea/db/postgres/migrations` |
+| 14 — GEA data model | `../gea/db/postgres/migrations/sql/*.up.sql`; checked against the live catalogue with `../gea/tools/erd.py` |
+| 15 — GEA wizard save | `../gea_api/services.py` (`update_run`), `../gea_api/runconfig.py`, trigger `"Run_BeforeUpdate"`, `../gea/frontend/src/composables/useRunWizard.ts`; exercised by `../tests/gea/test_api.py` |
+| 16 — GEA submit and delivery | `../gea_api/services.py` (`submit_run`), triggers on `gea."DataContract"`, functions `gea."ClaimContractDeliveries"`, `"CompleteContractDelivery"`, `"RecordExecutionStatus"`, `"RecordExecutionLog"`; the relay itself is not implemented |
+| 17 — GEA run execution | `../gea/db/postgres/migrations/sql/0006_jobs_and_execution_control.up.sql` (exercised by `../gea/db/postgres/tests/smoke.sql` groups 13 to 16), `../gea_api/services.py` (`create_job`, `get_run_execution`, `run_logs`, `cancel_run`, `resolve_run`); `../gea/db/snowflake/V001__contract_landing.sql`, `V002__run_pipeline.sql` (draft, never executed); the relay is not implemented |
 
 ## Regenerating the diagrams
 
@@ -828,5 +876,7 @@ python architecture/generate.py
 ```
 
 The draw.io pages and the SVG previews are generated from the same scene
-definitions in `generate.py`; edit the scene, not the outputs. Diagram checks
+definitions in `generate.py`; edit the scene, not the outputs. The PNG previews are
+not written by the script: render them again from the SVG files after a change,
+otherwise they go stale (pages 9, 11 and 12 had, and were refreshed on 2 October 2026). Diagram checks
 and the implementation status are recorded in [../STATE.md](../STATE.md).

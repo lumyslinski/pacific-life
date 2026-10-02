@@ -1,0 +1,114 @@
+{
+  "specVersion": "1.0",
+  "contractId": "5d2a9b7c-3e4f-4a1b-8c6d-0e9f8a7b6c5d",
+  "version": 1,
+  "projectId": "2b6f0a52-58a1-4f43-9d0a-6a3f9c2d7e10",
+  "runId": "9c4e7f2a-1b3d-4e5f-8a6b-7c8d9e0f1a2b",
+  "createdAt": "2026-10-02T08:00:00.000Z",
+  "createdBy": {
+    "id": "7f1d3c1e-0c1f-4f0b-9a55-3b1c5f0c9e11",
+    "name": "User Example"
+  },
+  "project": {
+    "name": "Europe Example",
+    "region": "north-america",
+    "benefit": [
+      "mortality"
+    ],
+    "businessPurpose": "rnd"
+  },
+  "run": {
+    "name": "Mortality 2016-2026",
+    "treaty": "TRT-001"
+  },
+  "steps": [
+    {
+      "key": "dataAndSetUp",
+      "ordinal": 1,
+      "config": {
+        "dataScope": [
+          "Policy_v1",
+          "Claims_v1"
+        ],
+        "studyPeriod": {
+          "end": "2026-03-31",
+          "start": "2016-03-31"
+        },
+        "studyPeriodExclusions": [
+          {
+            "end": "2020-03-31",
+            "start": "2019-03-31"
+          }
+        ],
+        "studyPeriodTreatyOverride": true,
+        "perTreatyEndDatesMapping": "treaty-end-dates-v1",
+        "investigation": "mortality"
+      }
+    },
+    {
+      "key": "segmentation",
+      "ordinal": 2,
+      "config": {
+        "exposureMethod": "initial",
+        "initialExposureMethod": "advance-to-next-birthday",
+        "policyTenureSegmentation": "policy-year",
+        "calendarTenureSegmentation": "calendar-year",
+        "attainedAgeSegmentation": "holder-age"
+      }
+    },
+    {
+      "key": "actuals",
+      "ordinal": 3,
+      "config": {
+        "partialClaimTreatment": "record-as-partial-claim",
+        "amountBasis": "lives-and-amounts"
+      }
+    },
+    {
+      "key": "ibnr",
+      "ordinal": 4,
+      "config": {
+        "claimBasis": "ibnr",
+        "ibnrMethodology": "chain-ladder",
+        "derivationMethod": "from-data",
+        "ibnrStudyPeriod": {
+          "end": "2026-03-31",
+          "start": "2016-03-31"
+        },
+        "developmentFrequency": "monthly",
+        "upliftFrequency": "annual",
+        "eventMonthFilter": false,
+        "reportingMonthFilter": false,
+        "ibnrRbnsBasis": "amounts-and-counts",
+        "tailStartPeriod": "24-months"
+      }
+    },
+    {
+      "key": "assigningExpected",
+      "ordinal": 5,
+      "config": {}
+    },
+    {
+      "key": "ultimateCalculation",
+      "ordinal": 6,
+      "config": {
+        "adjustment": "ibnr",
+        "ultimateRbnsBasis": "amounts-and-counts"
+      }
+    },
+    {
+      "key": "actualExpected",
+      "ordinal": 7,
+      "config": {
+        "outputFrequency": [
+          "annual",
+          "monthly"
+        ],
+        "additionalOutputFields": [
+          "PolicyYear",
+          "IssueAge"
+        ]
+      }
+    }
+  ]
+}

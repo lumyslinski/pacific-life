@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1560" height="1560" viewBox="0 0 1560 1560" role="img">
+<title>15 GEA wizard save</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<rect width="1560" height="1560" fill="#FFFFFF"/>
+<rect x="40" y="24" width="1480" height="46" fill="#FFFFFF"/>
+<text x="40" y="56.86" text-anchor="start" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#172B46">GEA wizard · saving the run</text>
+<rect x="40" y="78" width="1480" height="34" fill="#FFFFFF"/>
+<text x="40" y="100.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#738096">Implemented · the wizard is saved with PATCH /runs/{id} (JSON Merge Patch of the fields that changed). If-Match guards against overwriting another tab.</text>
+<rect x="47" y="140" width="246" height="80" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="59" y="150" width="222" height="60" fill="#FFFFFF"/>
+<text x="170.0" y="185.78" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">User in the Vue form</text>
+<polyline points="170,220 170,1450" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="417" y="140" width="246" height="80" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="429" y="150" width="222" height="60" fill="#FFFFFF"/>
+<text x="540.0" y="173.71" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">useRunWizard</text>
+<text x="540.0" y="197.85000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">(composable)</text>
+<polyline points="540,220 540,1450" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="817" y="140" width="246" height="80" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="829" y="150" width="222" height="60" fill="#FFFFFF"/>
+<text x="940.0" y="173.71" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Litestar GEA API</text>
+<text x="940.0" y="197.85000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">services.update_run</text>
+<polyline points="940,220 940,1450" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="1237" y="140" width="246" height="80" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="1249" y="150" width="222" height="60" fill="#FFFFFF"/>
+<text x="1360.0" y="173.71" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">PostgreSQL</text>
+<text x="1360.0" y="197.85000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">table Run</text>
+<polyline points="1360,220 1360,1450" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="934" y="345" width="12" height="800" rx="3" fill="#E6EEFC" stroke="#356CC9" stroke-width="1.7"/>
+<polyline points="170,275 540,275" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="177" y="249" width="356" height="23" fill="#FFFFFF"/>
+<text x="355.0" y="265.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">change({ field: value }) on every edit</text>
+<rect x="558" y="288" width="330" height="44" fill="#FFFFFF"/>
+<text x="558" y="304.82" text-anchor="start" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#738096">collect the changed fields;</text>
+<text x="558" y="324.7" text-anchor="start" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#738096">wait for 800 ms without edits</text>
+<polyline points="540,380 940,380" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="547" y="354" width="386" height="23" fill="#FFFFFF"/>
+<text x="740.0" y="370.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">PATCH /runs/{id} · If-Match · the changed fields</text>
+<polyline points="940,435 1360,435" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="947" y="409" width="406" height="23" fill="#FFFFFF"/>
+<text x="1150.0" y="425.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">BEGIN; SELECT the run FOR UPDATE</text>
+<polyline points="1360,485 940,485" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="947" y="459" width="406" height="23" fill="#FFFFFF"/>
+<text x="1150.0" y="475.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">the run with its columns</text>
+<rect x="95" y="530" width="1010" height="205" rx="3" fill="none" stroke="#A96915" stroke-width="1.7"/>
+<rect x="107" y="513" width="545" height="34" fill="#FFFFFF"/>
+<text x="107" y="535.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#A96915">alt [If-Match is not the ETag of the saved run]</text>
+<polyline points="940,595 540,595" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="547" y="569" width="386" height="23" fill="#FFFFFF"/>
+<text x="740.0" y="585.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">412 { data: null, error: precondition_failed }</text>
+<polyline points="540,650 940,650" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="547" y="624" width="386" height="23" fill="#FFFFFF"/>
+<text x="740.0" y="640.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">GET /runs/{id}: the version saved elsewhere</text>
+<polyline points="540,705 170,705" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="177" y="679" width="356" height="23" fill="#FFFFFF"/>
+<text x="355.0" y="695.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">saveState = conflict; the user decides</text>
+<rect x="95" y="790" width="1010" height="170" rx="3" fill="none" stroke="#A96915" stroke-width="1.7"/>
+<rect x="107" y="773" width="721" height="34" fill="#FFFFFF"/>
+<text x="107" y="795.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#A96915">alt [a field that does not exist, or a value of the wrong type]</text>
+<polyline points="940,855 540,855" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="547" y="806" width="386" height="46" fill="#FFFFFF"/>
+<text x="740.0" y="823.8199999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">422 validation_failed: one issue per field; nothing</text>
+<text x="740.0" y="843.6999999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">stored</text>
+<polyline points="540,910 170,910" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="177" y="884" width="356" height="23" fill="#FFFFFF"/>
+<text x="355.0" y="900.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">saveError, fieldErrors(step)</text>
+<polyline points="940,1020 1360,1020" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="947" y="994" width="406" height="23" fill="#FFFFFF"/>
+<text x="1150.0" y="1010.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">UPDATE Run SET only the columns that changed</text>
+<rect x="1378" y="1035" width="190" height="44" fill="#FFFFFF"/>
+<text x="1378" y="1051.82" text-anchor="start" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#738096">trigger: only while the run</text>
+<text x="1378" y="1071.7" text-anchor="start" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#738096">is a draft; Revision + 1</text>
+<polyline points="1360,1110 940,1110" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="947" y="1084" width="406" height="23" fill="#FFFFFF"/>
+<text x="1150.0" y="1100.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">stored; read the run again; COMMIT</text>
+<polyline points="940,1165 540,1165" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="547" y="1139" width="386" height="23" fill="#FFFFFF"/>
+<text x="740.0" y="1155.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">200: the run, what is still missing, its new ETag</text>
+<polyline points="540,1220 170,1220" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="177" y="1194" width="356" height="23" fill="#FFFFFF"/>
+<text x="355.0" y="1210.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">saveState = saved; run.issues: what is missing</text>
+<polyline points="170,1300 540,1300" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="177" y="1274" width="356" height="23" fill="#FFFFFF"/>
+<text x="355.0" y="1290.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">Next: save(fields)</text>
+<polyline points="540,1355 940,1355" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="547" y="1329" width="386" height="23" fill="#FFFFFF"/>
+<text x="740.0" y="1345.26" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">PATCH /runs/{id} at once, with what was still waiting</text>
+<rect x="40" y="1470" width="1480" height="28" fill="#FFFFFF"/>
+<text x="780.0" y="1489.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#172B46">A half-filled run is saved and answered with 200 and ready = false: saving a draft never fails because the user is not finished.</text>
+<rect x="40" y="1508" width="1480" height="28" fill="#FFFFFF"/>
+<text x="780.0" y="1527.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">One save is in flight; later changes wait and go out as one PATCH. One ETag guards the whole run. Every field is a column of Run.</text>
+</svg>

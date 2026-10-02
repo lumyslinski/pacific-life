@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1900" height="1500" viewBox="0 0 1900 1500" role="img">
+<title>17 GEA run execution</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<rect width="1900" height="1500" fill="#FFFFFF"/>
+<rect x="40" y="24" width="1820" height="46" fill="#FFFFFF"/>
+<text x="40" y="56.86" text-anchor="start" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#172B46">GEA run execution · who computes, who decides, who carries</text>
+<rect x="40" y="78" width="1820" height="34" fill="#FFFFFF"/>
+<text x="40" y="100.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#738096">PostgreSQL and API implemented · the Snowflake pipeline is draft SQL that was never executed · the relay is not built.</text>
+<rect x="40" y="140" width="1820" height="150" rx="3" fill="none" stroke="#738096" stroke-width="1.7"/>
+<rect x="52" y="123" width="853" height="34" fill="#FFFFFF"/>
+<text x="52" y="145.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#738096">USER · Vue client → GEA API (Python: validates and records, never computes)</text>
+<rect x="65" y="180" width="560" height="85" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="77" y="190" width="536" height="65" fill="#FFFFFF"/>
+<text x="345.0" y="216.21" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Start</text>
+<text x="345.0" y="240.35000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">POST /runs/{id}/submit · POST /jobs</text>
+<rect x="670" y="180" width="560" height="85" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="682" y="190" width="536" height="65" fill="#FFFFFF"/>
+<text x="950.0" y="216.21" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Watch</text>
+<text x="950.0" y="240.35000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">GET /runs/{id}/execution · /logs · GET /jobs/{id}</text>
+<rect x="1275" y="180" width="560" height="85" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="1287" y="190" width="536" height="65" fill="#FFFFFF"/>
+<text x="1555.0" y="216.21" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">Decide</text>
+<text x="1555.0" y="240.35000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#172B46">POST /runs/{id}/cancel · /resolution</text>
+<rect x="40" y="350" width="600" height="840" rx="3" fill="none" stroke="#24795C" stroke-width="1.7"/>
+<rect x="52" y="333" width="446" height="34" fill="#FFFFFF"/>
+<text x="52" y="355.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#24795C">POSTGRESQL · decides when, keeps state</text>
+<rect x="65" y="395" width="550" height="130" rx="3" fill="#FFFFFF" stroke="#24795C" stroke-width="1.7"/>
+<rect x="77" y="405" width="526" height="110" fill="#FFFFFF"/>
+<text x="340.0" y="431.36" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Run · Job · DataContract</text>
+<text x="340.0" y="454.08000000000004" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">A run is submitted on its own or in a job</text>
+<text x="340.0" y="476.8" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">JobOrdinal · MaxParallel</text>
+<text x="340.0" y="499.52" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">CancelRequestedAt · Resolution</text>
+<rect x="65" y="575" width="550" height="150" rx="3" fill="#FFFFFF" stroke="#24795C" stroke-width="1.7"/>
+<rect x="77" y="585" width="526" height="130" fill="#FFFFFF"/>
+<text x="340.0" y="621.36" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">ContractDelivery · ClaimContractDeliveries()</text>
+<text x="340.0" y="644.08" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">A run on its own: at the next claim</text>
+<text x="340.0" y="666.8" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">A job: in order, MaxParallel at a time</text>
+<text x="340.0" y="689.52" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">MaxParallel 1 = one after another</text>
+<rect x="65" y="775" width="550" height="130" rx="3" fill="#FFFFFF" stroke="#24795C" stroke-width="1.7"/>
+<rect x="77" y="785" width="526" height="110" fill="#FFFFFF"/>
+<text x="340.0" y="822.72" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">RunExecution · RunExecutionStep · RunLog</text>
+<text x="340.0" y="845.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">The copy of the status the API reads</text>
+<text x="340.0" y="868.1600000000001" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">JobSummary: status and progress of a job</text>
+<rect x="65" y="955" width="550" height="105" rx="3" fill="#FFFFFF" stroke="#24795C" stroke-width="1.7"/>
+<rect x="77" y="965" width="526" height="85" fill="#FFFFFF"/>
+<text x="340.0" y="990.22" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">FailStaleExecutions(30 minutes)</text>
+<text x="340.0" y="1012.94" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">An execution that went silent is failed,</text>
+<text x="340.0" y="1035.66" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">it does not stay running</text>
+<rect x="65" y="1100" width="550" height="65" rx="3" fill="#FFFFFF" stroke="#24795C" stroke-width="1.7"/>
+<rect x="77" y="1110" width="526" height="45" fill="#FFFFFF"/>
+<text x="340.0" y="1137.94" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">View RunCancelRequest: cancels to pass on</text>
+<polyline points="560,290 560,350" fill="none" stroke="#24795C" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="690" y="350" width="460" height="840" rx="3" fill="none" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="702" y="333" width="436" height="34" fill="#FFFFFF"/>
+<text x="702" y="355.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#738096">RELAY · Python, role gea_relay · NOT BUILT</text>
+<rect x="715" y="395" width="410" height="105" rx="3" fill="#FFFFFF" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="727" y="405" width="386" height="85" fill="#FFFFFF"/>
+<text x="920.0" y="430.21999999999997" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">No computation, no waiting:</text>
+<text x="920.0" y="452.93999999999994" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">every call is short</text>
+<text x="920.0" y="475.65999999999997" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">and can be repeated</text>
+<rect x="715" y="575" width="410" height="150" rx="3" fill="#FFFFFF" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="727" y="585" width="386" height="130" fill="#FFFFFF"/>
+<text x="920.0" y="621.36" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">1 Deliver</text>
+<text x="920.0" y="644.08" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">claim → MERGE the contract</text>
+<text x="920.0" y="666.8" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">→ read the hash back</text>
+<text x="920.0" y="689.52" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">→ EXECUTE TASK</text>
+<rect x="715" y="775" width="410" height="130" rx="3" fill="#FFFFFF" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="727" y="785" width="386" height="110" fill="#FFFFFF"/>
+<text x="920.0" y="822.72" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">2 Report</text>
+<text x="920.0" y="845.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">status, steps and log lines</text>
+<text x="920.0" y="868.1600000000001" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">copied every few seconds</text>
+<rect x="715" y="955" width="410" height="105" rx="3" fill="#FFFFFF" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="727" y="965" width="386" height="85" fill="#FFFFFF"/>
+<text x="920.0" y="990.22" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">3 Watch</text>
+<text x="920.0" y="1012.94" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">report lost graph runs;</text>
+<text x="920.0" y="1035.66" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">call FailStaleExecutions()</text>
+<rect x="715" y="1100" width="410" height="65" rx="3" fill="#FFFFFF" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="727" y="1110" width="386" height="45" fill="#FFFFFF"/>
+<text x="920.0" y="1137.94" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">4 Cancel: pass the request on</text>
+<rect x="1200" y="350" width="660" height="840" rx="3" fill="none" stroke="#A96915" stroke-width="1.7"/>
+<rect x="1212" y="333" width="556" height="34" fill="#FFFFFF"/>
+<text x="1212" y="355.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#A96915">SNOWFLAKE · executes · draft SQL, never executed</text>
+<rect x="1225" y="395" width="610" height="105" rx="3" fill="#FFFFFF" stroke="#A96915" stroke-width="1.7"/>
+<rect x="1237" y="405" width="586" height="85" fill="#FFFFFF"/>
+<text x="1530.0" y="430.21999999999997" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">GEA.CONTROL.DATA_CONTRACT</text>
+<text x="1530.0" y="452.93999999999994" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">The frozen document, same id and SHA-256</text>
+<text x="1530.0" y="475.65999999999997" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Every step reads its configuration from it</text>
+<rect x="1225" y="550" width="610" height="105" rx="3" fill="#FFFFFF" stroke="#A96915" stroke-width="1.7"/>
+<rect x="1237" y="560" width="586" height="85" fill="#FFFFFF"/>
+<text x="1530.0" y="585.22" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Task graph GEA.CONTROL.RUN_PIPELINE</text>
+<text x="1530.0" y="607.94" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">One graph run per contract · runs overlap</text>
+<text x="1530.0" y="630.6600000000001" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">OVERLAP_POLICY = ALLOW_ALL_OVERLAP</text>
+<rect x="1225" y="700" width="70" height="70" rx="3" fill="#FFFFFF" stroke="#A96915" stroke-width="1.7"/>
+<rect x="1237" y="710" width="46" height="50" fill="#FFFFFF"/>
+<text x="1260.0" y="730.5600000000001" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="400" fill="#172B46">Data and</text>
+<text x="1260.0" y="747.6" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="400" fill="#172B46">set up</text>
+<rect x="1315" y="700" width="70" height="70" rx="3" fill="#FFFFFF" stroke="#A96915" stroke-width="1.7"/>
+<rect x="1327" y="710" width="46" height="50" fill="#FFFFFF"/>
+<text x="1350.0" y="730.5600000000001" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="400" fill="#172B46">Segmen-</text>
+<text x="1350.0" y="747.6" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="400" fill="#172B46">tation</text>
+<polyline points="1295,735 1315,735" fill="none" stroke="#A96915" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1405" y="700" width="70" height="70" rx="3" fill="#FFFFFF" stroke="#A96915" stroke-width="1.7"/>
+<rect x="1417" y="710" width="46" height="50" fill="#FFFFFF"/>
+<text x="1440.0" y="739.08" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="400" fill="#172B46">Actuals</text>
+<polyline points="1385,735 1405,735" fill="none" stroke="#A96915" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1495" y="700" width="70" height="70" rx="3" fill="#FFFFFF" stroke="#A96915" stroke-width="1.7"/>
+<rect x="1507" y="710" width="46" height="50" fill="#FFFFFF"/>
+<text x="1530.0" y="739.08" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="400" fill="#172B46">IBNR</text>
+<polyline points="1475,735 1495,735" fill="none" stroke="#A96915" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1585" y="700" width="70" height="70" rx="3" fill="#FFFFFF" stroke="#A96915" stroke-width="1.7"/>
+<rect x="1597" y="710" width="46" height="50" fill="#FFFFFF"/>
+<text x="1620.0" y="730.5600000000001" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="400" fill="#172B46">Assigning</text>
+<text x="1620.0" y="747.6" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="400" fill="#172B46">expected</text>
+<polyline points="1565,735 1585,735" fill="none" stroke="#A96915" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1675" y="700" width="70" height="70" rx="3" fill="#FFFFFF" stroke="#A96915" stroke-width="1.7"/>
+<rect x="1687" y="710" width="46" height="50" fill="#FFFFFF"/>
+<text x="1710.0" y="730.5600000000001" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="400" fill="#172B46">Ultimate</text>
+<text x="1710.0" y="747.6" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="400" fill="#172B46">calculation</text>
+<polyline points="1655,735 1675,735" fill="none" stroke="#A96915" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1765" y="700" width="70" height="70" rx="3" fill="#FFFFFF" stroke="#A96915" stroke-width="1.7"/>
+<rect x="1777" y="710" width="46" height="50" fill="#FFFFFF"/>
+<text x="1800.0" y="730.5600000000001" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="400" fill="#172B46">Actual /</text>
+<text x="1800.0" y="747.6" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="400" fill="#172B46">Expected</text>
+<polyline points="1745,735 1765,735" fill="none" stroke="#A96915" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="1225" y="778" width="610" height="44" fill="#FFFFFF"/>
+<text x="1530.0" y="794.8199999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#738096">Each task calls RUN_STEP, which calls the step&#x27;s procedure GEA.STEP.&lt;STEP&gt;:</text>
+<text x="1530.0" y="814.6999999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#738096">set-based SQL, or Snowpark Python where SQL cannot express it</text>
+<rect x="1225" y="835" width="610" height="70" rx="3" fill="#FFFFFF" stroke="#A96915" stroke-width="1.7"/>
+<rect x="1237" y="845" width="586" height="50" fill="#FFFFFF"/>
+<text x="1530.0" y="875.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Finalizer RUN_PIPELINE_END: the terminal status</text>
+<rect x="1225" y="955" width="610" height="105" rx="3" fill="#FFFFFF" stroke="#A96915" stroke-width="1.7"/>
+<rect x="1237" y="965" width="586" height="85" fill="#FFFFFF"/>
+<text x="1530.0" y="990.22" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">RUN_STATUS · RUN_STEP_STATUS · RUN_LOG</text>
+<text x="1530.0" y="1012.94" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Written before and after every step</text>
+<text x="1530.0" y="1035.66" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Statements tagged gea:&lt;contractId&gt;:&lt;stepKey&gt;</text>
+<rect x="1225" y="1100" width="610" height="65" rx="3" fill="#FFFFFF" stroke="#A96915" stroke-width="1.7"/>
+<rect x="1237" y="1110" width="586" height="45" fill="#FFFFFF"/>
+<text x="1530.0" y="1137.94" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">RUN_STATUS.CANCEL_REQUESTED_AT: stop before the next step</text>
+<polyline points="1530,500 1530,550" fill="none" stroke="#A96915" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="1530,655 1530,700" fill="none" stroke="#A96915" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="615,650 715,650" fill="none" stroke="#738096" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="1125,620 1163,620 1163,447 1225,447" fill="none" stroke="#738096" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="1125,680 1187,680 1187,603 1225,603" fill="none" stroke="#738096" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="1225,1008 1175,1008 1175,840 1125,840" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<polyline points="715,840 615,840" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<polyline points="715,1008 615,1008" fill="none" stroke="#738096" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="615,1132 715,1132" fill="none" stroke="#738096" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="1125,1132 1225,1132" fill="none" stroke="#738096" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="40" y="1250" width="1820" height="150" rx="3" fill="none" stroke="#738096" stroke-width="1.7"/>
+<rect x="52" y="1233" width="732" height="34" fill="#FFFFFF"/>
+<text x="52" y="1255.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#738096">HOW RUNS ARE ORDERED · decided at submit, enforced in PostgreSQL</text>
+<rect x="65" y="1290" width="425" height="85" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="77" y="1300" width="401" height="65" fill="#FFFFFF"/>
+<text x="277.5" y="1326.5800000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">One run</text>
+<text x="277.5" y="1349.3000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">starts at the next claim</text>
+<rect x="513" y="1290" width="425" height="85" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="525" y="1300" width="401" height="65" fill="#FFFFFF"/>
+<text x="725.5" y="1326.5800000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Job, maxParallel omitted</text>
+<text x="725.5" y="1349.3000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">all its runs at once</text>
+<rect x="961" y="1290" width="425" height="85" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="973" y="1300" width="401" height="65" fill="#FFFFFF"/>
+<text x="1173.5" y="1326.5800000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Job, maxParallel n</text>
+<text x="1173.5" y="1349.3000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">in the order of runIds, n at a time</text>
+<rect x="1409" y="1290" width="426" height="85" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="1421" y="1300" width="402" height="65" fill="#FFFFFF"/>
+<text x="1622.0" y="1326.5800000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">Job, maxParallel 1</text>
+<text x="1622.0" y="1349.3000000000002" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">strictly one after another</text>
+<rect x="40" y="1425" width="1820" height="28" fill="#FFFFFF"/>
+<text x="950.0" y="1444.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#172B46">State is rows, written by the system that does the work and copied to the one the user talks to. Nothing in Python computes, waits for, or sequences a step.</text>
+<rect x="40" y="1460" width="1820" height="28" fill="#FFFFFF"/>
+<text x="950.0" y="1479.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">A cancelled run is a failed run with the reason. A failed run does not stop its job. To confirm on a real account: several graph runs of one task graph at the same time.</text>
+</svg>

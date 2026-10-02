@@ -22,10 +22,9 @@ required code changes in [architecture/README.md](architecture/README.md).
 - Request replay by stable `requestId`; stale variation/config/function edits
   return HTTP 409.
 - Transactionally coupled model/audit/outbox/command records.
-- Optional boto3 DynamoDB audit projection with idempotent writes, retry-safe
-  outbox handling and large-event chunk/manifest integrity checks.
-- Official DynamoDB Local 3.3.1 test launcher in
-  `tests/run_with_dynamodb_local.py`; Docker Compose `aws-audit` profile.
+- Audit copy in PostgreSQL (`calc."AuditEvent"`, Alembic revision `0005`) written
+  by `calculation_api.audit_export`: one row per event id, retry-safe outbox
+  handling, SHA-256 checked, append-only. Docker Compose `audit` profile.
 - Canonical OpenAPI 3.1 contract in `api/openapi.yaml` (17 paths, 38 schemas).
 - Vue 3 + TypeScript client/composable example in `examples/vue` using
   `openapi-fetch`. Type generation with `openapi-typescript` is documented;
@@ -114,7 +113,7 @@ Implementation gap against the current code:
 - Implement `POST /runs` → 202, `GET /runs/{runId}`, explicit retry and contract
   endpoints from the draft OpenAPI. Promote the schema alongside handlers and
   integration tests, regenerate TypeScript and adapt Vue to status polling.
-- Retain the direct `AUDIT_OUTBOX → audit-export → DynamoDB` path. Add an
+- Retain the direct `AUDIT_OUTBOX → audit-export → PostgreSQL` path. Add an
   independent `RUN_EVENT_OUTBOX` and optional EventBridge completion relay;
   no queue or event-bus support currently exists in `audit_export.py`.
 - Explicit parent chaining remains supported but must become a deliberate
@@ -135,7 +134,7 @@ and diagram changes only and did not rerun the suite).
 | Diagram XML, scene/output parity, label styling, bounds and text fit | passed — 12 pages, 364 labels (2026-09-17); rendered previews reviewed |
 | One-property business example arithmetic | passed — core cap yields 800; regional edits 700 / 600 yield 630 / 540 |
 | Local Markdown file links and contract YAML dependency checks | passed (2026-09-17) |
-| Full suite with official DynamoDB Local 3.3.1 (`python tests/run_with_dynamodb_local.py /path/to/DynamoDBLocal -q`) | **28 passed in 104.38s** |
+| Full suite with PostgreSQL 16 at the Alembic head (`AUDIT_TEST_DATABASE_URL=... GEA_TEST_DATABASE_URL=... python -m pytest -q`) | **91 passed, 1 skipped** as least-privilege logins (2026-10-02): 28 calculation tests including the audit export to PostgreSQL, 64 GEA tests; the skipped test needs the schema owner and passes as that |
 
 The full suite covers connector behavior, API lifecycle (immutable core,
 independent/chained variations, custom SQL releases, stale edits, rollback,
@@ -155,6 +154,11 @@ run the tests is documented in [README.md — Tests](README.md#tests).
 | 2026-09-17 | Rebuilt business diagrams with full model/request names and the exact DeathPenatly property; replaced unexplained shorthand with business roles plus concrete AWS/Python/Snowflake technologies; documented that the calculation class exists but its queue consumer and cloud deployment are proposed |
 | 2026-09-17 | Replaced page 11 with an eight-participant sequence including the Data Contract; added page 12 for automatic and user-requested retry, preserved frozen input/rules, and added the one-property contract YAML; updated documentation links and requirements; documentation only |
 | 2026-09-17 | Corrected the main sequence to start with Core transforming Bronze to Silver, then user-selected custom processes with input overrides; put business/technical actor names and DataContract in the header; generalized the draft API and contract examples to core/custom plus processName; runtime unchanged |
+| 2026-10-02 | DynamoDB removed, PostgreSQL chosen: the audit exporter copies events to `calc.audit_event` (Alembic revision `0010`); the DynamoDB Local launcher, the `aws-audit` Compose profile and boto3 are gone. Unused fixture tables `PARAMETER_BINDINGS`, `MODEL_OBJECTIVES` and `CALCULATION_RUNS`, `SnowflakeGateway.load` and `smoke_bootstrap.py` removed. `.gitignore` added; `test-results.xml` is no longer committed. GEA module added, see [gea/README.md](gea/README.md) |
+| 2026-10-02 | GEA schema, API and client rebuilt on the workbook's names after review: tables and columns in PascalCase (`Project`, `Run`, `User` ...), one typed column of `Run` per `createRun` field of sheet "POC Data" instead of JSONB steps and a field catalogue, `User.RegionId` as the home region, dropdown values in `ParameterOption`; routes as in sheet "04. API Data" with the wizard saved by `PATCH /runs/{id}`. The Alembic history was rewritten to revisions `0001` to `0005` (nothing was deployed), so `calc.audit_event` is now `calc."AuditEvent"` in revision `0005`. Architecture pages 4, 7 and 13 to 16 regenerated |
+| 2026-10-02 | GEA routes named after the business (`/projects/{id}/run-parameters` replaces `/profile`; `/regions`, `/business-purposes`, `/benefits`, `/treaties`; `POST /runs/{id}/submit`, `/cancel`, `/resolution`; `/runs/{id}/logs`; `/jobs`). Execution model decided: Snowflake computes (one stored procedure per step, a task graph per contract), PostgreSQL decides when a run starts, Python only relays; see `gea/EXECUTION.md`. Alembic revision `0006`: `Job` (several runs submitted together, in order, `MaxParallel` at a time), `RunLog`, cancel, resolution of a failed run, executions that went silent. Snowflake pipeline written as draft SQL (`gea/db/snowflake/V002__run_pipeline.sql`), not executed; the relay is not built. Architecture pages 13, 14 and 16 regenerated, page 17 added |
+| 2026-10-02 | GEA user roles. The workbook has no role list: it names one role (Viewer, sheet 02) and asks what a collaborator may do (sheet 05). Decided: Viewer, Preparer, Reviewer, Admin; one role per user (`User.RoleId` → `Role`, Alembic revision `0007`); a role is three permissions (`CanPrepare`, `CanReview`, `CanAdminister`). The API refuses an operation whose permission the caller's role lacks (403), `GET /users/me` returns the permissions, an Admin gives roles with `PATCH /users/{userId}` (audited), `GET /roles` and `GET /users` added. Vue client: `useCurrentUser().can(permission)`, `useUsers()`. Architecture pages 13 and 14 regenerated |
+| 2026-10-02 | GEA schema exported for Lucidchart: `gea/db/postgres/lucid-erd-import.csv` (20 tables with columns, types and keys, in the format of Lucidchart's ERD import), written by `gea/tools/lucid_export.py` from the live catalogue and checked by `gea/db/postgres/tests/run.sh`. Not yet imported into Lucidchart |
 
 ## Maintenance rule
 

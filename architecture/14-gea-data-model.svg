@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="1420" viewBox="0 0 1700 1420" role="img">
+<title>14 GEA data model</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<rect width="1700" height="1420" fill="#FFFFFF"/>
+<rect x="40" y="24" width="1620" height="46" fill="#FFFFFF"/>
+<text x="40" y="56.86" text-anchor="start" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#172B46">GEA module · PostgreSQL data model</text>
+<rect x="40" y="78" width="1620" height="34" fill="#FFFFFF"/>
+<text x="40" y="100.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#738096">Implemented · schema gea at Alembic revision 0007. Tables and columns carry the workbook&#x27;s names. Full column list: gea/db/postgres/erd.svg.</text>
+<rect x="35" y="140" width="1630" height="220" rx="3" fill="none" stroke="#738096" stroke-width="1.7"/>
+<rect x="47" y="123" width="457" height="34" fill="#FFFFFF"/>
+<text x="47" y="145.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#738096">LOOKUPS, USER, ROLE AND DROPDOWN VALUES</text>
+<rect x="50" y="180" width="340" height="134" rx="3" fill="#FFFFFF" stroke="#24795C" stroke-width="1.7"/>
+<rect x="64" y="188" width="312" height="28" fill="#FFFFFF"/>
+<text x="64" y="207.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#172B46">Region · BusinessPurpose · Benefit</text>
+<rect x="64" y="218" width="312" height="88" fill="#FFFFFF"/>
+<text x="64" y="235.15" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">PK Id (north-america, rnd, mortality)</text>
+<text x="64" y="256.45" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">Name · SortOrder · IsActive</text>
+<text x="64" y="277.75" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">three lookup tables of the same shape:</text>
+<text x="64" y="299.05" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">the closed lists of the project form</text>
+<rect x="470" y="180" width="340" height="112" rx="3" fill="#FFFFFF" stroke="#24795C" stroke-width="1.7"/>
+<rect x="484" y="188" width="312" height="28" fill="#FFFFFF"/>
+<text x="484" y="207.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#172B46">User</text>
+<rect x="484" y="218" width="312" height="66" fill="#FFFFFF"/>
+<text x="484" y="234.79999999999998" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">PK Id · Subject · Name · Email</text>
+<text x="484" y="256.09999999999997" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">FK RegionId → Region (home region)</text>
+<text x="484" y="277.4" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">FK RoleId → Role (what the user may do)</text>
+<rect x="890" y="180" width="340" height="112" rx="3" fill="#FFFFFF" stroke="#24795C" stroke-width="1.7"/>
+<rect x="904" y="188" width="312" height="28" fill="#FFFFFF"/>
+<text x="904" y="207.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#172B46">Role</text>
+<rect x="904" y="218" width="312" height="66" fill="#FFFFFF"/>
+<text x="904" y="234.79999999999998" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">PK Id · Name · SortOrder · IsActive</text>
+<text x="904" y="256.09999999999997" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">CanPrepare · CanReview · CanAdminister</text>
+<text x="904" y="277.4" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">viewer · preparer · reviewer · admin</text>
+<rect x="1310" y="180" width="340" height="156" rx="3" fill="#FFFFFF" stroke="#738096" stroke-width="1.7"/>
+<rect x="1324" y="188" width="312" height="28" fill="#FFFFFF"/>
+<text x="1324" y="207.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#172B46">ParameterOption</text>
+<rect x="1324" y="218" width="312" height="110" fill="#FFFFFF"/>
+<text x="1324" y="235.5" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">PK Id · Parameter · Value · Label</text>
+<text x="1324" y="256.8" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">SortOrder · IsDefault · IsActive</text>
+<text x="1324" y="278.1" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">optional FK RegionId, BusinessPurposeId,</text>
+<text x="1324" y="299.4" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">BenefitId · Investigation</text>
+<text x="1324" y="320.7" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">the values a run dropdown offers</text>
+<polyline points="470,235 390,235" fill="none" stroke="#24795C" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="1310,304 390,304" fill="none" stroke="#738096" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="810,235 890,235" fill="none" stroke="#24795C" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="35" y="410" width="1630" height="515" rx="3" fill="none" stroke="#738096" stroke-width="1.7"/>
+<rect x="47" y="393" width="248" height="34" fill="#FFFFFF"/>
+<text x="47" y="415.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#738096">PROJECT, RUN AND JOB</text>
+<rect x="50" y="450" width="340" height="200" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="64" y="458" width="312" height="28" fill="#FFFFFF"/>
+<text x="64" y="477.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#172B46">Project</text>
+<rect x="64" y="488" width="312" height="154" fill="#FFFFFF"/>
+<text x="64" y="506.20000000000005" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">PK Id · Name · State · Revision</text>
+<text x="64" y="527.5" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">FK RegionId, BusinessPurposeId</text>
+<text x="64" y="548.8000000000001" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">FK OwnerId → User</text>
+<text x="64" y="570.1" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">Period · PeriodFrom · PeriodTo</text>
+<text x="64" y="591.4000000000001" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">Description · FK ParentProjectId</text>
+<text x="64" y="612.7" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">Signed off by a role that may review;</text>
+<text x="64" y="634.0" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">then locked</text>
+<rect x="50" y="678" width="270" height="90" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="64" y="686" width="242" height="28" fill="#FFFFFF"/>
+<text x="64" y="705.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#172B46">ProjectBenefit</text>
+<rect x="64" y="716" width="242" height="44" fill="#FFFFFF"/>
+<text x="64" y="732.45" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">PK ProjectId, BenefitId</text>
+<text x="64" y="753.75" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">at least one, checked at commit</text>
+<rect x="50" y="780" width="340" height="134" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="64" y="788" width="312" height="28" fill="#FFFFFF"/>
+<text x="64" y="807.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#172B46">Job · several runs submitted together</text>
+<rect x="64" y="818" width="312" height="88" fill="#FFFFFF"/>
+<text x="64" y="835.15" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">PK Id · Name · Kind · Note</text>
+<text x="64" y="856.4499999999999" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">FK ProjectId (when all runs are in one)</text>
+<text x="64" y="877.75" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">MaxParallel: 1 = in sequence, empty = no limit</text>
+<text x="64" y="899.05" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">SubmittedBy · SubmittedAt</text>
+<rect x="470" y="450" width="760" height="398" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="484" y="458" width="732" height="28" fill="#FFFFFF"/>
+<text x="484" y="477.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#172B46">Run · one column per field of workbook sheet POC Data</text>
+<rect x="484" y="488" width="732" height="352" fill="#FFFFFF"/>
+<text x="484" y="509.35" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">PK Id · FK ProjectId · Name · Treaty  (step Main)</text>
+<text x="484" y="530.65" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">Data and set up: DataScope[] · StudyPeriodStart · StudyPeriodEnd · Investigation</text>
+<text x="484" y="551.95" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">· StudyPeriodTreatyOverride · PerTreatyEndDatesMapping</text>
+<text x="484" y="573.25" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">Segmentation: ExposureMethod · InitialExposureMethod · ExposureExclusion[]</text>
+<text x="484" y="594.55" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">· PolicyTenureSegmentation · CalendarTenureSegmentation · AttainedAgeSegmentation</text>
+<text x="484" y="615.85" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">Actuals: PartialClaimTreatment · AmountBasis</text>
+<text x="484" y="637.15" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">IBNR: ClaimBasis · IbnrMethodology · DerivationMethod · IbnrStudyPeriodStart/End</text>
+<text x="484" y="658.45" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">· DevelopmentFrequency · UpliftFrequency · EventMonthFilter · ReportingMonthFilter</text>
+<text x="484" y="679.75" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">· IbnrRbnsBasis · TailStartPeriod</text>
+<text x="484" y="701.05" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">Assigning expected: ComparisonBases · TrendAssumptions</text>
+<text x="484" y="722.35" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">Ultimate calculation: Adjustment · UltimateRbnsBasis</text>
+<text x="484" y="743.65" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">Actual / Expected: OutputFrequency[] · AdditionalOutputFields[]</text>
+<text x="484" y="764.95" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">Status: draft → queued → running → complete | failed → draft · Locked · CloneSourceId</text>
+<text x="484" y="786.25" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">CurrentContractVersion · SubmittedAt · SubmittedBy · FailureMessage · Revision</text>
+<text x="484" y="807.55" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">FK JobId · JobOrdinal · ResolutionAction, ResolutionNote, ResolvedBy, ResolvedAt · CancelRequestedAt, By</text>
+<text x="484" y="828.8499999999999" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">CHECK: every required field is filled before the run leaves draft</text>
+<rect x="1310" y="450" width="340" height="134" rx="3" fill="#FFFFFF" stroke="#356CC9" stroke-width="1.7"/>
+<rect x="1324" y="458" width="312" height="28" fill="#FFFFFF"/>
+<text x="1324" y="477.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#172B46">RunStudyPeriodExclusion</text>
+<rect x="1324" y="488" width="312" height="88" fill="#FFFFFF"/>
+<text x="1324" y="505.15000000000003" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">PK RunId, Ordinal</text>
+<text x="1324" y="526.45" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">StartDate · EndDate</text>
+<text x="1324" y="547.75" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">createRun.studyPeriodExclusions</text>
+<text x="1324" y="569.0500000000001" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">writable only while the run is draft</text>
+<rect x="1310" y="805" width="340" height="105" rx="3" fill="#FFFFFF" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="1322" y="815" width="316" height="85" fill="#FFFFFF"/>
+<text x="1480.0" y="832.4399999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">NAMING</text>
+<text x="1480.0" y="852.3199999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">Tables and columns: PascalCase,</text>
+<text x="1480.0" y="872.1999999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">quoted in SQL: gea.&quot;Run&quot;.&quot;Treaty&quot;</text>
+<text x="1480.0" y="892.0799999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#172B46">PK_ · FK_ · UQ_ · CK_ · IX_</text>
+<rect x="1310" y="640" width="340" height="150" rx="3" fill="#FFFFFF" stroke="#738096" stroke-width="1.7" stroke-dasharray="7 5"/>
+<rect x="1322" y="650" width="316" height="130" fill="#FFFFFF"/>
+<text x="1480.0" y="688.15" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">WIZARD STEPS ARE NOT TABLES</text>
+<text x="1480.0" y="709.4499999999999" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">gea.&quot;RunSteps&quot;(runId) returns the</text>
+<text x="1480.0" y="730.75" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">columns grouped into the 8 steps of</text>
+<text x="1480.0" y="752.05" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">the workbook: the steps of the contract</text>
+<polyline points="185,678 185,650" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="355,780 355,650" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="470,815 390,815" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="470,520 390,520" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="1310,510 1230,510" fill="none" stroke="#356CC9" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="290,450 290,314" fill="none" stroke="#24795C" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="360,450 360,386 640,386 640,292" fill="none" stroke="#24795C" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="35" y="960" width="1630" height="380" rx="3" fill="none" stroke="#24795C" stroke-width="1.7"/>
+<rect x="47" y="943" width="435" height="34" fill="#FFFFFF"/>
+<text x="47" y="965.44" text-anchor="start" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#24795C">DATA CONTRACT, DELIVERY AND EXECUTION</text>
+<rect x="50" y="1000" width="340" height="112" rx="3" fill="#FFFFFF" stroke="#738096" stroke-width="1.7"/>
+<rect x="64" y="1008" width="312" height="28" fill="#FFFFFF"/>
+<text x="64" y="1027.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#172B46">CommandReceipt</text>
+<rect x="64" y="1038" width="312" height="66" fill="#FFFFFF"/>
+<text x="64" y="1054.8" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">PK CreatedBy, IdempotencyKey</text>
+<text x="64" y="1076.1" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">RequestHash</text>
+<text x="64" y="1097.3999999999999" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">ResponseStatus, Headers, Body</text>
+<rect x="50" y="1150" width="340" height="90" rx="3" fill="#FFFFFF" stroke="#738096" stroke-width="1.7"/>
+<rect x="64" y="1158" width="312" height="28" fill="#FFFFFF"/>
+<text x="64" y="1177.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#172B46">AuditEvent</text>
+<rect x="64" y="1188" width="312" height="44" fill="#FFFFFF"/>
+<text x="64" y="1204.4499999999998" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">PK Id · AggregateType, AggregateId</text>
+<text x="64" y="1225.7499999999998" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">append-only</text>
+<rect x="470" y="1000" width="340" height="156" rx="3" fill="#FFFFFF" stroke="#24795C" stroke-width="1.7"/>
+<rect x="484" y="1008" width="312" height="28" fill="#FFFFFF"/>
+<text x="484" y="1027.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#172B46">DataContract</text>
+<rect x="484" y="1038" width="312" height="110" fill="#FFFFFF"/>
+<text x="484" y="1055.5" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">PK Id (contractId)</text>
+<text x="484" y="1076.8" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">FK RunId, ProjectId · Version</text>
+<text x="484" y="1098.1" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">DocumentCanonical · ContentHash</text>
+<text x="484" y="1119.4" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">CHECK hash = sha256(document)</text>
+<text x="484" y="1140.7" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">immutable: no update, no delete</text>
+<rect x="890" y="1000" width="340" height="156" rx="3" fill="#FFFFFF" stroke="#24795C" stroke-width="1.7"/>
+<rect x="904" y="1008" width="312" height="28" fill="#FFFFFF"/>
+<text x="904" y="1027.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#172B46">ContractDelivery</text>
+<rect x="904" y="1038" width="312" height="110" fill="#FFFFFF"/>
+<text x="904" y="1055.5" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">PK ContractId, Target</text>
+<text x="904" y="1076.8" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">Status: pending → delivering</text>
+<text x="904" y="1098.1" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">→ delivered | failed | cancelled</text>
+<text x="904" y="1119.4" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">Attempts · lease · LastError</text>
+<text x="904" y="1140.7" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">the outbox to Snowflake, claimed in job order</text>
+<rect x="890" y="1215" width="340" height="112" rx="3" fill="#FFFFFF" stroke="#24795C" stroke-width="1.7"/>
+<rect x="904" y="1223" width="312" height="28" fill="#FFFFFF"/>
+<text x="904" y="1242.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#172B46">RunLog</text>
+<rect x="904" y="1253" width="312" height="66" fill="#FFFFFF"/>
+<text x="904" y="1269.8" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">PK Id · FK RunId, ContractId · ExternalId</text>
+<text x="904" y="1291.1" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">StepKey · Level · Message · Detail</text>
+<text x="904" y="1312.3999999999999" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">append-only; a line is stored once</text>
+<rect x="1310" y="1000" width="340" height="90" rx="3" fill="#FFFFFF" stroke="#24795C" stroke-width="1.7"/>
+<rect x="1324" y="1008" width="312" height="28" fill="#FFFFFF"/>
+<text x="1324" y="1027.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#172B46">RunExecution</text>
+<rect x="1324" y="1038" width="312" height="44" fill="#FFFFFF"/>
+<text x="1324" y="1054.4499999999998" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">PK ContractId · FK RunId</text>
+<text x="1324" y="1075.7499999999998" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">Status reported by Snowflake</text>
+<rect x="1310" y="1140" width="340" height="90" rx="3" fill="#FFFFFF" stroke="#24795C" stroke-width="1.7"/>
+<rect x="1324" y="1148" width="312" height="28" fill="#FFFFFF"/>
+<text x="1324" y="1167.78" text-anchor="start" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#172B46">RunExecutionStep</text>
+<rect x="1324" y="1178" width="312" height="44" fill="#FFFFFF"/>
+<text x="1324" y="1194.4499999999998" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">PK ContractId, StepKey</text>
+<text x="1324" y="1215.7499999999998" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#172B46">Status · StartedAt · FinishedAt</text>
+<polyline points="590,1000 590,848" fill="none" stroke="#24795C" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="690,848 690,1000" fill="none" stroke="#24795C" stroke-width="1.7" stroke-dasharray="7 5" marker-end="url(#arrow)"/>
+<rect x="700" y="931" width="118" height="24" fill="#FFFFFF"/>
+<text x="700" y="948.1" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#24795C">current version</text>
+<rect x="494" y="931" width="90" height="24" fill="#FFFFFF"/>
+<text x="494" y="948.1" text-anchor="start" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#24795C">published as</text>
+<polyline points="890,1070 810,1070" fill="none" stroke="#24795C" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="1310,1050 1270,1050 1270,1185 850,1185 850,1130 810,1130" fill="none" stroke="#24795C" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="1480,1140 1480,1090" fill="none" stroke="#24795C" stroke-width="1.7" marker-end="url(#arrow)"/>
+<polyline points="890,1270 640,1270 640,1156" fill="none" stroke="#24795C" stroke-width="1.7" marker-end="url(#arrow)"/>
+<rect x="35" y="1360" width="1630" height="28" fill="#FFFFFF"/>
+<text x="850.0" y="1379.44" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#172B46">An arrow points from the table that holds the foreign key to the table it references. Dashed = deferred key, checked at commit.</text>
+</svg>
